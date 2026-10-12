@@ -1,5 +1,5 @@
 // Network-first service worker: fresh daily content when online, cached app when offline.
-const CACHE = 'wellplayed-v5';
+const CACHE = 'wellplayed-v6';
 const ASSETS = [
   './', 'index.html', 'css/styles.css', 'css/checkin.css', 'js/checkin.js', 'icon.svg', 'manifest.webmanifest',
   'js/core.js', 'js/progress.js', 'js/net.js', 'js/app.js', 'js/data/words.js', 'js/data/groups.js', 'js/data/tunes.js', 'js/data/daily.js',

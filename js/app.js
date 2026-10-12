@@ -550,7 +550,7 @@
         h('button', { class: 'btn primary', type: 'button', onclick: () => signUp(() => route()) }, 'Play online')));
     } else {
       let pick = (games().find((g) => P.rankedFor(day, g.id)) || games()[0]).id;
-      const tabs = h('div', { class: 'board-tabs' });
+      const tabs = h('div', { class: 'lb-tabs' });
       const table = h('div', { class: 'lboard' });
       const load = () => {
         tabs.querySelectorAll('button').forEach((b) => b.classList.toggle('on', b.dataset.g === pick));
@@ -558,7 +558,7 @@
         WH.net.leaderboard(pick, day).then((b) => {
           if (!b || !b.rows.length) return table.replaceChildren(h('p', { class: 'muted' }, 'No finishers yet today. Be the first!'));
           const rows = b.rows.map((r) => boardRow(r.rank, r.username, pick === 'echo' ? `${r.score} · ${fmtTime(r.timeMs / 1000)}` : fmtTime(r.timeMs / 1000), r.acc != null ? WH.pct(r.acc) : '', r.you));
-          if (b.you && b.you.won && !b.rows.some((r) => r.you)) rows.push(h('div', { class: 'board-gap' }, '⋯'), boardRow(b.you.rank, WH.net.account().username, fmtTime(b.you.timeMs / 1000), b.you.acc != null ? WH.pct(b.you.acc) : '', true));
+          if (b.you && b.you.won && !b.rows.some((r) => r.you)) rows.push(h('div', { class: 'lb-gap' }, '⋯'), boardRow(b.you.rank, WH.net.account().username, fmtTime(b.you.timeMs / 1000), b.you.acc != null ? WH.pct(b.you.acc) : '', true));
           table.replaceChildren(h('p', { class: 'muted small' }, `${b.total} finisher${b.total === 1 ? '' : 's'} today`), ...rows);
         }).catch((e) => table.replaceChildren(h('p', { class: 'muted' }, `Couldn’t load the leaderboard (${e.message}).`)));
       };
@@ -574,8 +574,8 @@
       world));
   }
 
-  const boardRow = (rank, name, main, sub, you) => h('div', { class: 'board-row' + (you ? ' you' : '') + (rank <= 3 ? ' top' + rank : '') },
-    h('span', { class: 'board-rank' }, rank <= 3 ? ['🥇', '🥈', '🥉'][rank - 1] : rank), h('span', { class: 'board-name' }, name), h('b', null, main), h('small', null, sub));
+  const boardRow = (rank, name, main, sub, you) => h('div', { class: 'lb-row' + (you ? ' you' : '') + (rank <= 3 ? ' top' + rank : '') },
+    h('span', { class: 'lb-rank' }, rank <= 3 ? ['🥇', '🥈', '🥉'][rank - 1] : rank), h('span', { class: 'lb-name' }, name), h('b', null, main), h('small', null, sub));
 
   // ---------- Accounts ----------
   function signUp(after) {
@@ -652,7 +652,7 @@ ${location.protocol.startsWith('http') ? link : ''}`) }));
       WH.net.weekly().then((b) => {
         if (!b.rows.length) return weekly.replaceChildren(h('p', { class: 'muted' }, 'No XP yet this week.'));
         const rows = b.rows.map((r) => boardRow(r.rank, r.username, `${r.xp} XP`, `🔥 ${r.streak}`, r.you));
-        if (!b.rows.some((r) => r.you)) rows.push(h('div', { class: 'board-gap' }, '⋯'), boardRow(b.you.rank, me.username, `${b.you.xp} XP`, '', true));
+        if (!b.rows.some((r) => r.you)) rows.push(h('div', { class: 'lb-gap' }, '⋯'), boardRow(b.you.rank, me.username, `${b.you.xp} XP`, '', true));
         weekly.replaceChildren(...rows);
       }).catch((e) => weekly.replaceChildren(h('p', { class: 'muted' }, `Couldn’t load (${e.message}).`)));
     });
