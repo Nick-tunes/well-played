@@ -58,6 +58,16 @@ SPEC.md               product spec · CONTENT_GUIDE.md  editorial playbook
 
 ## Deploying
 
-Not deployed yet. Any static host works (GitHub Pages, Netlify, Cloudflare Pages). Once it's hosted,
-the daily run should also publish each update (e.g. commit + push for GitHub Pages).
-The service worker is network-first, so players get new daily content as soon as it's live.
+Live at **https://nick-tunes.github.io/well-played/**. It's served by GitHub Pages from the `main`
+branch root of https://github.com/Nick-tunes/well-played.
+
+To publish a content update (the daily run does this after a passing `--build`):
+
+```bash
+git add content js/data scripts CONTENT_GUIDE.md
+git commit -m "Daily content: <dates added>"
+git push origin main
+```
+
+Pages redeploys within a minute or two. The service worker is network-first, so players get the new
+`js/data/daily.js` on their next visit. Only commit when `node scripts/validate-daily.mjs --build` passes.
