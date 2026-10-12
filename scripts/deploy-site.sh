@@ -4,6 +4,7 @@
 # browsers can never run a stale mix of old and new files, then uploads.
 set -e
 cd "$(dirname "$0")/.."
+node scripts/build-cosmetics.mjs
 rm -rf dist && mkdir -p dist
 cp -R index.html icon.svg manifest.webmanifest sw.js _headers css js dist/
 STAMP=$(date +%Y%m%d%H%M%S)

@@ -70,6 +70,7 @@
     const outcome = P.recordActivity(mode, result);
     store.save();
     if (WH.net.enabled) WH.net.syncProfile().catch(() => {});
+    if (WH.profile) setTimeout(() => WH.profile.announce(WH.profile.check()), 2400); // after the result appears
     return outcome;
   }
 
@@ -105,6 +106,8 @@
     if (parts[0] === 'ranked') return renderRanked();
     if (parts[0] === 'friends') return renderFriends();
     if (parts[0] === 'checkin') return renderCheckin();
+    if (parts[0] === 'profile') return renderProfile();
+    if (parts[0] === 'u' && parts[1]) return renderPublicProfile(decodeURIComponent(parts[1]));
     if (parts[0] === 'add' && parts[1]) return renderFriends(decodeURIComponent(parts[1]));
     renderHub();
   }
@@ -148,13 +151,11 @@
       badge ? h('small', { class: 'nav-badge' + (hot ? ' hot' : '') }, badge) : null);
 
     const acct = WH.net.account && WH.net.account();
-    const profile = acct
-      ? h('a', { class: 'nav-profile', href: '#/friends' },
-        h('span', { class: 'avatar' }, acct.username[0].toUpperCase()),
-        h('span', { class: 'nav-label' }, h('b', null, acct.username), h('small', null, `${P.current()}-day streak · ${(data().xp && data().xp.total) || 0} XP`)))
-      : h('button', { class: 'nav-profile', type: 'button', onclick: () => signUp(() => route()) },
-        h('span', { class: 'avatar ghost', html: icons.users }),
-        h('span', { class: 'nav-label' }, h('b', null, 'Play online'), h('small', null, 'Pick a username for leaderboards')));
+    const profile = h('a', { class: 'nav-profile' + (isActive('#/profile') ? ' active' : ''), href: '#/profile', title: 'Your profile' },
+      WH.avatar.el(WH.profile.spec(), 42),
+      h('span', { class: 'nav-label' },
+        h('b', null, acct ? acct.username : 'Your profile'),
+        h('small', null, acct ? `${WH.profile.titleName(WH.profile.spec().title)} · ${P.current()}-day streak` : 'Avatar, achievements & more')));
 
     const sub = h('div', { class: 'nav-sub' + (navGamesOpen ? ' open' : '') }, list.map((g) => {
       const r = resultFor(day, g.id), prog = data().progress[`${g.id}:${day}`];
@@ -628,7 +629,7 @@
         table.replaceChildren(h('p', { class: 'muted' }, 'Loading…'));
         WH.net.leaderboard(pick, day).then((b) => {
           if (!b || !b.rows.length) return table.replaceChildren(h('p', { class: 'muted' }, 'No finishers yet today. Be the first!'));
-          const rows = b.rows.map((r) => boardRow(r.rank, r.username, pick === 'echo' ? `${r.score} · ${fmtTime(r.timeMs / 1000)}` : fmtTime(r.timeMs / 1000), r.acc != null ? WH.pct(r.acc) : '', r.you));
+          const rows = b.rows.map((r) => boardRow(r.rank, r.username, pick === 'echo' ? `${r.score} · ${fmtTime(r.timeMs / 1000)}` : fmtTime(r.timeMs / 1000), r.acc != null ? WH.pct(r.acc) : '', r.you, r.avatar));
           if (b.you && b.you.won && !b.rows.some((r) => r.you)) rows.push(h('div', { class: 'lb-gap' }, '⋯'), boardRow(b.you.rank, WH.net.account().username, fmtTime(b.you.timeMs / 1000), b.you.acc != null ? WH.pct(b.you.acc) : '', true));
           table.replaceChildren(h('p', { class: 'muted small' }, `${b.total} finisher${b.total === 1 ? '' : 's'} today`), ...rows);
         }).catch((e) => table.replaceChildren(h('p', { class: 'muted' }, `Couldn’t load the leaderboard (${e.message}).`)));
@@ -645,8 +646,10 @@
       world)));
   }
 
-  const boardRow = (rank, name, main, sub, you) => h('div', { class: 'lb-row' + (you ? ' you' : '') + (rank <= 3 ? ' top' + rank : '') },
-    h('span', { class: 'lb-rank' }, rank <= 3 ? ['🥇', '🥈', '🥉'][rank - 1] : rank), h('span', { class: 'lb-name' }, name), h('b', null, main), h('small', null, sub));
+  const boardRow = (rank, name, main, sub, you, avatar) => h('a', { class: 'lb-row' + (you ? ' you' : '') + (rank <= 3 ? ' top' + rank : ''), href: you ? '#/profile' : `#/u/${encodeURIComponent(name)}` },
+    h('span', { class: 'lb-rank' }, rank <= 3 ? ['🥇', '🥈', '🥉'][rank - 1] : rank),
+    h('span', { class: 'lb-name' }, WH.avatar.el(you ? WH.profile.spec() : avatar || WH.avatar.defaults(), 30), h('span', null, name)),
+    h('b', null, main), h('small', null, sub));
 
   // ---------- Accounts ----------
   function signUp(after) {
@@ -710,8 +713,8 @@ ${location.protocol.startsWith('http') ? link : ''}`) }));
       WH.net.friends().then(({ friends }) => {
         if (!friends.length) return list.replaceChildren(h('p', { class: 'muted' }, 'No friends yet. Share your code to start a friend streak!'));
         list.replaceChildren(...friends.map((f) => h('div', { class: 'friend' },
-          h('span', { class: 'avatar' }, f.username[0].toUpperCase()),
-          h('span', { class: 'friend-name' }, h('b', null, f.username),
+          h('a', { href: `#/u/${encodeURIComponent(f.username)}`, class: 'friend-av', 'aria-label': `${f.username}'s profile` }, WH.avatar.el(f.avatar || WH.avatar.defaults(), 40)),
+          h('a', { class: 'friend-name', href: `#/u/${encodeURIComponent(f.username)}` }, h('b', null, f.username),
             h('small', null, f.playedToday ? 'Played today ✓' : 'Hasn’t played yet today', ` · ${f.weekXp} XP this week`)),
           h('span', { class: 'friend-streak' + (f.bothToday ? ' lit' : ''), title: 'Friend streak', html: `${icons.flame}<b>${f.friendStreak}</b>` }),
           h('button', { class: 'icon-btn small', type: 'button', title: 'Remove friend', 'aria-label': `Remove ${f.username}`, html: icons.x,
@@ -722,7 +725,7 @@ ${location.protocol.startsWith('http') ? link : ''}`) }));
       loadFriends();
       WH.net.weekly().then((b) => {
         if (!b.rows.length) return weekly.replaceChildren(h('p', { class: 'muted' }, 'No XP yet this week.'));
-        const rows = b.rows.map((r) => boardRow(r.rank, r.username, `${r.xp} XP`, `🔥 ${r.streak}`, r.you));
+        const rows = b.rows.map((r) => boardRow(r.rank, r.username, `${r.xp} XP`, `🔥 ${r.streak}`, r.you, r.avatar));
         if (!b.rows.some((r) => r.you)) rows.push(h('div', { class: 'lb-gap' }, '⋯'), boardRow(b.you.rank, me.username, `${b.you.xp} XP`, '', true));
         weekly.replaceChildren(...rows);
       }).catch((e) => weekly.replaceChildren(h('p', { class: 'muted' }, `Couldn’t load (${e.message}).`)));
@@ -736,6 +739,80 @@ ${location.protocol.startsWith('http') ? link : ''}`) }));
     app.replaceChildren(shell(main));
     const inst = WH.checkin.mount(main, { onExit: () => go('#/') });
     current = { game: null, instance: null, cleanup: () => inst && inst.destroy && inst.destroy() };
+  }
+
+  // ---------- Profiles ----------
+  const GAME_NAME = (id) => (WH.gameMap[id] ? WH.gameMap[id].name : id);
+  function achievementGrid(items, { showProgress }) {
+    return h('div', { class: 'ach-grid' }, items.map((a) => h('div', { class: 'ach' + (a.earned ? ' earned' : '') },
+      h('span', { class: 'ach-ico', html: a.earned ? icons.trophy : lockSvg }),
+      h('div', { class: 'ach-body' },
+        h('b', null, a.name), h('small', null, a.desc),
+        showProgress && !a.earned && a.goal > 1 ? h('div', { class: 'ach-bar' }, h('i', { style: { width: `${(a.value / a.goal) * 100}%` } }), h('span', null, `${a.value}/${a.goal}`)) : null,
+        a.rewards && a.rewards.length ? h('small', { class: 'ach-reward' }, 'Unlocks ', a.rewards.map((r) => `${r.name} ${WH.profile.kindName[r.kind]}`).join(', ')) : null))));
+  }
+  const lockSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+
+  function renderProfile() {
+    const pr = WH.profile;
+    pr.announce(pr.check());
+    const acct = WH.net.account && WH.net.account();
+    const items = pr.list();
+    const earned = items.filter((a) => a.earned).length;
+    const bests = Object.entries(data().bests || {});
+    const main = h('main', { class: 'stats-page profile-page' },
+      h('section', { class: 'profile-hero' },
+        h('button', { class: 'profile-av', type: 'button', 'aria-label': 'Edit your look', onclick: () => pr.openEditor(renderProfile) },
+          WH.avatar.el(pr.spec(), 112), h('span', { class: 'profile-edit', html: icons.sparkle })),
+        h('div', { class: 'profile-id' },
+          h('h1', null, acct ? acct.username : 'Your profile'),
+          h('p', { class: 'profile-title' }, pr.titleName(pr.spec().title)),
+          h('div', { class: 'profile-actions' },
+            h('button', { class: 'btn primary', type: 'button', onclick: () => pr.openEditor(renderProfile) }, 'Edit look'),
+            acct ? h('a', { class: 'btn ghost', href: '#/friends' }, 'Friends')
+              : h('button', { class: 'btn ghost', type: 'button', onclick: () => signUp(() => route()) }, 'Play online')),
+          acct ? null : h('p', { class: 'muted small' }, 'Pick a username to show your profile on leaderboards and to friends.'))),
+      h('div', { class: 'stat-tiles' },
+        tile(icons.flame, P.current(), 'Day streak'), tile(icons.sparkle, P.longest(), 'Longest streak'),
+        tile(icons.check, P.daysPlayed(), 'Days played'), tile(icons.bulb, (data().xp && data().xp.total) || 0, 'Total XP'),
+        tile(icons.trophy, `${earned}/${items.length}`, 'Achievements'),
+        tile(icons.play, Object.values(data().stats || {}).reduce((a, s) => a + (s.wins || 0), 0), 'Puzzles solved')),
+      h('h2', { class: 'section-title' }, 'Achievements'),
+      achievementGrid(items.sort((a, b) => (b.earned - a.earned) || (b.value / b.goal - a.value / a.goal)), { showProgress: true }),
+      bests.length ? h('h2', { class: 'section-title' }, 'Ranked personal bests') : null,
+      bests.length ? h('div', { class: 'best-grid' }, bests.map(([id, b]) => h('div', { class: 'best' }, h('small', null, GAME_NAME(id)), h('b', null, fmtTime(b.time))))) : null);
+    app.replaceChildren(shell(main));
+  }
+
+  function renderPublicProfile(name) {
+    const main = h('main', { class: 'stats-page profile-page' }, h('p', { class: 'muted' }, 'Loading profile…'));
+    app.replaceChildren(shell(main));
+    if (!WH.net.enabled) {
+      main.replaceChildren(h('section', { class: 'panel world-off' }, h('h2', null, 'Profiles are online'), h('p', null, 'Pick a username to see other players’ profiles.'),
+        h('button', { class: 'btn primary', type: 'button', onclick: () => signUp(() => route()) }, 'Play online')));
+      return;
+    }
+    WH.net.getProfile(name).then((u) => {
+      if (u.you) { location.replace('#/profile'); return; }
+      const have = new Set(u.achievements);
+      const items = WH_COSMETICS.achievements.map((a) => ({ ...a, earned: have.has(a.id), value: 0, rewards: [] }));
+      main.replaceChildren(
+        h('section', { class: 'profile-hero' },
+          h('span', { class: 'profile-av' }, WH.avatar.el(u.avatar || WH.avatar.defaults(), 112)),
+          h('div', { class: 'profile-id' },
+            h('h1', null, u.username),
+            h('p', { class: 'profile-title' }, WH.profile.titleName((u.avatar || {}).title)),
+            h('p', { class: 'muted small' }, `Playing since ${new Date(u.joined).toLocaleDateString(undefined, { month: 'long', year: 'numeric' })}${u.isFriend ? ' · Your friend' : ''}`))),
+        h('div', { class: 'stat-tiles' },
+          tile(icons.flame, u.streak, 'Day streak'), tile(icons.sparkle, u.longest, 'Longest streak'),
+          tile(icons.check, u.daysPlayed, 'Days played'), tile(icons.bulb, u.xpTotal, 'Total XP'),
+          tile(icons.trophy, `${have.size}/${items.length}`, 'Achievements'),
+          tile(icons.play, u.rankedBests.length, 'Ranked games')),
+        h('h2', { class: 'section-title' }, 'Achievements'),
+        achievementGrid(items.sort((a, b) => b.earned - a.earned), { showProgress: false }),
+        u.rankedBests.length ? h('h2', { class: 'section-title' }, 'Ranked personal bests') : null,
+        u.rankedBests.length ? h('div', { class: 'best-grid' }, u.rankedBests.map((b) => h('div', { class: 'best' }, h('small', null, GAME_NAME(b.game)), h('b', null, fmtTime(b.timeMs / 1000))))) : null);
+    }).catch((e) => main.replaceChildren(h('p', { class: 'muted' }, e.status === 404 ? 'No player with that name.' : `Couldn’t load the profile (${e.message}).`)));
   }
 
   // ---------- Stats page ----------

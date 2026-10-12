@@ -69,6 +69,7 @@
         streak: P.current(), longest: P.longest(), daysPlayed: P.daysPlayed(),
       } });
       await flush();
+      await net.saveProfile();
     },
 
     async submitRanked({ game, day, won, time, acc, score }) {
@@ -79,6 +80,21 @@
       return net.syncProfile().catch(() => {});
     },
 
+    // Sends the chosen look plus earned achievements; the server returns what it could verify
+    // (and may swap out any avatar part that isn't actually unlocked).
+    async saveProfile() {
+      if (!acct() || !WH.profile) return null;
+      const pr = WH.profile;
+      const r = await call('/profile', { method: 'POST', body: { avatar: pr.spec(), achievements: pr.list().filter((a) => a.earned).map((a) => a.id) } });
+      const p = pr.prof();
+      const before = new Set(p.serverAch);
+      p.serverAch = r.achievements || [];
+      store.save();
+      // Server-only achievements (podium, friends) can arrive here: celebrate them.
+      if (p.serverAch.some((id) => !before.has(id))) pr.announce(pr.check());
+      return r;
+    },
+    getProfile: (name) => call(`/u/${encodeURIComponent(name)}`),
     leaderboard: (game, day = WH.today()) => (acct() ? call(`/leaderboard/ranked?game=${encodeURIComponent(game)}&day=${day}`) : Promise.resolve(null)),
     weekly: (day = WH.today()) => call(`/leaderboard/xp?day=${day}&from=${weekStart(day)}`),
     friends: (day = WH.today()) => call(`/friends?day=${day}&from=${weekStart(day)}`),
