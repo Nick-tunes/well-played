@@ -171,6 +171,7 @@
       const grid = [start, ...st.rungs].map((w) => w.split('').map((ch, i) => (ch === target[i] ? '🟩' : '⬜')).join('')).join('\n');
       ctx.complete({
         won, score: won ? Math.min(3, Math.max(0, over)) : 'X', label,
+        accuracy: won ? Math.max(0, Math.min(1, par / steps) - 0.15 * st.hints) : 0,
         title: !won ? 'Here’s the way' : over <= 0 ? (st.hints ? 'Made it!' : 'Perfect climb!') : over === 1 ? 'Lovely climb!' : 'You made it!',
         sub: `${start.toUpperCase()} → ${target.toUpperCase()} in ${steps} steps (par ${par})${st.hints ? ` · ${st.hints} hint${st.hints > 1 ? 's' : ''}` : ''}`,
         share: `Ladder ${ctx.label} ${start.toUpperCase()}→${target.toUpperCase()} ${won ? `${steps} (par ${par})` : 'revealed'}\n${grid}`,

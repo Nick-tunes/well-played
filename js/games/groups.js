@@ -119,7 +119,8 @@
       const won = st.mistakes < MISTAKES;
       const grid = st.guesses.map((g) => g.map((w) => EMOJI[groups[groupOf(w)].level]).join('')).join('\n');
       ctx.complete({
-        won, score: won ? st.mistakes : 'X', label: won ? (st.mistakes ? `${st.mistakes} mistake${st.mistakes > 1 ? 's' : ''}` : 'Flawless') : 'X',
+        won, score: won ? st.mistakes : 'X',
+        accuracy: st.guesses.length ? (st.guesses.length - st.mistakes) / st.guesses.length : 0, label: won ? (st.mistakes ? `${st.mistakes} mistake${st.mistakes > 1 ? 's' : ''}` : 'Flawless') : 'X',
         title: won ? ['Perfect!', 'Great!', 'Solid!', 'Phew!'][st.mistakes] : 'Good effort',
         sub: won ? 'All four groups found' : 'The groups are revealed above',
         note: ctx.content && ctx.content.note,

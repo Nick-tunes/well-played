@@ -179,6 +179,7 @@
       const row = st.guesses.map((g) => (g === tune.id ? '🟩' : g === null ? '⬛' : '🟥')).join('') + '⬜'.repeat(MAX - n);
       ctx.complete({
         won, score: won ? n : 'X', label: won ? `${n}/${MAX}` : `X/${MAX}`,
+        accuracy: won ? 1 / st.guesses.filter((g) => g !== null).length : 0,
         title: won ? ['Perfect pitch!', 'Great ear!', 'Bravo!', 'Got it!', 'Nice!', 'Phew!'][n - 1] : 'Good listening',
         sub: `${tune.title} · ${tune.by}`,
         note: won && n <= 2 ? `You named it from just ${Math.min(STAGES[n - 1], sounding.length)} notes.` : 'Press play to hear the full phrase.',

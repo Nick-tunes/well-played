@@ -74,7 +74,7 @@
       if (!root.querySelector('.code-answer')) root.querySelector('.play-area').append(reveal);
       root.querySelector('.code-controls').classList.add('hidden');
       ctx.complete({
-        won, score: won ? n : 'X', label: won ? `${n}/${MAX}` : `X/${MAX}`,
+        won, score: won ? n : 'X', label: won ? `${n}/${MAX}` : `X/${MAX}`, accuracy: WH.hitRate(st.guesses.map((g) => [g, answer])),
         title: won ? ['Psychic!', 'Codebreaker!', 'Sharp!', 'Cracked it!', 'Nice!', 'Phew!'][n - 1] : 'Locked out',
         sub: `The code was ${answer.map((x) => PEGS[x].n).join(', ')}`,
         share: `Code ${ctx.label} ${won ? n : 'X'}/${MAX}\n` + st.guesses.map((g) => WH.emojiRow(WH.scoreGuess(g, answer))).join('\n'),

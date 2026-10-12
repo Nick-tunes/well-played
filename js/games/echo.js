@@ -8,7 +8,7 @@
 
   function mount(root, ctx) {
     const seq = Array.from({ length: 60 }, () => Math.floor(ctx.rng() * PADS));
-    const st = ctx.load() || { best: 0, lives: LIVES, finished: false };
+    const st = ctx.load() || { best: 0, lives: LIVES, finished: false, taps: 0, misses: 0 };
     let level = st.best + 1, input = 0, phase = 'idle', alive = true;
 
     const pads = Array.from({ length: PADS }, (_, i) =>
@@ -55,7 +55,9 @@
     async function press(i) {
       if (phase !== 'input') return;
       flash(i, 180);
+      st.taps = (st.taps || 0) + 1;
       if (seq[input] !== i) {
+        st.misses = (st.misses || 0) + 1;
         phase = 'wait';
         st.lives--; ctx.save(st); renderTop();
         pads[i].classList.add('wrong'); setTimeout(() => pads[i].classList.remove('wrong'), 450);
@@ -85,6 +87,7 @@
       const b = st.best;
       ctx.complete({
         won: b >= 7, score: b, label: `${b} in a row`,
+        accuracy: st.taps ? (st.taps - st.misses) / st.taps : 0,
         title: b >= 12 ? 'Elephant memory!' : b >= 9 ? 'Superb recall!' : b >= 7 ? 'Great focus!' : b >= 4 ? 'Nicely done' : 'Warm-up done',
         sub: `Longest sequence: ${b}`,
         share: `Echo ${ctx.label} 🔊 ${b} in a row\n${'🟪'.repeat(Math.min(b, 15))}${b > 15 ? '+' : ''}`,

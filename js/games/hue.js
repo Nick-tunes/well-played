@@ -115,7 +115,7 @@
       paint();
       const em = { correct: '🟩', present: '🟨', absent: '⬜' };
       ctx.complete({
-        won, score: n, label: won ? `${n}/${MAX}` : `${best}%`,
+        won, score: n, label: won ? `${n}/${MAX}` : `${best}%`, accuracy: best / 100,
         title: won ? (n <= 2 ? 'What an eye!' : n <= 4 ? 'Beautifully matched' : 'Got there!') : 'So close',
         sub: `${target.name} · best match ${best}%`,
         note: target.note,

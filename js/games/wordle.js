@@ -78,9 +78,10 @@
           answers.map((ans, b) => (solvedAt[b] !== -1 && r > solvedAt[b] ? '⬛⬛⬛⬛⬛' : WH.emojiRow(WH.scoreGuess(g, ans)))).join('  ')
         ).join('\n');
       const solvedCount = solvedAt.filter((x) => x !== -1).length;
+      const accuracy = WH.hitRate(st.guesses.flatMap((g, r) => answers.filter((_, b) => solvedAt[b] === -1 || r <= solvedAt[b]).map((ans) => [g, ans])));
       const words = answers.map((w) => w.toUpperCase()).join(' & ');
       ctx.complete({
-        won, score: won ? n : 'X', label,
+        won, score: won ? n : 'X', label, accuracy,
         title: won ? TITLES[Math.min(n - (maxGuesses - 6) - 1, TITLES.length - 1)] || 'Solved!' : 'Good effort',
         sub: won ? (count > 2 ? `All four found: ${words}` : count > 1 ? `Both words found: ${words}` : `You found ${words}`)
           : `${count > 2 ? `${solvedCount} of 4 found. ` : ''}The ${count > 1 ? 'words were' : 'word was'} ${words}`,

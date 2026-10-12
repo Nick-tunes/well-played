@@ -1,8 +1,8 @@
 // Network-first service worker: fresh daily content when online, cached app when offline.
-const CACHE = 'wellplayed-v2';
+const CACHE = 'wellplayed-v3';
 const ASSETS = [
   './', 'index.html', 'css/styles.css', 'icon.svg', 'manifest.webmanifest',
-  'js/core.js', 'js/app.js', 'js/data/words.js', 'js/data/groups.js', 'js/data/tunes.js', 'js/data/daily.js',
+  'js/core.js', 'js/progress.js', 'js/app.js', 'js/data/words.js', 'js/data/groups.js', 'js/data/tunes.js', 'js/data/daily.js',
   'js/games/wordle.js', 'js/games/sums.js', 'js/games/ladder.js', 'js/games/swap.js', 'js/games/code.js',
   'js/games/hue.js', 'js/games/tune.js', 'js/games/echo.js', 'js/games/groups.js',
 ];

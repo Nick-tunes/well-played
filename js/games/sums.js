@@ -101,7 +101,7 @@
       const n = st.guesses.length;
       const label = won ? `${n}/${MAX}` : `X/${MAX}`;
       ctx.complete({
-        won, score: won ? n : 'X', label,
+        won, score: won ? n : 'X', label, accuracy: WH.hitRate(st.guesses.map((g) => [g, answer])),
         title: won ? ['Genius!', 'Brilliant!', 'Sharp!', 'Solid!', 'Nice!', 'Phew!'][n - 1] : 'Good effort',
         sub: `The equation was ${answer.split('').map(show).join('')}`,
         share: `Sums ${ctx.label} ${label}\n` + st.guesses.map((g) => WH.emojiRow(WH.scoreGuess(g, answer))).join('\n'),

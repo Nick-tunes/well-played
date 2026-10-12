@@ -320,6 +320,13 @@ window.WH = (function () {
     }
     return res;
   };
+  // Accuracy for guess games: share of guessed tiles that landed green or gold. pairs: [[guess, answer], …]
+  WH.hitRate = function (pairs) {
+    let tot = 0, hit = 0;
+    for (const [g, a] of pairs) for (const s of WH.scoreGuess(g, a)) { tot++; if (s !== 'absent') hit++; }
+    return tot ? hit / tot : 0;
+  };
+  WH.pct = (x) => `${Math.round((x || 0) * 100)}%`;
   WH.emoji = { correct: '🟩', present: '🟨', absent: '⬜' };
   WH.emojiRow = (states) => states.map((s) => WH.emoji[s]).join('');
 
@@ -365,6 +372,7 @@ window.WH = (function () {
     heart: svg('<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/>'),
     play: svg('<path d="M7 4l13 8-13 8z"/>'),
     check: svg('<path d="M20 6L9 17l-5-5"/>'),
+    trophy: svg('<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/>'),
     sparkle: svg('<path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/><path d="M19 17l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/>'),
   };
 

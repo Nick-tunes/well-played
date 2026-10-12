@@ -147,7 +147,7 @@
       const left = MAX_SWAPS - st.used;
       const stars = won ? '★'.repeat(left) + '☆'.repeat(5 - left) : '☆☆☆☆☆';
       ctx.complete({
-        won, score: won ? left : 'X', label: won ? `${stars} · ${st.used} swaps` : 'Out of swaps',
+        won, score: won ? left : 'X', accuracy: won ? Math.min(1, PAR / Math.max(1, st.used)) : 0, label: won ? `${stars} · ${st.used} swaps` : 'Out of swaps',
         title: !won ? 'So close' : left === 5 ? 'Perfect!' : left >= 3 ? 'Brilliant!' : left >= 1 ? 'Nicely done!' : 'Just made it!',
         sub: `The words: ${words.map((w) => w.toUpperCase()).join(', ')}`,
         share: `Swap ${ctx.label} ${won ? `${stars}` : '✕'} (${st.used} swaps)\n` +
