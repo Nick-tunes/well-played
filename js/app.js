@@ -131,7 +131,7 @@
     const hero = h('section', { class: 'hero' },
       h('div', { class: 'hero-text' },
         h('p', { class: 'eyebrow' }, `${dateStr} · Daily #${day}`),
-        h('h1', null, greeting(), h('span', { class: 'dot' }, '.')),
+        h('h1', null, greeting(), greeting().endsWith('?') ? null : h('span', { class: 'dot' }, '.')),
         h('p', { class: 'lede' }, done === list.length
           ? 'Workout complete. Your mind thanks you. See you tomorrow.'
           : done ? `Nice progress. ${list.length - done} to go in today’s workout.` : 'A few minutes of play to keep your mind bright.'),
