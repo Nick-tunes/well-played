@@ -58,16 +58,22 @@ SPEC.md               product spec · CONTENT_GUIDE.md  editorial playbook
 
 ## Deploying
 
-Live at **https://nick-tunes.github.io/well-played/**. It's served by GitHub Pages from the `main`
-branch root of https://github.com/Nick-tunes/well-played.
+| Piece | Where | How to publish |
+|---|---|---|
+| Site | **https://well-played.win** (Cloudflare Pages project `well-played`; mirror at https://nick-tunes.github.io/well-played/) | `./scripts/deploy-site.sh`, plus `git push` to update the GitHub mirror |
+| API | **https://api.well-played.win** (Cloudflare Worker `wellplayed-api`, code in `worker/`) | `cd worker && npx wrangler@3 deploy` |
+| Database | Cloudflare D1 `wellplayed` (schema in `worker/migrations/`) | `cd worker && npx wrangler@3 d1 migrations apply wellplayed --remote` |
 
-To publish a content update (the daily run does this after a passing `--build`):
+Wrangler 3 is used because this Mac runs Node 20; Wrangler 4 needs Node 22.
+
+To publish a daily content update (the daily run does this after a passing `--build`):
 
 ```bash
 git add content js/data scripts CONTENT_GUIDE.md
 git commit -m "Daily content: <dates added>"
 git push origin main
+./scripts/deploy-site.sh
 ```
 
-Pages redeploys within a minute or two. The service worker is network-first, so players get the new
-`js/data/daily.js` on their next visit. Only commit when `node scripts/validate-daily.mjs --build` passes.
+The service worker is network-first, so players get new content on their next visit.
+Only publish when `node scripts/validate-daily.mjs --build` passes.

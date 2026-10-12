@@ -745,3 +745,46 @@ button.streak { border: 0; font: inherit; cursor: pointer; }
   .card-links { gap: 8px; }
 }
 @media (max-width: 820px) { .stat-tiles { grid-template-columns: repeat(2, 1fr); } }
+
+/* ================= Online: boards, friends, sign-up ================= */
+.text-input { width: 100%; font: inherit; font-size: 1rem; padding: .8rem 1rem; border-radius: 14px; border: 1.5px solid var(--line-2); background: var(--surface); color: var(--ink); outline: none; }
+.text-input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.signup { display: flex; flex-direction: column; gap: 12px; }
+.form-err { color: var(--danger); font-size: .88rem; min-height: 1.2em; margin: -4px 0; }
+.board-tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 10px; scrollbar-width: none; }
+.board-tabs button { border: 0; cursor: pointer; padding: .4rem .85rem; border-radius: 999px; background: var(--surface-2); color: var(--ink-2); font-weight: 700; font-size: .85rem; white-space: nowrap; }
+.board-tabs button.on { background: var(--ink); color: var(--bg); }
+.lboard { display: flex; flex-direction: column; gap: 4px; }
+.board-row { display: grid; grid-template-columns: 36px 1fr auto 56px; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 12px; }
+.board-row:nth-child(even) { background: var(--surface-2); }
+.board-row.you { background: var(--accent-soft); box-shadow: inset 0 0 0 1.5px var(--accent); }
+.board-rank { font-weight: 800; text-align: center; color: var(--muted); }
+.board-row.top1 .board-rank, .board-row.top2 .board-rank, .board-row.top3 .board-rank { font-size: 1.2rem; }
+.board-name { font-weight: 700; overflow: hidden; text-overflow: ellipsis; }
+.board-row b { font-variant-numeric: tabular-nums; }
+.board-row small { color: var(--muted); text-align: right; }
+.board-gap { text-align: center; color: var(--muted); }
+.me-card { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; margin-bottom: 14px; }
+.me-card h2 { margin: 2px 0 0; font-size: 1.5rem; }
+.code-box { background: var(--surface-2); border-radius: 14px; padding: 8px 16px; }
+.code-box b { display: block; font-size: 1.4rem; letter-spacing: .18em; font-variant-numeric: tabular-nums; }
+.me-card .btn { margin-left: auto; }
+.add-friend { display: flex; gap: 8px; margin-bottom: 12px; }
+.add-friend .text-input { text-transform: uppercase; letter-spacing: .12em; }
+.friend-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+.friend { display: grid; grid-template-columns: 40px 1fr auto auto; gap: 10px; align-items: center; padding: 8px; border-radius: 14px; background: var(--surface-2); }
+.avatar { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: #fff; background: linear-gradient(135deg, var(--accent), var(--a-association)); }
+.friend-name b { display: block; }
+.friend-name small { color: var(--muted); font-size: .8rem; }
+.friend-streak { display: inline-flex; align-items: center; gap: 3px; color: var(--muted); font-weight: 800; }
+.friend-streak svg { width: 20px; height: 20px; }
+.friend-streak.lit { color: #e8743b; }
+.friend-streak.lit svg { fill: color-mix(in srgb, #f39a3d 55%, transparent); }
+.icon-btn.small { width: 32px; height: 32px; }
+.icon-btn.small svg { width: 16px; height: 16px; }
+.promo-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px; }
+.promo-row .ranked-promo { margin: 0; }
+.checkin-promo { background: linear-gradient(120deg, var(--surface), color-mix(in srgb, var(--surface) 84%, var(--a-memory))); }
+.checkin-promo .tip-icon { background: color-mix(in srgb, var(--a-memory) 20%, transparent); color: var(--a-memory); }
+.checkin-page { max-width: 760px; margin: 0 auto; padding: 8px 16px 60px; }
+@media (max-width: 820px) { .promo-row { grid-template-columns: 1fr; } }

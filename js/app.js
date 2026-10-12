@@ -68,6 +68,7 @@
     }
     const outcome = P.recordActivity(mode, result);
     store.save();
+    if (WH.net.enabled) WH.net.syncProfile().catch(() => {});
     return outcome;
   }
 
@@ -81,6 +82,9 @@
     }
     if (parts[0] === 'stats') return renderStats();
     if (parts[0] === 'ranked') return renderRanked();
+    if (parts[0] === 'friends') return renderFriends();
+    if (parts[0] === 'checkin') return renderCheckin();
+    if (parts[0] === 'add' && parts[1]) return renderFriends(decodeURIComponent(parts[1]));
     renderHub();
   }
   function teardown() {
@@ -103,6 +107,7 @@
       h('nav', { class: 'top-actions' },
         h('button', { class: 'streak-chip' + (P.activeToday() ? ' lit' : streak ? ' warm' : ''), type: 'button', title: 'Your streak', onclick: () => showStreakSheet(),
           html: `${icons.flame}<b>${streak}</b>` }),
+        h('a', { class: 'icon-btn', href: '#/friends', 'aria-label': 'Friends', title: 'Friends & leaderboard', html: icons.users }),
         h('a', { class: 'icon-btn', href: '#/ranked', 'aria-label': 'Ranked', title: 'Ranked', html: icons.trophy }),
         h('a', { class: 'icon-btn', href: '#/stats', 'aria-label': 'Statistics', title: 'Statistics', html: icons.chart }),
         h('button', { class: 'icon-btn', type: 'button', 'aria-label': 'Settings', title: 'Settings', onclick: openSettings, html: icons.gear })));
@@ -243,7 +248,13 @@
       h('div', { class: 'tip-icon', html: icons.bulb }),
       h('div', null, h('h2', null, daily.note ? 'Today’s note' : 'Mind tip'), h('p', null, note)));
 
-    app.replaceChildren(header(), h('main', { class: 'hub' }, banner, hero, ranked, cards, h('div', { class: 'hub-lower' }, balance, tip)));
+    const ck = WH.checkin ? WH.checkin.summary() : null;
+    const checkin = ck ? h('a', { class: 'panel ranked-promo checkin-promo', href: '#/checkin' },
+      h('div', { class: 'tip-icon', html: icons.heart }),
+      h('div', null, h('h2', null, 'Mind Check-in'),
+        h('p', null, ck.sessions ? ck.label : 'A 5-minute set of memory, speed and focus activities that tracks your own trends over time.')),
+      h('span', { class: 'arrow' }, '→')) : null;
+    app.replaceChildren(header(), h('main', { class: 'hub' }, banner, hero, h('div', { class: 'promo-row' }, ranked, checkin), cards, h('div', { class: 'hub-lower' }, balance, tip)));
     for (const n of P.takeNotices()) {
       if (n.type === 'rest') WH.toast(`A rest day covered ${dayName(n.day)}. Your streak is safe.`, 3200);
       if (n.type === 'freeze') WH.toast(`A streak freeze covered ${dayName(n.day)} ❄`, 3200);
@@ -532,18 +543,128 @@
         h('span', { class: 'rank-stat' }, h('small', null, 'Best'), h('b', null, best ? fmtTime(best.time) : '—')),
         status);
     });
-    const world = h('section', { class: 'panel world' },
-      h('h2', null, 'World leaderboard'),
-      WH.net.enabled ? h('p', { class: 'muted' }, 'Loading…')
-        : h('div', { class: 'world-off' },
-          h('p', null, 'Global rankings switch on once online accounts are live: pick a username, add friends, and see who’s fastest in the world at each game.'),
-          h('p', { class: 'muted small' }, 'Your ranked times are already saved on this device and will be ready to upload.')));
+    const world = h('section', { class: 'panel world' }, h('h2', null, 'World leaderboard · today'));
+    if (!WH.net.enabled) {
+      world.append(h('div', { class: 'world-off' },
+        h('p', null, 'Pick a username to see where your times rank in the world, and to add friends.'),
+        h('button', { class: 'btn primary', type: 'button', onclick: () => signUp(() => route()) }, 'Play online')));
+    } else {
+      let pick = (games().find((g) => P.rankedFor(day, g.id)) || games()[0]).id;
+      const tabs = h('div', { class: 'board-tabs' });
+      const table = h('div', { class: 'lboard' });
+      const load = () => {
+        tabs.querySelectorAll('button').forEach((b) => b.classList.toggle('on', b.dataset.g === pick));
+        table.replaceChildren(h('p', { class: 'muted' }, 'Loading…'));
+        WH.net.leaderboard(pick, day).then((b) => {
+          if (!b || !b.rows.length) return table.replaceChildren(h('p', { class: 'muted' }, 'No finishers yet today. Be the first!'));
+          const rows = b.rows.map((r) => boardRow(r.rank, r.username, pick === 'echo' ? `${r.score} · ${fmtTime(r.timeMs / 1000)}` : fmtTime(r.timeMs / 1000), r.acc != null ? WH.pct(r.acc) : '', r.you));
+          if (b.you && b.you.won && !b.rows.some((r) => r.you)) rows.push(h('div', { class: 'board-gap' }, '⋯'), boardRow(b.you.rank, WH.net.account().username, fmtTime(b.you.timeMs / 1000), b.you.acc != null ? WH.pct(b.you.acc) : '', true));
+          table.replaceChildren(h('p', { class: 'muted small' }, `${b.total} finisher${b.total === 1 ? '' : 's'} today`), ...rows);
+        }).catch((e) => table.replaceChildren(h('p', { class: 'muted' }, `Couldn’t load the leaderboard (${e.message}).`)));
+      };
+      games().forEach((g) => tabs.append(h('button', { type: 'button', 'data-g': g.id, onclick: () => { pick = g.id; load(); } }, g.name)));
+      world.append(tabs, table);
+      load();
+    }
     app.replaceChildren(header(), h('main', { class: 'stats-page' },
       h('div', { class: 'ranked-head' },
         h('h1', { class: 'page-title' }, 'Ranked'),
         h('p', { class: 'lede' }, 'A daily race for every game. Everyone gets the same puzzle, you get one attempt, and the clock runs from the countdown to your final move. The fastest solve wins, and accuracy breaks ties. New races every midnight.')),
       h('div', { class: 'rank-list' }, rows),
       world));
+  }
+
+  const boardRow = (rank, name, main, sub, you) => h('div', { class: 'board-row' + (you ? ' you' : '') + (rank <= 3 ? ' top' + rank : '') },
+    h('span', { class: 'board-rank' }, rank <= 3 ? ['🥇', '🥈', '🥉'][rank - 1] : rank), h('span', { class: 'board-name' }, name), h('b', null, main), h('small', null, sub));
+
+  // ---------- Accounts ----------
+  function signUp(after) {
+    if (!WH.net.configured) { WH.toast('Online play is being set up. Check back soon!'); return; }
+    const input = h('input', { class: 'text-input', type: 'text', maxlength: 16, placeholder: 'e.g. puzzle_fan', autocomplete: 'off', spellcheck: 'false', 'aria-label': 'Username' });
+    const err = h('p', { class: 'form-err' });
+    const btn = h('button', { class: 'btn primary wide', type: 'submit' }, 'Create my player');
+    const form = h('form', { class: 'signup', onsubmit: async (e) => {
+      e.preventDefault();
+      const name = input.value.trim();
+      if (!/^[A-Za-z0-9_]{3,16}$/.test(name)) { err.textContent = 'Use 3–16 letters, numbers or underscores.'; return; }
+      btn.disabled = true; btn.textContent = 'Creating…'; err.textContent = '';
+      try { await WH.net.register(name); WH.closeModal(); WH.toast(`Welcome, ${name}!`); WH.confetti(); after && after(); }
+      catch (x) { err.textContent = x.message; btn.disabled = false; btn.textContent = 'Create my player'; }
+    } },
+      h('p', { class: 'muted' }, 'Pick a username to join the world leaderboards and play with friends. No email or password needed.'),
+      input, err, btn,
+      h('p', { class: 'small muted' }, 'Your account lives on this device. Only your username, streak, XP and ranked times are shared. Mind Check-in results never leave your device.'));
+    WH.modal({ title: 'Play online', body: form });
+    setTimeout(() => input.focus(), 250);
+  }
+
+  // ---------- Friends & weekly leaderboard ----------
+  function renderFriends(addCode) {
+    const main = h('main', { class: 'stats-page' }, h('h1', { class: 'page-title' }, 'Friends'));
+    app.replaceChildren(header(), main);
+    if (!WH.net.enabled) {
+      main.append(h('section', { class: 'panel world-off' },
+        h('h2', null, 'Play with friends'),
+        h('p', null, 'Keep shared streaks going with friends: a friend streak grows each day you both play. See who earns the most XP this week, too.'),
+        h('button', { class: 'btn primary', type: 'button', onclick: () => signUp(() => renderFriends(addCode)) }, 'Pick a username')));
+      if (addCode) main.append(h('p', { class: 'muted center' }, `After you pick a username, we’ll add friend code ${addCode.toUpperCase()}.`));
+      return;
+    }
+    const me = WH.net.account();
+    const link = `${location.origin}${location.pathname}#/add/${me.friendCode}`;
+    const codeCard = h('section', { class: 'panel me-card' },
+      h('div', null, h('small', { class: 'muted' }, 'Signed in as'), h('h2', null, me.username)),
+      h('div', { class: 'code-box' }, h('small', { class: 'muted' }, 'Your friend code'), h('b', null, me.friendCode)),
+      h('button', { class: 'btn ghost', type: 'button', html: `${icons.share}<span>Invite a friend</span>`,
+        onclick: () => WH.share(`Play Well Played with me! My friend code is ${me.friendCode}
+${location.protocol.startsWith('http') ? link : ''}`) }));
+    const codeInput = h('input', { class: 'text-input', type: 'text', maxlength: 6, placeholder: 'Friend code', value: addCode ? addCode.toUpperCase() : '', 'aria-label': 'Friend code' });
+    const addForm = h('form', { class: 'add-friend', onsubmit: async (e) => {
+      e.preventDefault();
+      const code = codeInput.value.trim();
+      if (!code) return;
+      try { const r = await WH.net.addFriend(code); WH.toast(`You and ${r.friend.username} are now friends!`); codeInput.value = ''; loadFriends(); }
+      catch (x) { WH.toast(x.message); }
+    } }, codeInput, h('button', { class: 'btn primary', type: 'submit' }, 'Add'));
+    const list = h('div', { class: 'friend-list' }, h('p', { class: 'muted' }, 'Loading…'));
+    const weekly = h('div', { class: 'lboard' }, h('p', { class: 'muted' }, 'Loading…'));
+    main.append(codeCard,
+      h('div', { class: 'stats-row' },
+        h('section', { class: 'panel' }, h('h2', null, 'Friend streaks'), addForm, list,
+          h('p', { class: 'small muted' }, 'A friend streak grows each day you both finish a daily or ranked puzzle.')),
+        h('section', { class: 'panel' }, h('h2', null, 'This week’s XP'), weekly,
+          h('p', { class: 'small muted' }, 'Weekly XP resets every Monday. XP comes from daily and ranked puzzles only, so steady play beats marathons.'))));
+
+    function loadFriends() {
+      WH.net.friends().then(({ friends }) => {
+        if (!friends.length) return list.replaceChildren(h('p', { class: 'muted' }, 'No friends yet. Share your code to start a friend streak!'));
+        list.replaceChildren(...friends.map((f) => h('div', { class: 'friend' },
+          h('span', { class: 'avatar' }, f.username[0].toUpperCase()),
+          h('span', { class: 'friend-name' }, h('b', null, f.username),
+            h('small', null, f.playedToday ? 'Played today ✓' : 'Hasn’t played yet today', ` · ${f.weekXp} XP this week`)),
+          h('span', { class: 'friend-streak' + (f.bothToday ? ' lit' : ''), title: 'Friend streak', html: `${icons.flame}<b>${f.friendStreak}</b>` }),
+          h('button', { class: 'icon-btn small', type: 'button', title: 'Remove friend', 'aria-label': `Remove ${f.username}`, html: icons.x,
+            onclick: async () => { if (confirm(`Remove ${f.username} from your friends?`)) { await WH.net.removeFriend(f.id).catch(() => {}); loadFriends(); } } }))));
+      }).catch((e) => list.replaceChildren(h('p', { class: 'muted' }, `Couldn’t load friends (${e.message}).`)));
+    }
+    WH.net.syncProfile().catch(() => {}).finally(() => {
+      loadFriends();
+      WH.net.weekly().then((b) => {
+        if (!b.rows.length) return weekly.replaceChildren(h('p', { class: 'muted' }, 'No XP yet this week.'));
+        const rows = b.rows.map((r) => boardRow(r.rank, r.username, `${r.xp} XP`, `🔥 ${r.streak}`, r.you));
+        if (!b.rows.some((r) => r.you)) rows.push(h('div', { class: 'board-gap' }, '⋯'), boardRow(b.you.rank, me.username, `${b.you.xp} XP`, '', true));
+        weekly.replaceChildren(...rows);
+      }).catch((e) => weekly.replaceChildren(h('p', { class: 'muted' }, `Couldn’t load (${e.message}).`)));
+    });
+    if (addCode && addCode.toUpperCase() !== me.friendCode) addForm.requestSubmit();
+  }
+
+  // ---------- Mind Check-in ----------
+  function renderCheckin() {
+    const main = h('main', { class: 'checkin-page' });
+    app.replaceChildren(header(), main);
+    const inst = WH.checkin.mount(main, { onExit: () => go('#/') });
+    current = { game: null, instance: null, cleanup: () => inst && inst.destroy && inst.destroy() };
   }
 
   // ---------- Stats page ----------

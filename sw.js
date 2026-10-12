@@ -1,8 +1,8 @@
 // Network-first service worker: fresh daily content when online, cached app when offline.
-const CACHE = 'wellplayed-v3';
+const CACHE = 'wellplayed-v5';
 const ASSETS = [
-  './', 'index.html', 'css/styles.css', 'icon.svg', 'manifest.webmanifest',
-  'js/core.js', 'js/progress.js', 'js/app.js', 'js/data/words.js', 'js/data/groups.js', 'js/data/tunes.js', 'js/data/daily.js',
+  './', 'index.html', 'css/styles.css', 'css/checkin.css', 'js/checkin.js', 'icon.svg', 'manifest.webmanifest',
+  'js/core.js', 'js/progress.js', 'js/net.js', 'js/app.js', 'js/data/words.js', 'js/data/groups.js', 'js/data/tunes.js', 'js/data/daily.js',
   'js/games/wordle.js', 'js/games/sums.js', 'js/games/ladder.js', 'js/games/swap.js', 'js/games/code.js',
   'js/games/hue.js', 'js/games/tune.js', 'js/games/echo.js', 'js/games/groups.js',
 ];
@@ -15,6 +15,7 @@ self.addEventListener('activate', (e) => {
 });
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
+  if (e.request.url.includes('api.well-played.win')) return; // live API: always network
   e.respondWith(
     fetch(e.request)
       .then((res) => {
