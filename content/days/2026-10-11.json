@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-11",
+  "theme": "Autumn leaves",
+  "note": "Noticing small seasonal changes, like the colour of a leaf or the smell of rain, is a simple mindfulness exercise. Try spotting three today.",
+  "word": {
+    "answer": "maple",
+    "fact": "Maple comes from the Old English “mapul”. It takes roughly 40 litres of sugar-maple sap to boil down into a single litre of syrup."
+  },
+  "duet": {
+    "answers": [
+      "cider",
+      "ember"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "crisp",
+      "amber",
+      "chill",
+      "grove"
+    ]
+  },
+  "sums": {
+    "equation": "8*7-9=47"
+  },
+  "ladder": {
+    "start": "cold",
+    "target": "warm"
+  },
+  "swap": {
+    "words": [
+      "snake",
+      "adopt",
+      "foggy",
+      "scarf",
+      "along",
+      "entry"
+    ]
+  },
+  "hue": {
+    "h": 26,
+    "s": 78,
+    "l": 52,
+    "name": "Pumpkin spice",
+    "note": "In autumn, trees stop making green chlorophyll, revealing the yellow and orange pigments that were in the leaves all along."
+  },
+  "tune": {
+    "id": "greensleeves"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Trees",
+        "words": [
+          "OAK",
+          "ELM",
+          "CEDAR",
+          "ASH"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Metals",
+        "words": [
+          "TIN",
+          "IRON",
+          "ZINC",
+          "COPPER"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Shades of orange",
+        "words": [
+          "AMBER",
+          "RUST",
+          "APRICOT",
+          "TANGERINE"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "___ CONE",
+        "words": [
+          "ICE",
+          "PINE",
+          "SNOW",
+          "TRAFFIC"
+        ]
+      }
+    ]
+  }
+}

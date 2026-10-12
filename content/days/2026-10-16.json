@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-16",
+  "theme": "Outer space",
+  "note": "Look up tonight. A minute spent with the sky, stars or clouds is a lovely way to step out of a busy mind.",
+  "word": {
+    "answer": "orbit",
+    "fact": "The International Space Station circles Earth about every 90 minutes, so its crew sees around 16 sunrises a day."
+  },
+  "duet": {
+    "answers": [
+      "comet",
+      "lunar"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "solar",
+      "space",
+      "laser",
+      "probe"
+    ]
+  },
+  "sums": {
+    "equation": "125/5=25"
+  },
+  "ladder": {
+    "start": "vary",
+    "target": "zero"
+  },
+  "swap": {
+    "words": [
+      "thorn",
+      "dwell",
+      "yearn",
+      "today",
+      "opera",
+      "nylon"
+    ]
+  },
+  "hue": {
+    "h": 290,
+    "s": 55,
+    "l": 55,
+    "name": "Nebula",
+    "note": "Many nebula photos glow pink-red from hydrogen gas, energised by the light of nearby young stars."
+  },
+  "tune": {
+    "id": "twinkle"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Planets",
+        "words": [
+          "MARS",
+          "VENUS",
+          "SATURN",
+          "NEPTUNE"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Greek letters",
+        "words": [
+          "ALPHA",
+          "BETA",
+          "DELTA",
+          "SIGMA"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Have rings",
+        "words": [
+          "BELL",
+          "PHONE",
+          "OLYMPICS",
+          "TREE"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "___ RAY",
+        "words": [
+          "GAMMA",
+          "X",
+          "STING",
+          "MANTA"
+        ]
+      }
+    ]
+  }
+}

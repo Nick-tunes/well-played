@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-18",
+  "theme": "Rest day",
+  "note": "Rest is part of training. While you sleep, your brain sorts and stores what you learned during the day.",
+  "word": {
+    "answer": "quiet",
+    "fact": "“Quiet” comes from the Latin “quietus”, meaning at rest. So, by a winding route, do “quit” and “coy”."
+  },
+  "duet": {
+    "answers": [
+      "sleep",
+      "dream"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "relax",
+      "peace",
+      "pause",
+      "still"
+    ]
+  },
+  "sums": {
+    "equation": "18+27=45"
+  },
+  "ladder": {
+    "start": "calm",
+    "target": "mind"
+  },
+  "swap": {
+    "words": [
+      "speak",
+      "angle",
+      "mural",
+      "swarm",
+      "eager",
+      "kneel"
+    ]
+  },
+  "hue": {
+    "h": 255,
+    "s": 50,
+    "l": 75,
+    "name": "Lavender",
+    "note": "Lavender’s name is often traced to the Latin “lavare”, to wash. Romans scented their baths with it."
+  },
+  "tune": {
+    "id": "brahms-lullaby"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Ways to unwind",
+        "words": [
+          "NAP",
+          "STROLL",
+          "BATHE",
+          "READ"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "On the bed",
+        "words": [
+          "PILLOW",
+          "DUVET",
+          "SHEET",
+          "MATTRESS"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Yoga poses",
+        "words": [
+          "TREE",
+          "COBRA",
+          "LOTUS",
+          "PLANK"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "___WALK",
+        "words": [
+          "SLEEP",
+          "MOON",
+          "CAT",
+          "BOARD"
+        ]
+      }
+    ]
+  }
+}

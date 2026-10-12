@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-13",
+  "theme": "By the sea",
+  "note": "Time near water, whether a coastline, a lake or even a fountain, is linked with feeling calmer. If you can, find a little blue space this week.",
+  "word": {
+    "answer": "coral",
+    "fact": "Coral reefs cover well under 1% of the ocean floor, yet they are home to roughly a quarter of all known marine species."
+  },
+  "duet": {
+    "answers": [
+      "shore",
+      "whale"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "ocean",
+      "shell",
+      "coast",
+      "pearl"
+    ]
+  },
+  "sums": {
+    "equation": "8+7*6=50"
+  },
+  "ladder": {
+    "start": "tide",
+    "target": "pool"
+  },
+  "swap": {
+    "words": [
+      "label",
+      "shelf",
+      "rusty",
+      "laser",
+      "bless",
+      "lofty"
+    ]
+  },
+  "hue": {
+    "h": 160,
+    "s": 45,
+    "l": 62,
+    "name": "Seafoam",
+    "note": "Seawater looks blue-green because water absorbs red light and tiny plankton reflect green."
+  },
+  "tune": {
+    "id": "row-boat"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Beach bag",
+        "words": [
+          "TOWEL",
+          "BUCKET",
+          "SPADE",
+          "PARASOL"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Sea creatures",
+        "words": [
+          "SQUID",
+          "OCTOPUS",
+          "CRAB",
+          "LOBSTER"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "___FISH",
+        "words": [
+          "STAR",
+          "SWORD",
+          "JELLY",
+          "CAT"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "Have shells",
+        "words": [
+          "EGG",
+          "TACO",
+          "SNAIL",
+          "PEANUT"
+        ]
+      }
+    ]
+  }
+}

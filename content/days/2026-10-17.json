@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-17",
+  "theme": "Games night",
+  "note": "Games with friends mix thinking with connection, and time with people you like is great for your mind too.",
+  "word": {
+    "answer": "chess",
+    "fact": "Claude Shannon estimated around 10^120 possible chess games, far more than the number of atoms in the observable universe."
+  },
+  "duet": {
+    "answers": [
+      "rival",
+      "bonus"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "token",
+      "board",
+      "score",
+      "match"
+    ]
+  },
+  "sums": {
+    "equation": "88-49=39"
+  },
+  "ladder": {
+    "start": "dice",
+    "target": "game"
+  },
+  "swap": {
+    "words": [
+      "catch",
+      "manor",
+      "loose",
+      "camel",
+      "tango",
+      "horse"
+    ]
+  },
+  "hue": {
+    "h": 145,
+    "s": 50,
+    "l": 32,
+    "name": "Card-table felt",
+    "note": "Human eyes are most sensitive to light in the green part of the spectrum, which is one reason green feels so easy to look at."
+  },
+  "tune": {
+    "id": "entertainer"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Board games",
+        "words": [
+          "MONOPOLY",
+          "SCRABBLE",
+          "RISK",
+          "CLUE"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Chess pieces",
+        "words": [
+          "KING",
+          "QUEEN",
+          "ROOK",
+          "BISHOP"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Card games",
+        "words": [
+          "POKER",
+          "RUMMY",
+          "SNAP",
+          "BRIDGE"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "___BOARD",
+        "words": [
+          "KEY",
+          "SKATE",
+          "SURF",
+          "DART"
+        ]
+      }
+    ]
+  }
+}

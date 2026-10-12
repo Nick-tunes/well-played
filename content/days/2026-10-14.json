@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-14",
+  "theme": "Music",
+  "note": "Listening to music you love can lift your mood, and learning to play, even badly, gives your brain a full workout.",
+  "word": {
+    "answer": "chord",
+    "fact": "“Chord” and “cord” share a root: the Greek “khordē”, a string made of gut, like those once used on lyres."
+  },
+  "duet": {
+    "answers": [
+      "tempo",
+      "piano"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "music",
+      "choir",
+      "flute",
+      "viola"
+    ]
+  },
+  "sums": {
+    "equation": "96/8-3=9"
+  },
+  "ladder": {
+    "start": "note",
+    "target": "band"
+  },
+  "swap": {
+    "words": [
+      "scoop",
+      "later",
+      "derby",
+      "salad",
+      "otter",
+      "party"
+    ]
+  },
+  "hue": {
+    "h": 268,
+    "s": 42,
+    "l": 38,
+    "name": "Velvet jazz",
+    "note": "Purple was once among the costliest dyes in the world. Ancient Tyrian purple was made from thousands of sea snails."
+  },
+  "tune": {
+    "id": "ode-to-joy"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Instruments",
+        "words": [
+          "CELLO",
+          "FLUTE",
+          "OBOE",
+          "TUBA"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Dances",
+        "words": [
+          "WALTZ",
+          "TANGO",
+          "SALSA",
+          "POLKA"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Have keys",
+        "words": [
+          "PIANO",
+          "MAP",
+          "LOCK",
+          "LAPTOP"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "___NOTE",
+        "words": [
+          "FOOT",
+          "KEY",
+          "BANK",
+          "STICKY"
+        ]
+      }
+    ]
+  }
+}

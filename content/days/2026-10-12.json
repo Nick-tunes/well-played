@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-12",
+  "theme": "Fresh start",
+  "note": "Starting the week? Pick one small thing you want to do today and write it down. Small, specific goals are easier to keep.",
+  "word": {
+    "answer": "spark",
+    "fact": "From the Old English “spearca”. We use the same word for a tiny fleck of fire and for the start of a new idea."
+  },
+  "duet": {
+    "answers": [
+      "brisk",
+      "plant"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "eager",
+      "fresh",
+      "begin",
+      "bloom"
+    ]
+  },
+  "sums": {
+    "equation": "45-18=27"
+  },
+  "ladder": {
+    "start": "read",
+    "target": "book"
+  },
+  "swap": {
+    "words": [
+      "juicy",
+      "drama",
+      "elect",
+      "judge",
+      "image",
+      "yeast"
+    ]
+  },
+  "hue": {
+    "h": 205,
+    "s": 68,
+    "l": 70,
+    "name": "Morning sky",
+    "note": "The sky looks blue because air scatters short blue wavelengths of sunlight far more than red ones."
+  },
+  "tune": {
+    "id": "morning-mood"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Breakfast foods",
+        "words": [
+          "TOAST",
+          "BAGEL",
+          "WAFFLE",
+          "PORRIDGE"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Coffee drinks",
+        "words": [
+          "LATTE",
+          "MOCHA",
+          "ESPRESSO",
+          "CORTADO"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "___ ALARM",
+        "words": [
+          "FIRE",
+          "CAR",
+          "FALSE",
+          "BURGLAR"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "___ UP",
+        "words": [
+          "WAKE",
+          "CHEER",
+          "WARM",
+          "PERK"
+        ]
+      }
+    ]
+  }
+}
