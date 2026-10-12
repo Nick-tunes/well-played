@@ -66,7 +66,9 @@
 
 /* ================= Base ================= */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; touch-action: manipulation; }
+/* Fast tapping should never zoom or select text: taps are taps. Pinch-zoom still works. */
+button, a, .key, .tile, .echo-pad, .groups-tile, .swap-tile, .code-key { touch-action: manipulation; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
 body {
   margin: 0; min-height: 100dvh; background: var(--bg); color: var(--ink);
   font: 16px/1.5 var(--font); -webkit-font-smoothing: antialiased;
