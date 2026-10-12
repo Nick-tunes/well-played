@@ -1,0 +1,4 @@
+# Cloudflare Pages headers. Always revalidate so fixes and new daily puzzles reach players
+# immediately; unchanged files still come back as a cheap 304 from the edge.
+/*
+  Cache-Control: no-cache

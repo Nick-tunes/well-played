@@ -1,5 +1,5 @@
 // Network-first service worker: fresh daily content when online, cached app when offline.
-const CACHE = 'wellplayed-v6';
+const CACHE = 'wellplayed-v7';
 const ASSETS = [
   './', 'index.html', 'css/styles.css', 'css/checkin.css', 'js/checkin.js', 'icon.svg', 'manifest.webmanifest',
   'js/core.js', 'js/progress.js', 'js/net.js', 'js/app.js', 'js/data/words.js', 'js/data/groups.js', 'js/data/tunes.js', 'js/data/daily.js',
@@ -17,7 +17,8 @@ self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
   if (e.request.url.includes('api.well-played.win')) return; // live API: always network
   e.respondWith(
-    fetch(e.request)
+    // no-cache: always revalidate with the server so new daily content and fixes show up right away.
+    fetch(e.request, { cache: 'no-cache' })
       .then((res) => {
         if (res.ok && (e.request.url.startsWith(self.location.origin) || e.request.url.includes('fonts.g'))) {
           const copy = res.clone();

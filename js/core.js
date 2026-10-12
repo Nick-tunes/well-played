@@ -110,8 +110,12 @@ window.WH = (function () {
 
   // ---------- Modal ----------
   let modalEl = null;
+  // Each open modal owns one history entry, so the phone's back button/gesture closes it
+  // instead of leaving the page. Replacing one modal with another reuses the same entry.
+  let ignorePop = false;
   WH.modal = function ({ title, body, wide, onClose } = {}) {
-    WH.closeModal();
+    const reuse = !!(modalEl && modalEl._pushed);
+    WH.closeModal({ silent: true });
     const close = () => WH.closeModal();
     const card = WH.h('div', { class: 'modal-card' + (wide ? ' wide' : ''), role: 'dialog', 'aria-modal': 'true' },
       WH.h('button', { class: 'icon-btn modal-x', 'aria-label': 'Close', onclick: close, html: WH.icons.x }),
@@ -119,18 +123,28 @@ window.WH = (function () {
       body);
     modalEl = WH.h('div', { class: 'modal', onclick: (e) => { if (e.target === modalEl) close(); } }, card);
     modalEl._onClose = onClose;
+    if (reuse) modalEl._pushed = true;
+    else { try { history.pushState({ wpModal: true }, ''); modalEl._pushed = true; } catch (e) { /* file:// */ } }
     document.body.append(modalEl);
     requestAnimationFrame(() => modalEl && modalEl.classList.add('open'));
     return { close, el: card };
   };
-  WH.closeModal = function () {
+  // silent: close without touching history (used when navigating away or replacing the modal).
+  WH.closeModal = function ({ silent = false } = {}) {
     if (!modalEl) return;
     const m = modalEl; modalEl = null;
+    if (!silent && m._pushed && history.state && history.state.wpModal) { ignorePop = true; history.back(); }
     m.classList.remove('open');
     setTimeout(() => m.remove(), 220);
     if (m._onClose) m._onClose();
   };
   WH.modalOpen = () => !!modalEl;
+  window.addEventListener('popstate', (e) => {
+    if (ignorePop) { ignorePop = false; return; }
+    if (modalEl) { modalEl._pushed = false; WH.closeModal({ silent: true }); return; }
+    // Landed on a leftover modal entry (e.g. after following a link out of a modal): skip it.
+    if (e.state && e.state.wpModal) history.back();
+  });
 
   // ---------- Sound (tiny WebAudio synth) ----------
   let ctx = null;

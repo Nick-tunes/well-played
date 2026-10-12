@@ -73,7 +73,25 @@
   }
 
   // ---------- Router ----------
+  // A small in-app history so the back arrows go *back* (like the phone's back button)
+  // rather than piling new entries on top. Deep links fall back to a sensible parent page.
+  const navStack = [];
+  let replacing = false;
+  function trackNav() {
+    const hsh = location.hash || '#/';
+    if (replacing) { navStack[navStack.length - 1] = hsh; replacing = false; return; }
+    if (navStack.length >= 2 && navStack[navStack.length - 2] === hsh) navStack.pop();
+    else if (navStack[navStack.length - 1] !== hsh) navStack.push(hsh);
+  }
+  WH.back = function (fallback = '#/') {
+    if (navStack.length > 1) { history.back(); return; }
+    replacing = true;
+    location.replace(fallback === location.hash ? '#/' : fallback);
+  };
+  const backBtn = (fallback) => h('button', { class: 'icon-btn', type: 'button', 'aria-label': 'Back', title: 'Back', html: icons.arrowLeft, onclick: () => WH.back(fallback) });
+
   function route() {
+    trackNav();
     const parts = location.hash.replace(/^#\/?/, '').split('/');
     teardown();
     if (parts[0] === 'play' && WH.gameMap[parts[1]]) {
@@ -88,7 +106,7 @@
     renderHub();
   }
   function teardown() {
-    WH.closeModal();
+    WH.closeModal({ silent: true });
     if (current && current.instance && current.instance.destroy) current.instance.destroy();
     if (current && current.cleanup) current.cleanup();
     current = null;
@@ -98,9 +116,10 @@
   const go = (hash) => { if (location.hash === hash) route(); else location.hash = hash; };
 
   // ---------- Header ----------
-  function header() {
+  function header(back) {
     const streak = P.current();
-    return h('header', { class: 'top' },
+    return h('header', { class: 'top' + (back ? ' has-back' : '') },
+      back ? backBtn('#/') : null,
       h('a', { class: 'brand', href: '#/' },
         h('span', { class: 'brand-mark', 'aria-hidden': 'true' }, h('i'), h('i'), h('i'), h('i')),
         h('span', { class: 'brand-name' }, 'Well ', h('em', null, 'Played'))),
@@ -165,7 +184,7 @@
         weekStripEl(),
         lines.map((l) => h('p', { class: 'celebrate-line' }, l)),
         out.xp ? h('span', { class: 'xp-pill' }, `+${out.xp} XP`) : null,
-        h('button', { class: 'btn primary wide', type: 'button', onclick: () => { WH.closeModal(); setTimeout(next, 240); } }, 'Continue')),
+        h('button', { class: 'btn primary wide', type: 'button', onclick: () => next() }, 'Continue')),
     });
   }
 
@@ -289,7 +308,7 @@
     const timerEl = h('span', { class: 'race-timer' }, '0.00s');
     const sub = practice ? 'Practice · unlimited' : ranked ? `Ranked #${day} · ${game.area}` : `Daily #${day} · ${game.area}`;
     const bar = h('header', { class: 'game-top area-' + AREAS[game.area] + (ranked ? ' is-ranked' : '') },
-      h('a', { class: 'icon-btn', href: ranked ? '#/ranked' : '#/', 'aria-label': 'Back', html: icons.arrowLeft }),
+      backBtn(ranked ? '#/ranked' : '#/'),
       h('div', { class: 'game-title' },
         h('h1', null, h('span', { class: 'mini-icon', html: game.icon }), game.name),
         ranked ? timerEl : h('span', { class: 'game-sub' }, sub)),
@@ -566,7 +585,7 @@
       world.append(tabs, table);
       load();
     }
-    app.replaceChildren(header(), h('main', { class: 'stats-page' },
+    app.replaceChildren(header(true), h('main', { class: 'stats-page' },
       h('div', { class: 'ranked-head' },
         h('h1', { class: 'page-title' }, 'Ranked'),
         h('p', { class: 'lede' }, 'A daily race for every game. Everyone gets the same puzzle, you get one attempt, and the clock runs from the countdown to your final move. The fastest solve wins, and accuracy breaks ties. New races every midnight.')),
@@ -601,7 +620,7 @@
   // ---------- Friends & weekly leaderboard ----------
   function renderFriends(addCode) {
     const main = h('main', { class: 'stats-page' }, h('h1', { class: 'page-title' }, 'Friends'));
-    app.replaceChildren(header(), main);
+    app.replaceChildren(header(true), main);
     if (!WH.net.enabled) {
       main.append(h('section', { class: 'panel world-off' },
         h('h2', null, 'Play with friends'),
@@ -662,7 +681,7 @@ ${location.protocol.startsWith('http') ? link : ''}`) }));
   // ---------- Mind Check-in ----------
   function renderCheckin() {
     const main = h('main', { class: 'checkin-page' });
-    app.replaceChildren(header(), main);
+    app.replaceChildren(header(true), main);
     const inst = WH.checkin.mount(main, { onExit: () => go('#/') });
     current = { game: null, instance: null, cleanup: () => inst && inst.destroy && inst.destroy() };
   }
@@ -698,7 +717,7 @@ ${location.protocol.startsWith('http') ? link : ''}`) }));
           best ? h('span', { class: 'chip', title: 'Ranked personal best' }, `⏱ ${fmtTime(best.time)}`) : h('span', { class: 'chip' }, g.area)),
         statBlock(g, s, null));
     });
-    app.replaceChildren(header(), h('main', { class: 'stats-page' },
+    app.replaceChildren(header(true), h('main', { class: 'stats-page' },
       h('h1', { class: 'page-title' }, 'Your progress'),
       h('div', { class: 'stat-tiles' },
         tile(icons.flame, P.current(), 'Day streak'), tile(icons.sparkle, P.longest(), 'Longest streak'),
