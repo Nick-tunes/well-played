@@ -2,7 +2,12 @@ name = "wellplayed-api"
 main = "src/index.js"
 compatibility_date = "2024-11-01"
 workers_dev = false
-routes = [{ pattern = "api.well-played.win", custom_domain = true }]
+routes = [
+  { pattern = "api.well-played.win", custom_domain = true },
+  # Same-origin API for the site itself: no extra DNS lookup or CORS to fail.
+  { pattern = "well-played.win/api/*", zone_name = "well-played.win" },
+  { pattern = "www.well-played.win/api/*", zone_name = "well-played.win" },
+]
 
 [[d1_databases]]
 binding = "DB"

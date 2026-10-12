@@ -72,7 +72,8 @@ const publicUser = (u) => ({ id: u.id, username: u.username, friendCode: u.frien
 
 async function route(req, env) {
   const url = new URL(req.url);
-  const p = url.pathname.replace(/\/+$/, '') || '/';
+  // Served both at api.well-played.win/<path> and well-played.win/api/<path>.
+  const p = url.pathname.replace(/^\/api(?=\/|$)/, '').replace(/\/+$/, '') || '/';
   const db = env.DB;
 
   if (p === '/' && req.method === 'GET') return json({ ok: true, service: 'well-played', day: serverDay() });

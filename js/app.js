@@ -73,8 +73,7 @@
   }
 
   // ---------- Router ----------
-  // A small in-app history so the back arrows go *back* (like the phone's back button)
-  // rather than piling new entries on top. Deep links fall back to a sensible parent page.
+  // A small mirror of the browser history, used by the ← arrows (see WH.back).
   const navStack = [];
   let replacing = false;
   function trackNav() {
@@ -83,10 +82,13 @@
     if (navStack.length >= 2 && navStack[navStack.length - 2] === hsh) navStack.pop();
     else if (navStack[navStack.length - 1] !== hsh) navStack.push(hsh);
   }
-  WH.back = function (fallback = '#/') {
-    if (navStack.length > 1) { history.back(); return; }
+  // The ← arrow always goes to its parent page (the menu, or Ranked for ranked games).
+  // If that page is the previous history entry we step back; otherwise we replace the
+  // current entry, so the phone's back button never bounces you into the game you left.
+  WH.back = function (target = '#/') {
+    if (navStack.length > 1 && navStack[navStack.length - 2] === target) { history.back(); return; }
     replacing = true;
-    location.replace(fallback === location.hash ? '#/' : fallback);
+    location.replace(target);
   };
   const backBtn = (fallback) => h('button', { class: 'icon-btn', type: 'button', 'aria-label': 'Back', title: 'Back', html: icons.arrowLeft, onclick: () => WH.back(fallback) });
 

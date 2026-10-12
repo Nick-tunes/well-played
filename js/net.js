@@ -2,7 +2,9 @@
 // Talks to the Cloudflare Worker in /worker. Everything degrades gracefully offline:
 // the app keeps working locally and syncs the next time a request succeeds.
 (function () {
-  const API = 'https://api.well-played.win';
+  // On well-played.win the API is same-origin (/api), which avoids DNS and CORS failures.
+  // Elsewhere (GitHub mirror, local dev) use the dedicated API hostname.
+  const API = /(^|\.)well-played\.win$/.test(location.hostname) ? '/api' : 'https://api.well-played.win';
   const store = WH.store;
   const acct = () => store.data.account || null;
   const weekStart = (day) => day - ((WH.dateFromDay(day).getDay() + 6) % 7);
@@ -14,7 +16,13 @@
       if (!a) throw Object.assign(new Error('Not signed in'), { status: 401 });
       headers.Authorization = `Bearer ${a.id}.${a.token}`;
     }
-    const res = await fetch(API + path, { method, headers, body: body ? JSON.stringify(body) : undefined });
+    let res;
+    try {
+      res = await fetch(API + path, { method, headers, body: body ? JSON.stringify(body) : undefined });
+    } catch (e) {
+      // Safari says "Load failed", Chrome "Failed to fetch": both mean the request never arrived.
+      throw Object.assign(new Error('Couldn’t reach the Well Played server. Check your connection and try again.'), { status: 0, network: true });
+    }
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw Object.assign(new Error(data.error || `Request failed (${res.status})`), { status: res.status });
     return data;
