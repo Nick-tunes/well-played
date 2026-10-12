@@ -62,7 +62,7 @@ window.WH = (function () {
   // ---------- Storage ----------
   const KEY = 'wellplayed:v1';
   const defaults = () => ({
-    settings: { theme: 'system', colorblind: false, sound: true, reducedMotion: false },
+    settings: { theme: 'system', colorblind: false, sound: true, soundInSilent: false, reducedMotion: false, railCollapsed: false },
     seen: {}, progress: {}, results: {}, stats: {}, log: [],
   });
   let data;
@@ -113,15 +113,17 @@ window.WH = (function () {
   // Each open modal owns one history entry, so the phone's back button/gesture closes it
   // instead of leaving the page. Replacing one modal with another reuses the same entry.
   let ignorePop = false;
-  WH.modal = function ({ title, body, wide, onClose } = {}) {
+  // variant 'drawer' renders the body as a slide-out side panel instead of a centred card.
+  WH.modal = function ({ title, body, wide, onClose, variant } = {}) {
     const reuse = !!(modalEl && modalEl._pushed);
     WH.closeModal({ silent: true });
     const close = () => WH.closeModal();
-    const card = WH.h('div', { class: 'modal-card' + (wide ? ' wide' : ''), role: 'dialog', 'aria-modal': 'true' },
-      WH.h('button', { class: 'icon-btn modal-x', 'aria-label': 'Close', onclick: close, html: WH.icons.x }),
+    const drawer = variant === 'drawer';
+    const card = WH.h('div', { class: drawer ? 'drawer-card' : 'modal-card' + (wide ? ' wide' : ''), role: 'dialog', 'aria-modal': 'true', 'aria-label': drawer ? 'Menu' : null },
+      drawer ? null : WH.h('button', { class: 'icon-btn modal-x', 'aria-label': 'Close', onclick: close, html: WH.icons.x }),
       title ? WH.h('h2', { class: 'modal-title' }, title) : null,
       body);
-    modalEl = WH.h('div', { class: 'modal', onclick: (e) => { if (e.target === modalEl) close(); } }, card);
+    modalEl = WH.h('div', { class: 'modal' + (drawer ? ' drawer' : ''), onclick: (e) => { if (e.target === modalEl) close(); } }, card);
     modalEl._onClose = onClose;
     if (reuse) modalEl._pushed = true;
     else { try { history.pushState({ wpModal: true }, ''); modalEl._pushed = true; } catch (e) { /* file:// */ } }
@@ -148,11 +150,30 @@ window.WH = (function () {
 
   // ---------- Sound (tiny WebAudio synth) ----------
   let ctx = null;
+  // iPhones mute web audio when the ring/silent switch is on. The Audio Session API lets the
+  // player opt in to hearing sounds anyway ('playback'); 'ambient' respects the switch and
+  // mixes politely with music.
+  WH.applyAudioSession = () => {
+    try { if (navigator.audioSession) navigator.audioSession.type = data.settings.soundInSilent ? 'playback' : 'ambient'; } catch (e) {}
+  };
   function ac() {
-    if (!ctx) { try { ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return null; } }
-    if (ctx.state === 'suspended') ctx.resume();
+    if (!ctx) {
+      WH.applyAudioSession();
+      try { ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return null; }
+    }
+    if (ctx.state === 'suspended' || ctx.state === 'interrupted') ctx.resume();
     return ctx;
   }
+  // Browsers only allow audio after a user gesture: start (and keep re-waking) the audio
+  // engine on taps, playing a silent blip so iOS fully unlocks it.
+  function unlockAudio() {
+    if (!data.settings.sound) return;
+    const a = ac(); if (!a) return;
+    try { const b = a.createBuffer(1, 1, 22050), s = a.createBufferSource(); s.buffer = b; s.connect(a.destination); s.start(0); } catch (e) {}
+  }
+  ['pointerdown', 'touchend', 'keydown'].forEach((ev) => document.addEventListener(ev, unlockAudio, { passive: true, capture: true }));
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && ctx && ctx.state !== 'running') ctx.resume(); });
+  WH.audioContext = ac;
   function tone(freq, dur = 0.12, type = 'sine', vol = 0.06, when = 0) {
     if (!data.settings.sound) return;
     const a = ac(); if (!a) return;
@@ -388,6 +409,10 @@ window.WH = (function () {
     check: svg('<path d="M20 6L9 17l-5-5"/>'),
     users: svg('<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.8c1.9.7 3.2 2.5 3.6 5.2"/>'),
     copy: svg('<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/>'),
+    menu: svg('<path d="M4 7h16M4 12h16M4 17h10"/>'),
+    home: svg('<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>'),
+    grid: svg('<rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/>'),
+    chevron: svg('<path d="M9 6l6 6-6 6"/>'),
     trophy: svg('<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/>'),
     sparkle: svg('<path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z"/><path d="M19 17l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/>'),
   };

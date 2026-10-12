@@ -19,7 +19,7 @@
   // A soft, piano-like voice. Tune always plays when asked: listening is the game.
   let ac = null;
   function audio() {
-    if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)();
+    if (!ac) { WH.applyAudioSession(); ac = new (window.AudioContext || window.webkitAudioContext)(); }
     if (ac.state === 'suspended') ac.resume();
     return ac;
   }

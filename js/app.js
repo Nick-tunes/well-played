@@ -33,6 +33,7 @@
     root.toggleAttribute('data-rm', !!s.reducedMotion);
     const dark = s.theme === 'dark' || (s.theme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
     document.querySelector('meta[name=theme-color]').setAttribute('content', dark ? '#16151b' : '#f5f0e8');
+    if (WH.applyAudioSession) WH.applyAudioSession();
   }
 
   // ---------- Stats helpers ----------
@@ -118,21 +119,89 @@
   const go = (hash) => { if (location.hash === hash) route(); else location.hash = hash; };
 
   // ---------- Header ----------
-  function header(back) {
+  function header() {
     const streak = P.current();
-    return h('header', { class: 'top' + (back ? ' has-back' : '') },
-      back ? backBtn('#/') : null,
+    return h('header', { class: 'top' },
+      h('button', { class: 'icon-btn menu-btn', type: 'button', 'aria-label': 'Open menu', title: 'Menu', onclick: openDrawer, html: icons.menu }),
       h('a', { class: 'brand', href: '#/' },
         h('span', { class: 'brand-mark', 'aria-hidden': 'true' }, h('i'), h('i'), h('i'), h('i')),
         h('span', { class: 'brand-name' }, 'Well ', h('em', null, 'Played'))),
       h('nav', { class: 'top-actions' },
-        h('button', { class: 'streak-chip' + (P.activeToday() ? ' lit' : streak ? ' warm' : ''), type: 'button', title: 'Your streak', onclick: () => showStreakSheet(),
-          html: `${icons.flame}<b>${streak}</b>` }),
-        h('a', { class: 'icon-btn', href: '#/friends', 'aria-label': 'Friends', title: 'Friends & leaderboard', html: icons.users }),
-        h('a', { class: 'icon-btn', href: '#/ranked', 'aria-label': 'Ranked', title: 'Ranked', html: icons.trophy }),
-        h('a', { class: 'icon-btn', href: '#/stats', 'aria-label': 'Statistics', title: 'Statistics', html: icons.chart }),
-        h('button', { class: 'icon-btn', type: 'button', 'aria-label': 'Settings', title: 'Settings', onclick: openSettings, html: icons.gear })));
+        h('button', { class: 'streak-chip' + (P.activeToday() ? ' lit' : streak ? ' warm' : ''), type: 'button', title: 'Your streak', 'aria-label': `${streak} day streak`, onclick: () => showStreakSheet(),
+          html: `${icons.flame}<b>${streak}</b>` })));
   }
+
+  // ---------- Side menu: a slide-out drawer on phones, a collapsible rail on wide screens ----------
+  let navGamesOpen = false;
+  function navPanel(mode) {
+    const day = WH.today();
+    const here = location.hash || '#/';
+    const list = games();
+    const done = list.filter((g) => resultFor(day, g.id)).length;
+    const raced = list.filter((g) => P.rankedFor(day, g.id)).length;
+    const ck = WH.checkin ? WH.checkin.summary() : null;
+    const ckBadge = !ck ? '' : ck.sessions === 0 ? 'New' : ck.nextDue != null && ck.nextDue <= day ? 'Due' : '';
+    const isActive = (href) => (href === '#/' ? here === '#/' || here === '' || here === '#' : here.startsWith(href));
+    const closeIfHere = (href) => (e) => { if (isActive(href) && href === here) { e.preventDefault(); WH.closeModal(); } };
+    const item = (href, icon, label, badge, hot) => h('a', { class: 'nav-item' + (isActive(href) ? ' active' : ''), href, title: label, onclick: closeIfHere(href) },
+      h('span', { class: 'nav-ico', html: icon }), h('span', { class: 'nav-label' }, label),
+      badge ? h('small', { class: 'nav-badge' + (hot ? ' hot' : '') }, badge) : null);
+
+    const acct = WH.net.account && WH.net.account();
+    const profile = acct
+      ? h('a', { class: 'nav-profile', href: '#/friends' },
+        h('span', { class: 'avatar' }, acct.username[0].toUpperCase()),
+        h('span', { class: 'nav-label' }, h('b', null, acct.username), h('small', null, `${P.current()}-day streak · ${(data().xp && data().xp.total) || 0} XP`)))
+      : h('button', { class: 'nav-profile', type: 'button', onclick: () => signUp(() => route()) },
+        h('span', { class: 'avatar ghost', html: icons.users }),
+        h('span', { class: 'nav-label' }, h('b', null, 'Play online'), h('small', null, 'Pick a username for leaderboards')));
+
+    const sub = h('div', { class: 'nav-sub' + (navGamesOpen ? ' open' : '') }, list.map((g) => {
+      const r = resultFor(day, g.id), prog = data().progress[`${g.id}:${day}`];
+      return h('a', { class: 'nav-game area-' + AREAS[g.area] + (here.startsWith(`#/play/${g.id}`) ? ' active' : ''), href: `#/play/${g.id}` },
+        h('i'), h('span', null, g.name), h('small', { class: r ? 'done' : prog ? 'prog' : '' }, r ? '✓' : prog ? '•••' : ''));
+    }));
+    const gamesBtn = h('button', { class: 'nav-item', type: 'button', 'aria-expanded': String(navGamesOpen), title: 'Daily games',
+      onclick: () => {
+        navGamesOpen = !navGamesOpen;
+        sub.classList.toggle('open', navGamesOpen);
+        gamesBtn.setAttribute('aria-expanded', String(navGamesOpen));
+        if (mode === 'rail' && data().settings.railCollapsed) { data().settings.railCollapsed = false; store.save(); panel.classList.remove('collapsed'); }
+      } },
+      h('span', { class: 'nav-ico', html: icons.grid }), h('span', { class: 'nav-label' }, 'Daily games'),
+      h('small', { class: 'nav-badge' }, `${done}/${list.length}`), h('span', { class: 'nav-chev', html: icons.chevron }));
+
+    const panel = h('nav', { class: 'nav-panel ' + mode + (mode === 'rail' && data().settings.railCollapsed ? ' collapsed' : ''), 'aria-label': 'Main menu' },
+      h('div', { class: 'nav-top' },
+        mode === 'rail'
+          ? h('a', { class: 'brand', href: '#/' }, h('span', { class: 'brand-mark', 'aria-hidden': 'true' }, h('i'), h('i'), h('i'), h('i')),
+            h('span', { class: 'brand-name nav-label' }, 'Well ', h('em', null, 'Played')))
+          : null,
+        profile,
+        mode === 'drawer' ? h('button', { class: 'icon-btn', type: 'button', 'aria-label': 'Close menu', onclick: () => WH.closeModal(), html: icons.x }) : null),
+      h('div', { class: 'nav-items' },
+        item('#/', icons.home, 'Home'),
+        gamesBtn, sub,
+        item('#/ranked', icons.trophy, 'Ranked', raced ? `${raced}/${list.length}` : ''),
+        item('#/friends', icons.users, 'Friends'),
+        item('#/checkin', icons.heart, 'Mind Check-in', ckBadge, true),
+        item('#/stats', icons.chart, 'Stats'),
+        h('button', { class: 'nav-item', type: 'button', title: 'Settings', onclick: () => openSettings() },
+          h('span', { class: 'nav-ico', html: icons.gear }), h('span', { class: 'nav-label' }, 'Settings'))),
+      h('div', { class: 'nav-foot' },
+        h('span', { class: 'nav-label' }, 'New puzzles in ', h('b', { class: 'nav-countdown' }, WH.fmtCountdown(WH.msToMidnight()))),
+        mode === 'rail' ? h('button', { class: 'nav-collapse', type: 'button', 'aria-label': data().settings.railCollapsed ? 'Expand menu' : 'Collapse menu',
+          onclick: (e) => {
+            const s = data().settings; s.railCollapsed = !s.railCollapsed; store.save();
+            panel.classList.toggle('collapsed', s.railCollapsed);
+            e.currentTarget.setAttribute('aria-label', s.railCollapsed ? 'Expand menu' : 'Collapse menu');
+          }, html: `${icons.arrowLeft}<span class="nav-label">Collapse</span>` }) : null));
+    return panel;
+  }
+  function openDrawer() { WH.modal({ variant: 'drawer', body: navPanel('drawer') }); }
+  // Every non-game page: rail (wide screens) + header + content.
+  const shell = (...content) => h('div', { class: 'shell' }, navPanel('rail'), h('div', { class: 'shell-main' }, header(), ...content));
+  setInterval(() => document.querySelectorAll('.nav-countdown').forEach((el) => { el.textContent = WH.fmtCountdown(WH.msToMidnight()); }), 1000);
 
   // ---------- Streak UI ----------
   function weekStripEl(today = WH.today()) {
@@ -205,77 +274,58 @@
     const goal = P.goalProgress();
     const daily = WH.daily(day) || {};
     const next = list.find((g) => !resultFor(day, g.id));
-    const dateStr = new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+    const weekday = new Date().toLocaleDateString(undefined, { weekday: 'long' });
     const countdown = h('b', null, WH.fmtCountdown(WH.msToMidnight()));
     const rep = P.repair();
-    const rankedDone = list.filter((g) => P.rankedFor(day, g.id)).length;
 
     const banner = rep ? h('div', { class: 'banner repair', html: `${icons.flame}<span><b>Pick up where you left off.</b> Play ${P.REPAIR_NEEDED - rep.progress} puzzle${P.REPAIR_NEEDED - rep.progress === 1 ? '' : 's'} by ${dayName(rep.until)} to restore your ${rep.prev}-day streak.</span>` })
       : P.atRisk() ? h('div', { class: 'banner risk', html: `${icons.flame}<span>Your ${streak}-day streak is still going. Play a puzzle today, or let a rest day cover it.</span>` })
         : null;
 
-    const hero = h('section', { class: 'hero' },
-      h('div', { class: 'hero-text' },
-        h('p', { class: 'eyebrow' }, `${dateStr} · Daily #${day}`),
-        h('h1', null, greeting(), greeting().endsWith('?') ? null : h('span', { class: 'dot' }, '.')),
-        h('p', { class: 'lede' }, done === list.length
-          ? 'Workout complete. Your mind thanks you. See you tomorrow.'
-          : done ? `Nice progress: ${done} of ${list.length} daily puzzles done.` : 'A few minutes of play to keep your mind bright.'),
-        daily.theme ? h('p', { class: 'theme-chip', html: `${icons.sparkle}<span>Today’s theme: <b>${esc(daily.theme)}</b></span>` }) : null,
-        h('div', { class: 'hero-cta' },
-          next ? h('a', { class: 'btn primary', href: `#/play/${next.id}`, html: `${icons.play}<span>${done ? 'Continue' : 'Start'} with ${next.name}</span>` }) : null,
-          h('span', { class: 'hero-meta' }, 'New puzzles in ', countdown))),
-      h('div', { class: 'hero-side' },
-        goalRing(goal),
-        h('button', { class: 'streak' + (streak ? ' on' : '') + (P.activeToday() ? ' lit' : ''), type: 'button', onclick: showStreakSheet },
-          h('span', { html: icons.flame }), h('b', null, streak), h('span', null, 'day streak'),
-          P.freezes() ? h('span', { class: 'freeze-count', title: 'Streak freezes ready' }, `❄${P.freezes()}`) : null),
-        weekStripEl()));
+    const intro = h('div', { class: 'hub-intro' },
+      h('p', { class: 'eyebrow' }, [weekday, `Daily #${day}`, daily.theme].filter(Boolean).join(' · ')),
+      h('h1', null, greeting()));
 
-    const cards = h('section', { class: 'cards' }, list.map((g, i) => {
-      const res = resultFor(day, g.id);
-      const prog = data().progress[`${g.id}:${day}`];
-      const status = res ? h('span', { class: 'status done' + (res.won ? '' : ' soft'), html: `${icons.check}<span>${esc(res.label)}</span>` })
-        : prog ? h('span', { class: 'status prog' }, 'In progress') : h('span', { class: 'status' }, 'Play');
-      return h('a', { class: 'card area-' + AREAS[g.area] + (res ? ' is-done' : ''), href: `#/play/${g.id}`, style: { '--i': i } },
-        h('div', { class: 'card-icon', html: g.icon }),
-        h('div', { class: 'card-body' },
-          h('div', { class: 'card-head' }, h('h3', null, g.name), h('span', { class: 'chip' }, g.area)),
-          h('p', null, g.tagline)),
-        h('div', { class: 'card-foot' }, status,
-          h('span', { class: 'card-links' },
-            h('button', { class: 'link-btn', type: 'button', onclick: (e) => { e.preventDefault(); go(`#/play/${g.id}/ranked`); } }, 'Ranked'),
-            h('button', { class: 'link-btn', type: 'button', onclick: (e) => { e.preventDefault(); go(`#/play/${g.id}/practice`); } }, 'Practice'))));
-    }));
+    const statusOf = (g) => {
+      const r = resultFor(day, g.id);
+      if (r) return { cls: 'done' + (r.won ? '' : ' soft'), text: r.label, seg: 'done' };
+      if (data().progress[`${g.id}:${day}`]) return { cls: 'prog', text: 'In progress', seg: 'prog' };
+      return { cls: '', text: 'Play', seg: '' };
+    };
 
-    const ranked = h('a', { class: 'panel ranked-promo', href: '#/ranked' },
-      h('div', { class: 'tip-icon', html: icons.trophy }),
-      h('div', null, h('h2', null, 'Ranked: race the clock'),
-        h('p', null, `Same puzzle for everyone, one attempt, timed to the hundredth. ${rankedDone ? `You’ve raced ${rankedDone} of ${list.length} today.` : 'How fast are you today?'}`)),
-      h('span', { class: 'arrow' }, '→'));
+    const today = h('section', { class: 'today-card', 'aria-label': 'Today’s progress' },
+      h('div', { class: 'today-head' },
+        h('b', null, done === list.length ? 'Workout complete!' : 'Today’s workout'),
+        h('span', null, h('b', null, done), ` of ${list.length} · `, h('button', { class: 'link-btn xp-link', type: 'button', onclick: openSettings, title: 'Change daily goal' }, `${goal.earned}/${goal.target} XP`))),
+      h('div', { class: 'segments', 'aria-hidden': 'true' }, list.map((g) => h('i', { class: statusOf(g).seg }))),
+      h('button', { class: 'week-btn', type: 'button', onclick: showStreakSheet, 'aria-label': `${streak} day streak, see details` }, weekStripEl()));
 
-    const counts = areaCounts(7);
-    const maxC = Math.max(3, ...Object.values(counts));
-    const balance = h('section', { class: 'panel balance' },
-      h('div', { class: 'panel-head' }, h('h2', null, 'This week’s balance'), h('a', { href: '#/stats', class: 'link' }, 'All stats →')),
-      h('div', { class: 'bars' }, Object.entries(counts).map(([a, n]) =>
-        h('div', { class: 'bar-col area-' + AREAS[a], title: `${a}: ${n}` },
-          h('div', { class: 'bar-track' }, h('i', { style: { height: `${(n / maxC) * 100}%` } })),
-          h('b', null, n), h('span', null, a)))),
-      h('p', { class: 'muted small' }, balanceAdvice(counts)));
+    const upNext = next
+      ? h('a', { class: 'up-next area-' + AREAS[next.area], href: `#/play/${next.id}` },
+        h('span', { class: 'card-icon', html: next.icon }),
+        h('span', { class: 'up-text' }, h('small', null, done ? 'Up next' : 'Start here'), h('b', null, next.name)),
+        h('span', { class: 'up-go' }, data().progress[`${next.id}:${day}`] ? 'Continue' : 'Play'))
+      : h('a', { class: 'up-next done', href: '#/ranked' },
+        h('span', { class: 'card-icon', html: icons.trophy }),
+        h('span', { class: 'up-text' }, h('small', null, 'All daily puzzles done'), h('b', null, 'Race the clock in Ranked')),
+        h('span', { class: 'up-go' }, 'Go'));
+
+    const gameList = h('section', { class: 'games-sec', 'aria-label': 'Daily games' },
+      h('div', { class: 'sec-head' }, h('h2', null, 'Daily games'), h('span', { class: 'muted small' }, 'New in ', countdown)),
+      h('div', { class: 'game-list' }, list.map((g, i) => {
+        const st = statusOf(g);
+        return h('a', { class: 'game-row area-' + AREAS[g.area], href: `#/play/${g.id}`, style: { '--i': i } },
+          h('span', { class: 'card-icon', html: g.icon }),
+          h('span', { class: 'gr-text' }, h('b', null, g.name), h('small', null, g.area)),
+          h('span', { class: 'gr-pill ' + st.cls }, st.cls.startsWith('done') ? h('span', { html: icons.check }) : null, st.text));
+      })));
 
     const note = daily.note || TIPS[day % TIPS.length];
-    const tip = h('section', { class: 'panel tip' },
-      h('div', { class: 'tip-icon', html: icons.bulb }),
-      h('div', null, h('h2', null, daily.note ? 'Today’s note' : 'Mind tip'), h('p', null, note)));
+    const tip = h('section', { class: 'hub-note' },
+      h('span', { class: 'tip-icon', html: icons.bulb }),
+      h('p', null, h('b', null, daily.note ? 'Today’s note. ' : 'Mind tip. '), note));
 
-    const ck = WH.checkin ? WH.checkin.summary() : null;
-    const checkin = ck ? h('a', { class: 'panel ranked-promo checkin-promo', href: '#/checkin' },
-      h('div', { class: 'tip-icon', html: icons.heart }),
-      h('div', null, h('h2', null, 'Mind Check-in'),
-        h('p', null, ck.sessions ? ck.label : 'A 5-minute set of memory, speed and focus activities that tracks your own trends over time.')),
-      h('span', { class: 'arrow' }, '→')) : null;
-    app.replaceChildren(header(), h('main', { class: 'hub' }, banner, hero, h('div', { class: 'promo-row' }, ranked, checkin), cards, h('div', { class: 'hub-lower' }, balance, tip)));
+    app.replaceChildren(shell(h('main', { class: 'hub hub2' }, banner, intro, h('div', { class: 'hub-top' }, today, upNext), gameList, tip)));
     for (const n of P.takeNotices()) {
       if (n.type === 'rest') WH.toast(`A rest day covered ${dayName(n.day)}. Your streak is safe.`, 3200);
       if (n.type === 'freeze') WH.toast(`A streak freeze covered ${dayName(n.day)} ❄`, 3200);
@@ -587,12 +637,12 @@
       world.append(tabs, table);
       load();
     }
-    app.replaceChildren(header(true), h('main', { class: 'stats-page' },
+    app.replaceChildren(shell(h('main', { class: 'stats-page' },
       h('div', { class: 'ranked-head' },
         h('h1', { class: 'page-title' }, 'Ranked'),
         h('p', { class: 'lede' }, 'A daily race for every game. Everyone gets the same puzzle, you get one attempt, and the clock runs from the countdown to your final move. The fastest solve wins, and accuracy breaks ties. New races every midnight.')),
       h('div', { class: 'rank-list' }, rows),
-      world));
+      world)));
   }
 
   const boardRow = (rank, name, main, sub, you) => h('div', { class: 'lb-row' + (you ? ' you' : '') + (rank <= 3 ? ' top' + rank : '') },
@@ -622,7 +672,7 @@
   // ---------- Friends & weekly leaderboard ----------
   function renderFriends(addCode) {
     const main = h('main', { class: 'stats-page' }, h('h1', { class: 'page-title' }, 'Friends'));
-    app.replaceChildren(header(true), main);
+    app.replaceChildren(shell(main));
     if (!WH.net.enabled) {
       main.append(h('section', { class: 'panel world-off' },
         h('h2', null, 'Play with friends'),
@@ -683,7 +733,7 @@ ${location.protocol.startsWith('http') ? link : ''}`) }));
   // ---------- Mind Check-in ----------
   function renderCheckin() {
     const main = h('main', { class: 'checkin-page' });
-    app.replaceChildren(header(true), main);
+    app.replaceChildren(shell(main));
     const inst = WH.checkin.mount(main, { onExit: () => go('#/') });
     current = { game: null, instance: null, cleanup: () => inst && inst.destroy && inst.destroy() };
   }
@@ -719,7 +769,7 @@ ${location.protocol.startsWith('http') ? link : ''}`) }));
           best ? h('span', { class: 'chip', title: 'Ranked personal best' }, `⏱ ${fmtTime(best.time)}`) : h('span', { class: 'chip' }, g.area)),
         statBlock(g, s, null));
     });
-    app.replaceChildren(header(true), h('main', { class: 'stats-page' },
+    app.replaceChildren(shell(h('main', { class: 'stats-page' },
       h('h1', { class: 'page-title' }, 'Your progress'),
       h('div', { class: 'stat-tiles' },
         tile(icons.flame, P.current(), 'Day streak'), tile(icons.sparkle, P.longest(), 'Longest streak'),
@@ -732,7 +782,7 @@ ${location.protocol.startsWith('http') ? link : ''}`) }));
           h('div', { class: 'hbars' }, Object.entries(counts).map(([a, n]) =>
             h('div', { class: 'hbar area-' + AREAS[a] }, h('span', null, a), h('div', { class: 'hbar-track' }, h('i', { style: { width: `${(n / maxC) * 100}%` } })), h('b', null, n)))))),
       h('h2', { class: 'section-title' }, 'By game'),
-      h('div', { class: 'stat-cards' }, gameCards)));
+      h('div', { class: 'stat-cards' }, gameCards))));
   }
   const tile = (icon, v, l) => h('div', { class: 'stat-tile' }, h('span', { html: icon }), h('b', null, v), h('small', null, l));
 
@@ -765,6 +815,7 @@ ${location.protocol.startsWith('http') ? link : ''}`) }));
         h('div', { class: 'setting' }, h('span', null, h('b', null, 'Theme'), h('small', null, 'Match your device or pick one')), theme),
         toggle('colorblind', 'Colour-blind mode', 'High-contrast orange and blue tiles'),
         toggle('sound', 'Sound', 'Soft clicks, chimes and Echo notes'),
+        toggle('soundInSilent', 'Play in silent mode', 'iPhone: hear sounds even with the ring/silent switch on (may pause your music)'),
         toggle('reducedMotion', 'Reduce motion', 'Calmer animations, no confetti'),
         h('div', { class: 'setting' }, h('span', null, h('b', null, 'Daily puzzles'),
           h('small', null, through ? `Hand-curated puzzles ready through ${new Date(through + 'T12:00').toLocaleDateString(undefined, { month: 'long', day: 'numeric' })}.` : 'Generated fresh each day.'))),
