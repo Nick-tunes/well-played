@@ -6,10 +6,18 @@
   <title>Well Played</title>
   <meta name="description" content="Daily word and puzzle games for a healthy mind." />
   <meta name="apple-mobile-web-app-title" content="Well Played" />
-  <meta name="theme-color" content="#f5f0e8" />
+  <meta name="theme-color" content="#f5f0e8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15141a" media="(prefers-color-scheme: dark)" />
+  <!-- Installed-app (home screen) behaviour -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="application-name" content="Well Played" />
+  <meta name="format-detection" content="telephone=no" />
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="apple-touch-icon" href="icon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet" />
@@ -25,6 +33,7 @@
   <script src="js/core.js"></script>
   <script src="js/data/cosmetics.js"></script>
   <script src="js/avatars.js"></script>
+  <script src="js/install.js"></script>
   <script src="js/progress.js"></script>
   <script src="js/net.js"></script>
   <script src="js/data/words.js"></script>

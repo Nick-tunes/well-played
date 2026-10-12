@@ -969,3 +969,28 @@ span.profile-av { cursor: default; }
 .ed-lock { position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; border-radius: 50%; background: var(--ink); color: var(--bg); display: grid; place-items: center; }
 .ed-lock svg { width: 13px; height: 13px; }
 .ed-title-opt { font-weight: 700; padding: 8px 4px; }
+
+/* ================= Installed app: notch & home-bar safe areas ================= */
+.top { padding-top: max(18px, env(safe-area-inset-top)); padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
+.hub, .stats-page, .checkin-page { padding-bottom: max(60px, calc(env(safe-area-inset-bottom) + 24px)); }
+#toasts { top: max(76px, calc(env(safe-area-inset-top) + 60px)); }
+@media (display-mode: standalone) {
+  body { overscroll-behavior-y: none; }
+}
+@media (max-width: 600px) { .top { padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); } }
+
+/* ================= Install & update ================= */
+.install-card { display: flex; align-items: center; gap: 12px; padding: 12px 12px 12px 14px; border-radius: 18px; background: linear-gradient(120deg, var(--surface), color-mix(in srgb, var(--surface) 84%, var(--accent))); border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line)); }
+.install-card img { border-radius: 11px; flex: none; }
+.install-text { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.install-text small { color: var(--muted); font-size: .82rem; }
+.install-card .btn { padding: .55rem 1rem; }
+.install-steps { list-style: none; padding: 0; margin: 14px 0; display: flex; flex-direction: column; gap: 12px; }
+.install-steps li { display: flex; gap: 12px; align-items: flex-start; color: var(--ink-2); }
+.install-steps b { color: var(--ink); }
+.step-n { flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); font-weight: 800; font-size: .85rem; }
+.update-bar { position: fixed; left: 50%; bottom: max(16px, env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 65; display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 16px; border-radius: 16px; background: var(--ink); color: var(--bg); box-shadow: var(--shadow-lg); font-weight: 600; font-size: .92rem; width: max-content; max-width: calc(100vw - 32px); animation: toast-in .3s var(--ease); }
+.update-bar .btn.primary { background: var(--bg); color: var(--ink); padding: .5rem .9rem; }
+.update-bar .icon-btn { color: var(--bg); width: 34px; height: 34px; }
+.recovery-code { display: block; padding: 14px; border-radius: 12px; background: var(--surface-2); border: 1px dashed var(--line-2); font-size: .95rem; word-break: break-all; user-select: all; -webkit-user-select: all; }
+.link-btn.center { align-self: center; }

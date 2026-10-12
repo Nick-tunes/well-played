@@ -115,7 +115,8 @@
         h('div', { class: 'ed-head' }, preview, titleEl),
         tabsEl, grid,
         h('button', { class: 'btn primary wide', type: 'button', onclick: () => {
-          Object.assign(prof(), draft); store.save();
+          Object.assign(prof(), draft, { updated: Date.now() }); store.save();
+          if (WH.net.queueStatePush) WH.net.queueStatePush();
           if (WH.net.enabled) WH.net.syncProfile().catch(() => {});
           WH.closeModal(); WH.toast('Looking good!'); onSave && onSave();
         } }, 'Save')),

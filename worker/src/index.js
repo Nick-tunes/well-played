@@ -24,7 +24,7 @@ export default {
     const allowed = (env.ALLOWED_ORIGINS || '').split(',').map((s) => s.trim());
     const cors = {
       'Access-Control-Allow-Origin': allowed.includes(origin) ? origin : allowed[0] || '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       'Access-Control-Max-Age': '86400',
       Vary: 'Origin',
@@ -153,6 +153,23 @@ async function route(req, env) {
         .bind(streak, longest, daysPlayed, day, me.id, me.id),
     ]);
     return json({ ok: true });
+  }
+
+  // ---- Progress sync (cross-device backup) ----
+  if (p === '/state' && req.method === 'GET') {
+    const row = await db.prepare('SELECT blob, rev FROM states WHERE user_id = ?').bind(me.id).first();
+    return json(row ? { blob: JSON.parse(row.blob), rev: row.rev } : { blob: null, rev: 0 });
+  }
+  if (p === '/state' && req.method === 'PUT') {
+    const text = await req.text();
+    if (text.length > 400_000) fail(413, 'Progress backup is too large');
+    let b; try { b = JSON.parse(text); } catch { fail(400, 'Invalid JSON'); }
+    if (!b || typeof b.blob !== 'object' || b.blob === null || 'checkin' in b.blob) fail(400, 'Bad backup');
+    const rev = Math.floor(Number(b.rev)) || Date.now();
+    await db.prepare(`INSERT INTO states (user_id, blob, rev, updated) VALUES (?, ?, ?, ?)
+      ON CONFLICT (user_id) DO UPDATE SET blob = excluded.blob, rev = excluded.rev, updated = excluded.updated`)
+      .bind(me.id, JSON.stringify(b.blob), rev, Date.now()).run();
+    return json({ ok: true, rev });
   }
 
   // ---- Profiles ----

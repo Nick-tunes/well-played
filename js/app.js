@@ -32,7 +32,12 @@
     root.toggleAttribute('data-cb', !!s.colorblind);
     root.toggleAttribute('data-rm', !!s.reducedMotion);
     const dark = s.theme === 'dark' || (s.theme === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
-    document.querySelector('meta[name=theme-color]').setAttribute('content', dark ? '#16151b' : '#f5f0e8');
+    // Status-bar colour: follow the system unless the player picked a theme.
+    const metas = document.querySelectorAll('meta[name=theme-color]');
+    metas.forEach((m) => {
+      const isDarkMeta = (m.getAttribute('media') || '').includes('dark');
+      m.setAttribute('content', s.theme === 'system' ? (isDarkMeta ? '#15141a' : '#f5f0e8') : (dark ? '#15141a' : '#f5f0e8'));
+    });
     if (WH.applyAudioSession) WH.applyAudioSession();
   }
 
@@ -69,7 +74,7 @@
     }
     const outcome = P.recordActivity(mode, result);
     store.save();
-    if (WH.net.enabled) WH.net.syncProfile().catch(() => {});
+    if (WH.net.enabled) { WH.net.syncProfile().catch(() => {}); WH.net.queueStatePush(); }
     if (WH.profile) setTimeout(() => WH.profile.announce(WH.profile.check()), 2400); // after the result appears
     return outcome;
   }
@@ -188,7 +193,11 @@
         item('#/checkin', icons.heart, 'Mind Check-in', ckBadge, true),
         item('#/stats', icons.chart, 'Stats'),
         h('button', { class: 'nav-item', type: 'button', title: 'Settings', onclick: () => openSettings() },
-          h('span', { class: 'nav-ico', html: icons.gear }), h('span', { class: 'nav-label' }, 'Settings'))),
+          h('span', { class: 'nav-ico', html: icons.gear }), h('span', { class: 'nav-label' }, 'Settings')),
+        WH.install && WH.install.canInstall()
+          ? h('button', { class: 'nav-item', type: 'button', title: 'Install app', onclick: () => WH.install.prompt() },
+            h('span', { class: 'nav-ico', html: icons.share }), h('span', { class: 'nav-label' }, 'Install app'))
+          : null),
       h('div', { class: 'nav-foot' },
         h('span', { class: 'nav-label' }, 'New puzzles in ', h('b', { class: 'nav-countdown' }, WH.fmtCountdown(WH.msToMidnight()))),
         mode === 'rail' ? h('button', { class: 'nav-collapse', type: 'button', 'aria-label': data().settings.railCollapsed ? 'Expand menu' : 'Collapse menu',
@@ -326,7 +335,14 @@
       h('span', { class: 'tip-icon', html: icons.bulb }),
       h('p', null, h('b', null, daily.note ? 'Today’s note. ' : 'Mind tip. '), note));
 
-    app.replaceChildren(shell(h('main', { class: 'hub hub2' }, banner, intro, h('div', { class: 'hub-top' }, today, upNext), gameList, tip)));
+    const install = WH.install && WH.install.canInstall() && !data().installDismissed
+      ? h('div', { class: 'install-card' },
+        h('img', { src: 'icons/icon-192.png', alt: '', width: 44, height: 44 }),
+        h('div', { class: 'install-text' }, h('b', null, 'Get the app'), h('small', null, 'Play from your home screen, full-screen and offline.')),
+        h('button', { class: 'btn primary', type: 'button', onclick: () => WH.install.prompt() }, 'Install'),
+        h('button', { class: 'icon-btn', type: 'button', 'aria-label': 'Not now', onclick: (e) => { data().installDismissed = true; store.save(); e.currentTarget.parentElement.remove(); }, html: icons.x }))
+      : null;
+    app.replaceChildren(shell(h('main', { class: 'hub hub2' }, banner, intro, h('div', { class: 'hub-top' }, today, upNext), install, gameList, tip)));
     for (const n of P.takeNotices()) {
       if (n.type === 'rest') WH.toast(`A rest day covered ${dayName(n.day)}. Your streak is safe.`, 3200);
       if (n.type === 'freeze') WH.toast(`A streak freeze covered ${dayName(n.day)} ❄`, 3200);
@@ -667,6 +683,7 @@
     } },
       h('p', { class: 'muted' }, 'Pick a username to join the world leaderboards and play with friends. No email or password needed.'),
       input, err, btn,
+      h('button', { class: 'link-btn center', type: 'button', onclick: () => useRecoveryCode(after) }, 'Already playing on another device? Use a recovery code'),
       h('p', { class: 'small muted' }, 'Your account lives on this device. Only your username, streak, XP and ranked times are shared. Mind Check-in results never leave your device.'));
     WH.modal({ title: 'Play online', body: form });
     setTimeout(() => input.focus(), 250);
@@ -896,7 +913,12 @@ ${location.protocol.startsWith('http') ? link : ''}`) }));
         toggle('reducedMotion', 'Reduce motion', 'Calmer animations, no confetti'),
         h('div', { class: 'setting' }, h('span', null, h('b', null, 'Daily puzzles'),
           h('small', null, through ? `Hand-curated puzzles ready through ${new Date(through + 'T12:00').toLocaleDateString(undefined, { month: 'long', day: 'numeric' })}.` : 'Generated fresh each day.'))),
-        h('div', { class: 'setting' }, h('span', null, h('b', null, 'Your data'), h('small', null, 'Progress is stored only on this device.')), reset)),
+        WH.net.enabled
+          ? h('div', { class: 'setting' }, h('span', null, h('b', null, `Signed in as ${WH.net.account().username}`), h('small', null, 'Your progress is backed up and follows you to other devices.')),
+            h('button', { class: 'btn ghost', type: 'button', onclick: showRecoveryCode }, 'Recovery code'))
+          : h('div', { class: 'setting' }, h('span', null, h('b', null, 'Play on another device?'), h('small', null, 'Restore your account with a recovery code.')),
+            h('button', { class: 'btn ghost', type: 'button', onclick: () => useRecoveryCode() }, 'Use code')),
+        h('div', { class: 'setting' }, h('span', null, h('b', null, 'Your data'), h('small', null, WH.net.enabled ? 'Mind Check-in results always stay on this device.' : 'Progress is stored only on this device.')), reset)),
     });
   }
 
@@ -918,12 +940,44 @@ ${location.protocol.startsWith('http') ? link : ''}`) }));
     }
   });
 
+  WH.onRemoteProgress = () => { if (!document.body.classList.contains('in-game') && !WH.modalOpen()) route(); };
+
+  // ---------- Recovery codes ----------
+  function showRecoveryCode() {
+    const code = WH.net.recoveryCode();
+    if (!code) return;
+    WH.modal({
+      title: 'Your recovery code',
+      body: h('div', { class: 'signup' },
+        h('p', { class: 'muted' }, 'Use this to sign in on another device, or in the installed app. It restores your username, streak, stats and achievements.'),
+        h('code', { class: 'recovery-code' }, code),
+        h('button', { class: 'btn primary wide', type: 'button', html: `${icons.copy}<span>Copy code</span>`, onclick: () => navigator.clipboard.writeText(code).then(() => WH.toast('Copied. Keep it somewhere safe.'), () => WH.toast('Couldn’t copy. Select and copy it instead.')) }),
+        h('p', { class: 'small muted' }, 'Keep it private: anyone with this code can play as you. Mind Check-in results are not included; they never leave this device.')),
+    });
+  }
+  function useRecoveryCode(after) {
+    const input = h('input', { class: 'text-input', type: 'text', placeholder: 'Paste your recovery code', autocomplete: 'off', spellcheck: 'false', 'aria-label': 'Recovery code' });
+    const err = h('p', { class: 'form-err' });
+    const btn = h('button', { class: 'btn primary wide', type: 'submit' }, 'Restore my progress');
+    WH.modal({
+      title: 'Use a recovery code',
+      body: h('form', { class: 'signup', onsubmit: async (e) => {
+        e.preventDefault();
+        btn.disabled = true; btn.textContent = 'Restoring…'; err.textContent = '';
+        try { const me = await WH.net.recover(input.value); WH.closeModal(); WH.toast(`Welcome back, ${me.username}!`); WH.confetti(); after ? after() : route(); }
+        catch (x) { err.textContent = x.message; btn.disabled = false; btn.textContent = 'Restore my progress'; }
+      } },
+        h('p', { class: 'muted' }, 'Find your code in Settings on the device where you already play (Settings → Recovery code).'),
+        input, err, btn),
+    });
+    setTimeout(() => input.focus(), 250);
+  }
+
   // ---------- Boot ----------
+  if (WH.install) WH.install.onChange(() => { if ((location.hash || '#/') === '#/' && !WH.modalOpen()) route(); });
   applySettings();
   matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applySettings);
   window.addEventListener('hashchange', route);
   route();
-  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
-    navigator.serviceWorker.register('sw.js').catch(() => {});
-  }
+  // Service worker registration, install prompts and updates live in js/install.js.
 })();
