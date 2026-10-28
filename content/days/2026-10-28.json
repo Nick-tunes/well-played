@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-28",
+  "theme": "Cozy evenings",
+  "note": "Evenings are drawing in. A warm drink and ten unhurried minutes with a puzzle is a gentle way to let the day settle.",
+  "word": {
+    "answer": "quilt",
+    "fact": "“Quilt” comes from the Latin “culcita”, a stuffed mattress or cushion, by way of Old French."
+  },
+  "duet": {
+    "answers": [
+      "cocoa",
+      "fudge"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "cabin",
+      "novel",
+      "couch",
+      "toast"
+    ]
+  },
+  "sums": {
+    "equation": "9*4-7=29"
+  },
+  "ladder": {
+    "start": "warm",
+    "target": "cozy"
+  },
+  "swap": {
+    "words": [
+      "scarf",
+      "arena",
+      "ridge",
+      "stair",
+      "ahead",
+      "frame"
+    ]
+  },
+  "hue": {
+    "h": 348,
+    "s": 52,
+    "l": 34,
+    "name": "Mulled wine",
+    "note": "Mulled wine is traditionally warmed with spices like cinnamon and cloves, plus a strip of orange peel."
+  },
+  "tune": {
+    "id": "fur-elise"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Knitted things",
+        "words": [
+          "SCARF",
+          "MITTENS",
+          "BEANIE",
+          "SWEATER"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Around a fireplace",
+        "words": [
+          "MANTEL",
+          "HEARTH",
+          "GRATE",
+          "CHIMNEY"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "___POT",
+        "words": [
+          "TEA",
+          "CROCK",
+          "HOT",
+          "FLOWER"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "___ BLANKET",
+        "words": [
+          "WET",
+          "SECURITY",
+          "ELECTRIC",
+          "SADDLE"
+        ]
+      }
+    ]
+  }
+}

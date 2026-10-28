@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-29",
+  "theme": "Night owls",
+  "note": "If sleep has felt slippery lately, try dimming screens an hour before bed. It’s a gentle signal that the day is done.",
+  "word": {
+    "answer": "raven",
+    "fact": "Ravens can plan ahead: in experiments they have saved a tool to use later for a reward."
+  },
+  "duet": {
+    "answers": [
+      "night",
+      "torch"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "gleam",
+      "shine",
+      "light",
+      "blink"
+    ]
+  },
+  "sums": {
+    "equation": "6*8-9=39"
+  },
+  "ladder": {
+    "start": "lamp",
+    "target": "dark"
+  },
+  "swap": {
+    "words": [
+      "crown",
+      "anger",
+      "tenth",
+      "coast",
+      "organ",
+      "north"
+    ]
+  },
+  "hue": {
+    "h": 238,
+    "s": 45,
+    "l": 30,
+    "name": "Moonlit indigo",
+    "note": "Indigo dye was once so prized that it was traded like gold, earning the nickname “blue gold”."
+  },
+  "tune": {
+    "id": "nachtmusik"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Nocturnal animals",
+        "words": [
+          "OWL",
+          "BAT",
+          "BADGER",
+          "MOTH"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Constellations",
+        "words": [
+          "ORION",
+          "LYRA",
+          "DRACO",
+          "CYGNUS"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "___LIGHT",
+        "words": [
+          "MOON",
+          "NIGHT",
+          "CANDLE",
+          "FLASH"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "Played with a bat",
+        "words": [
+          "CRICKET",
+          "BASEBALL",
+          "ROUNDERS",
+          "SOFTBALL"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "date": "2026-11-01",
+  "theme": "An extra hour",
+  "note": "Clocks went back overnight in much of North America. Spend the extra hour on something restful: a walk, a nap or a long breakfast.",
+  "word": {
+    "answer": "clock",
+    "fact": "“Clock” comes from the medieval Latin “clocca”, meaning bell: early clocks struck bells rather than showing a face."
+  },
+  "duet": {
+    "answers": [
+      "timer",
+      "early"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "sunny",
+      "later",
+      "slept",
+      "diary"
+    ]
+  },
+  "sums": {
+    "equation": "36+47=83"
+  },
+  "ladder": {
+    "start": "wake",
+    "target": "time"
+  },
+  "swap": {
+    "words": [
+      "sauna",
+      "radio",
+      "purse",
+      "scrap",
+      "under",
+      "alone"
+    ]
+  },
+  "hue": {
+    "h": 48,
+    "s": 80,
+    "l": 78,
+    "name": "Sunday morning",
+    "note": "Morning light often looks warmer because sunlight crosses more of the atmosphere when the Sun is low."
+  },
+  "tune": {
+    "id": "canon-in-d"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Breakfast drinks",
+        "words": [
+          "TEA",
+          "COFFEE",
+          "JUICE",
+          "MILK"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Units of time",
+        "words": [
+          "MINUTE",
+          "HOUR",
+          "DECADE",
+          "CENTURY"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Have hands",
+        "words": [
+          "CLOCK",
+          "WATCH",
+          "POKER",
+          "FARM"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "___TIME",
+        "words": [
+          "BED",
+          "NAP",
+          "HALF",
+          "OVER"
+        ]
+      }
+    ]
+  }
+}

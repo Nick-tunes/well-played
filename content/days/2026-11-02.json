@@ -1,0 +1,94 @@
+{
+  "date": "2026-11-02",
+  "theme": "Fresh notebook",
+  "note": "A new week and a blank page. Jot down three small things you’d like to do this week, and tick one off today.",
+  "word": {
+    "answer": "chalk",
+    "fact": "Natural chalk is a soft limestone made from the tiny shells of ancient sea plankton."
+  },
+  "duet": {
+    "answers": [
+      "paper",
+      "ruler"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "class",
+      "study",
+      "learn",
+      "draft"
+    ]
+  },
+  "sums": {
+    "equation": "62-39=23"
+  },
+  "ladder": {
+    "start": "word",
+    "target": "line"
+  },
+  "swap": {
+    "words": [
+      "quote",
+      "enter",
+      "torch",
+      "quest",
+      "outer",
+      "earth"
+    ]
+  },
+  "hue": {
+    "h": 214,
+    "s": 60,
+    "l": 50,
+    "name": "Notebook blue",
+    "note": "Blue regularly comes out as the world’s most popular favourite colour in international surveys."
+  },
+  "tune": {
+    "id": "frere-jacques"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "School supplies",
+        "words": [
+          "PENCIL",
+          "ERASER",
+          "STAPLER",
+          "CRAYON"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "School subjects",
+        "words": [
+          "ART",
+          "MUSIC",
+          "SCIENCE",
+          "HISTORY"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "___BOOK",
+        "words": [
+          "NOTE",
+          "TEXT",
+          "SCRAP",
+          "COOK"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "Can be graded",
+        "words": [
+          "EGG",
+          "ROAD",
+          "ESSAY",
+          "DIAMOND"
+        ]
+      }
+    ]
+  }
+}

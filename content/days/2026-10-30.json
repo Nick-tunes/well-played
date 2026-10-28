@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-30",
+  "theme": "Harvest time",
+  "note": "Cooking with seasonal food is a small way to notice the year turning. Pick one autumn ingredient this week and try something new with it.",
+  "word": {
+    "answer": "apple",
+    "fact": "There are thousands of apple varieties: well over 7,000 have been named around the world."
+  },
+  "duet": {
+    "answers": [
+      "grain",
+      "straw"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "field",
+      "crate",
+      "wagon",
+      "wheat"
+    ]
+  },
+  "sums": {
+    "equation": "7*7-8=41"
+  },
+  "ladder": {
+    "start": "corn",
+    "target": "farm"
+  },
+  "swap": {
+    "words": [
+      "candy",
+      "opera",
+      "event",
+      "clove",
+      "niece",
+      "yeast"
+    ]
+  },
+  "hue": {
+    "h": 70,
+    "s": 35,
+    "l": 42,
+    "name": "Olive grove",
+    "note": "Olives are picked in autumn and winter; the same tree gives green olives early and black olives when fully ripe."
+  },
+  "tune": {
+    "id": "old-macdonald"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Farm animals",
+        "words": [
+          "SHEEP",
+          "DUCK",
+          "HORSE",
+          "DONKEY"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Root vegetables",
+        "words": [
+          "CARROT",
+          "TURNIP",
+          "PARSNIP",
+          "BEET"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "___CORN",
+        "words": [
+          "POP",
+          "PEPPER",
+          "UNI",
+          "CANDY"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "Hidden farm animals",
+        "words": [
+          "PIGMENT",
+          "GOATEE",
+          "SHENANIGAN",
+          "SCOWL"
+        ]
+      }
+    ]
+  }
+}

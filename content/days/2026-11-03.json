@@ -1,0 +1,94 @@
+{
+  "date": "2026-11-03",
+  "theme": "Forest walk",
+  "note": "Time among trees is linked with feeling calmer. Even a short walk under bare branches counts.",
+  "word": {
+    "answer": "cedar",
+    "fact": "Cedar wood is naturally aromatic, which is why it has long been used to line chests and closets."
+  },
+  "duet": {
+    "answers": [
+      "trail",
+      "creek"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "ridge",
+      "river",
+      "stone",
+      "shady"
+    ]
+  },
+  "sums": {
+    "equation": "5*9-7=38"
+  },
+  "ladder": {
+    "start": "wild",
+    "target": "wood"
+  },
+  "swap": {
+    "words": [
+      "sweep",
+      "apron",
+      "earth",
+      "shade",
+      "error",
+      "pinch"
+    ]
+  },
+  "hue": {
+    "h": 85,
+    "s": 40,
+    "l": 40,
+    "name": "Moss",
+    "note": "Mosses have no roots; they hold on with thin threads called rhizoids and soak up water through their leaves."
+  },
+  "tune": {
+    "id": "amazing-grace"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Forest animals",
+        "words": [
+          "DEER",
+          "FOX",
+          "SQUIRREL",
+          "BOAR"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Mushrooms",
+        "words": [
+          "MOREL",
+          "PORCINI",
+          "CHANTERELLE",
+          "SHIITAKE"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Have trunks",
+        "words": [
+          "TREE",
+          "ELEPHANT",
+          "CAR",
+          "TORSO"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "Hidden trees",
+        "words": [
+          "CASHEW",
+          "HELMET",
+          "PALMIST",
+          "SOAKED"
+        ]
+      }
+    ]
+  }
+}

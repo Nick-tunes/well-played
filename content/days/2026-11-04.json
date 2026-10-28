@@ -1,0 +1,94 @@
+{
+  "date": "2026-11-04",
+  "theme": "Rainy day",
+  "note": "Rainy days suit slow things: a puzzle, a pot of tea, or a call to someone you haven’t spoken to in a while.",
+  "word": {
+    "answer": "storm",
+    "fact": "A lightning bolt heats the air around it to roughly five times the temperature of the Sun’s surface."
+  },
+  "duet": {
+    "answers": [
+      "cloud",
+      "drain"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "rainy",
+      "flood",
+      "humid",
+      "foggy"
+    ]
+  },
+  "sums": {
+    "equation": "84-27=57"
+  },
+  "ladder": {
+    "start": "pool",
+    "target": "rain"
+  },
+  "swap": {
+    "words": [
+      "seven",
+      "arrow",
+      "every",
+      "slate",
+      "verse",
+      "newly"
+    ]
+  },
+  "hue": {
+    "h": 205,
+    "s": 20,
+    "l": 55,
+    "name": "Rain cloud",
+    "note": "Rain clouds look grey because their water droplets are so dense that they scatter and block most of the sunlight."
+  },
+  "tune": {
+    "id": "itsy-bitsy"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Rainwear",
+        "words": [
+          "UMBRELLA",
+          "WELLIES",
+          "PONCHO",
+          "GALOSHES"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Kinds of rain",
+        "words": [
+          "DRIZZLE",
+          "SHOWER",
+          "DOWNPOUR",
+          "MONSOON"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "___DROP",
+        "words": [
+          "DEW",
+          "TEAR",
+          "SNOW",
+          "NAME"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "Things you can catch",
+        "words": [
+          "COLD",
+          "BUS",
+          "BREATH",
+          "DRIFT"
+        ]
+      }
+    ]
+  }
+}
