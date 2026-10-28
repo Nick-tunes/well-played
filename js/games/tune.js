@@ -17,20 +17,45 @@
   }
 
   // A soft, piano-like voice. Tune always plays when asked: listening is the game.
-  let ac = null;
+  // iPhones mute web audio when the ring/silent switch is on, so while a clip plays Tune asks for
+  // "playback" audio: the Audio Session API on iOS 17+, plus a silent looping <audio> element for
+  // older iOS (media playback ignores the switch and carries Web Audio with it).
+  // One audio engine is kept for the whole game; iPhones can refuse to start a fresh one each tap.
+  let ac = null, keepAlive = null, silentUrl = null;
+  function silentWav() {
+    if (silentUrl) return silentUrl;
+    const n = 800, buf = new ArrayBuffer(44 + n * 2), v = new DataView(buf);
+    const str = (o, t) => [...t].forEach((c, i) => v.setUint8(o + i, c.charCodeAt(0)));
+    str(0, 'RIFF'); v.setUint32(4, 36 + n * 2, true); str(8, 'WAVE'); str(12, 'fmt ');
+    v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+    v.setUint32(24, 8000, true); v.setUint32(28, 16000, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true);
+    str(36, 'data'); v.setUint32(40, n * 2, true);
+    return (silentUrl = URL.createObjectURL(new Blob([buf], { type: 'audio/wav' })));
+  }
+  function playbackMode(on) {
+    if (on) {
+      try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) {}
+      if (!keepAlive) { keepAlive = new Audio(silentWav()); keepAlive.loop = true; keepAlive.setAttribute('playsinline', ''); }
+      keepAlive.play().catch(() => {});
+    } else {
+      if (keepAlive) keepAlive.pause();
+      WH.applyAudioSession(); // back to the player's normal sound setting
+    }
+  }
   function audio() {
-    if (!ac) { WH.applyAudioSession(); ac = new (window.AudioContext || window.webkitAudioContext)(); }
-    if (ac.state === 'suspended') ac.resume();
+    playbackMode(true);
+    if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)();
+    if (ac.state !== 'running') ac.resume().catch(() => {});
     return ac;
   }
-  function voice(a, freq, t0, dur) {
+  function voice(a, freq, t0, dur, dest) {
     const out = a.createGain();
     out.gain.setValueAtTime(0.0001, t0);
     out.gain.exponentialRampToValueAtTime(0.16, t0 + 0.012);
     out.gain.exponentialRampToValueAtTime(0.05, t0 + Math.min(0.25, dur));
     out.gain.exponentialRampToValueAtTime(0.0001, t0 + dur + 0.25);
     const lp = a.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2600;
-    out.connect(lp).connect(a.destination);
+    out.connect(lp).connect(dest);
     [[1, 'triangle', 1], [2, 'sine', 0.35], [3, 'sine', 0.12]].forEach(([mult, type, g]) => {
       const o = a.createOscillator(), og = a.createGain();
       o.type = type; o.frequency.value = freq * mult; og.gain.value = g;
@@ -110,27 +135,40 @@
     function play() {
       if (playing) { stop(); return; }
       const a = audio();
-      const cut = cutoff(done ? Infinity : STAGES[stage()]);
-      const spb = 60 / tune.bpm;
-      let t = a.currentTime + 0.08;
+      // Each clip plays through its own volume control, so Stop can silence it instantly.
+      const bus = a.createGain(); bus.connect(a.destination);
       const timers = [];
-      for (let i = 0; i < cut; i++) {
-        const n = notes[i], dur = n.beats * spb;
-        if (!n.rest) {
-          voice(a, n.freq, t, dur * 0.92);
-          timers.push(setTimeout(() => { bars[i].classList.add('hit'); setTimeout(() => bars[i].classList.remove('hit'), Math.max(120, dur * 900)); }, (t - a.currentTime) * 1000));
+      playing = { timers, bus };
+      const schedule = () => {
+        if (!playing || playing.bus !== bus) return;
+        const cut = cutoff(done ? Infinity : STAGES[stage()]);
+        const spb = 60 / tune.bpm;
+        let t = a.currentTime + 0.08;
+        for (let i = 0; i < cut; i++) {
+          const n = notes[i], dur = n.beats * spb;
+          if (!n.rest) {
+            voice(a, n.freq, t, dur * 0.92, bus);
+            timers.push(setTimeout(() => { bars[i].classList.add('hit'); setTimeout(() => bars[i].classList.remove('hit'), Math.max(120, dur * 900)); }, (t - a.currentTime) * 1000));
+          }
+          t += dur;
         }
-        t += dur;
-      }
-      timers.push(setTimeout(stop, (t - a.currentTime) * 1000 + 200));
-      playing = { timers };
+        timers.push(setTimeout(stop, (t - a.currentTime) * 1000 + 200));
+      };
+      // Start the notes once the audio engine is actually running (it can start out paused).
+      if (a.state === 'running') schedule();
+      else a.resume().then(schedule, schedule);
       playBtn.classList.add('playing');
       playBtn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor"/></svg>';
     }
     function stop() {
       if (!playing) return;
-      playing.timers.forEach(clearTimeout); playing = null;
-      if (ac) { ac.close(); ac = null; } // cut any notes still ringing
+      const { timers, bus } = playing;
+      timers.forEach(clearTimeout); playing = null;
+      try { // fade out anything still ringing, then detach it
+        bus.gain.setTargetAtTime(0, ac.currentTime, 0.015);
+        setTimeout(() => bus.disconnect(), 120);
+      } catch (e) {}
+      playbackMode(false);
       playBtn.classList.remove('playing'); playBtn.innerHTML = WH.icons.play;
       bars.forEach((b) => b.classList.remove('hit'));
     }

@@ -9,6 +9,8 @@ const list = (name) =>
   [...new Set(readFileSync(join(root, 'scripts/lists', name), 'utf8').split(/\s+/).filter(Boolean))];
 
 const answers5 = list('answers5.txt');
+// Modern slang: accepted as guesses (never chosen as answers). Only 4- and 5-letter words matter.
+const slang = list('slang.txt').filter((w) => /^[a-z]+$/.test(w));
 const common4 = list('common4.txt');
 for (const w of answers5) if (!/^[a-z]{5}$/.test(w)) throw new Error(`bad 5-letter answer: ${w}`);
 for (const w of common4) if (!/^[a-z]{4}$/.test(w)) throw new Error(`bad 4-letter word: ${w}`);
@@ -30,7 +32,12 @@ for (const w of d3) { valid5.add(w + 'ed'); valid5.add(w + 'es'); valid5.add(w +
 const supplement5 = ['emoji', 'pixel', 'vlogs', 'texts', 'memes', 'selfie', 'robot', 'app'];
 supplement5.filter((w) => w.length === 5).forEach((w) => valid5.add(w));
 
-const valid4 = new Set([...d4, ...common4]);
+for (const w of slang) {
+  if (w.length === 5) valid5.add(w);
+  if (w.length === 4) valid5.add(w + 's'); // plurals like "vibes", "noobs"
+}
+
+const valid4 = new Set([...d4, ...common4, ...slang.filter((w) => w.length === 4)]);
 for (const w of d3) valid4.add(w + 's');
 
 const sorted = (s) => [...s].sort();

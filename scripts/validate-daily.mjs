@@ -15,6 +15,8 @@ import vm from 'node:vm';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const sandbox = { console, Math, Date, JSON };
 sandbox.window = sandbox;
+sandbox.addEventListener = sandbox.removeEventListener = () => {}; // core.js wires browser events at load
+sandbox.document = { addEventListener() {}, removeEventListener() {}, hidden: true };
 vm.createContext(sandbox);
 for (const f of ['js/core.js', 'js/data/words.js', 'js/data/groups.js', 'js/data/tunes.js', 'js/games/sums.js', 'js/games/swap.js', 'js/games/tune.js']) {
   vm.runInContext(readFileSync(join(root, f), 'utf8'), sandbox, { filename: f });
