@@ -1,0 +1,93 @@
+{
+  "theme": "Inventions",
+  "note": "Every invention began as a half-formed idea. Jot down one small everyday thing you would like to make easier, and let your mind tinker with it.",
+  "word": {
+    "answer": "motor",
+    "fact": "“Motor” is a Latin word meaning “mover”, from “movere”, to move."
+  },
+  "duet": {
+    "answers": [
+      "input",
+      "graph"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "email",
+      "image",
+      "logic",
+      "meter"
+    ]
+  },
+  "sums": {
+    "equation": "6+5*7=41"
+  },
+  "ladder": {
+    "start": "tool",
+    "target": "wire"
+  },
+  "swap": {
+    "words": [
+      "funny",
+      "unite",
+      "trend",
+      "fruit",
+      "noise",
+      "yield"
+    ]
+  },
+  "hue": {
+    "h": 140,
+    "s": 50,
+    "l": 30,
+    "name": "Circuit board",
+    "note": "The familiar green of most circuit boards comes from the solder mask, a protective coating laid over the copper tracks."
+  },
+  "tune": {
+    "id": "william-tell"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Inventors",
+        "words": [
+          "EDISON",
+          "MORSE",
+          "TESLA",
+          "BELL"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Simple machines",
+        "words": [
+          "LEVER",
+          "PULLEY",
+          "WEDGE",
+          "SCREW"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Units of measurement",
+        "words": [
+          "AMP",
+          "OHM",
+          "VOLT",
+          "LUMEN"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "BLUE___",
+        "words": [
+          "PRINT",
+          "TOOTH",
+          "BERRY",
+          "BIRD"
+        ]
+      }
+    ]
+  }
+}

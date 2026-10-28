@@ -1,0 +1,93 @@
+{
+  "theme": "Birdwatching",
+  "note": "Birdwatching needs only patience and a window. Five quiet minutes listening for birdsong is a lovely way to slow down and notice.",
+  "word": {
+    "answer": "eagle",
+    "fact": "“Eagle” comes from the Old French “aigle”, from the Latin “aquila”."
+  },
+  "duet": {
+    "answers": [
+      "flock",
+      "hedge"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "focus",
+      "hover",
+      "hatch",
+      "marsh"
+    ]
+  },
+  "sums": {
+    "equation": "9*4+8=44"
+  },
+  "ladder": {
+    "start": "bird",
+    "target": "seed"
+  },
+  "swap": {
+    "words": [
+      "write",
+      "tango",
+      "hurry",
+      "watch",
+      "inner",
+      "ebony"
+    ]
+  },
+  "hue": {
+    "h": 150,
+    "s": 50,
+    "l": 30,
+    "name": "Mallard green",
+    "note": "A male mallard’s glossy green head can flash blue or purple as it turns, because the colour comes from the structure of its feathers."
+  },
+  "tune": {
+    "id": "morning-mood"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Garden birds",
+        "words": [
+          "ROBIN",
+          "WREN",
+          "SPARROW",
+          "FINCH"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Birdwatcher’s kit",
+        "words": [
+          "BINOCULARS",
+          "NOTEBOOK",
+          "HIDE",
+          "TRIPOD"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Bird group names",
+        "words": [
+          "PARLIAMENT",
+          "GAGGLE",
+          "MURMURATION",
+          "CHARM"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "Hidden birds",
+        "words": [
+          "CROWD",
+          "TOWEL",
+          "STERN",
+          "WRENCH"
+        ]
+      }
+    ]
+  }
+}

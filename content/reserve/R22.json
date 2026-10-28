@@ -1,0 +1,93 @@
+{
+  "theme": "Kindness",
+  "note": "A small kindness, like holding a door or sending a quick thank-you message, is linked with a lift in mood for both people. Who might enjoy hearing from you?",
+  "word": {
+    "answer": "thank",
+    "fact": "“Thank” comes from the Old English “þancian”, and it shares an ancient Germanic root with the word “think”."
+  },
+  "duet": {
+    "answers": [
+      "treat",
+      "trust"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "visit",
+      "uncle",
+      "unity",
+      "write"
+    ]
+  },
+  "sums": {
+    "equation": "9*8+5=77"
+  },
+  "ladder": {
+    "start": "give",
+    "target": "hope"
+  },
+  "swap": {
+    "words": [
+      "shelf",
+      "acute",
+      "pilot",
+      "swamp",
+      "equal",
+      "fleet"
+    ]
+  },
+  "hue": {
+    "h": 335,
+    "s": 50,
+    "l": 75,
+    "name": "Rose quartz",
+    "note": "Rose quartz is a pink variety of quartz, one of the most common minerals in Earth's crust."
+  },
+  "tune": {
+    "id": "amazing-grace"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Polite words",
+        "words": [
+          "PLEASE",
+          "THANKS",
+          "SORRY",
+          "PARDON"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Kind qualities",
+        "words": [
+          "CARING",
+          "GRACIOUS",
+          "THOUGHTFUL",
+          "GENEROUS"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Hold the ___",
+        "words": [
+          "DOOR",
+          "LINE",
+          "PHONE",
+          "FORT"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "___-HEARTED",
+        "words": [
+          "BIG",
+          "LIGHT",
+          "HALF",
+          "WARM"
+        ]
+      }
+    ]
+  }
+}

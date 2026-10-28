@@ -1,0 +1,93 @@
+{
+  "theme": "Bakery",
+  "note": "Baking rewards patience: dough rises in its own time. Giving yourself the same unhurried kindness can help on a busy day.",
+  "word": {
+    "answer": "dough",
+    "fact": "“Lady” comes from the Old English “hlǣfdīge”, literally “loaf-kneader”, and its second half is related to “dough”."
+  },
+  "duet": {
+    "answers": [
+      "baker",
+      "crust"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "crumb",
+      "donut",
+      "batch",
+      "cream"
+    ]
+  },
+  "sums": {
+    "equation": "8+3*4=20"
+  },
+  "ladder": {
+    "start": "rise",
+    "target": "bake"
+  },
+  "swap": {
+    "words": [
+      "spark",
+      "arise",
+      "yield",
+      "shady",
+      "alive",
+      "knead"
+    ]
+  },
+  "hue": {
+    "h": 36,
+    "s": 70,
+    "l": 55,
+    "name": "Golden crust",
+    "note": "The golden-brown colour of a baked crust comes largely from the Maillard reaction between sugars and proteins."
+  },
+  "tune": {
+    "id": "hot-cross-buns"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Breads",
+        "words": [
+          "BAGUETTE",
+          "SOURDOUGH",
+          "CIABATTA",
+          "FOCACCIA"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Pastries",
+        "words": [
+          "CROISSANT",
+          "ECLAIR",
+          "DANISH",
+          "STRUDEL"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Baking verbs",
+        "words": [
+          "KNEAD",
+          "PROOF",
+          "WHISK",
+          "FOLD"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "___ ROLL",
+        "words": [
+          "SWISS",
+          "SPRING",
+          "EGG",
+          "CINNAMON"
+        ]
+      }
+    ]
+  }
+}

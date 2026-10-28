@@ -1,0 +1,93 @@
+{
+  "theme": "Road trip",
+  "note": "On any journey, short or long, the best moments are often the stops. Pausing to stretch and look around is a lovely way to reset.",
+  "word": {
+    "answer": "drive",
+    "fact": "In Old English, “drīfan” meant to push or herd something forward, so people drove cattle long before they drove cars."
+  },
+  "duet": {
+    "answers": [
+      "coach",
+      "cargo"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "canal",
+      "brake",
+      "beach",
+      "cliff"
+    ]
+  },
+  "sums": {
+    "equation": "4*9-8=28"
+  },
+  "ladder": {
+    "start": "west",
+    "target": "east"
+  },
+  "swap": {
+    "words": [
+      "solve",
+      "above",
+      "event",
+      "space",
+      "loose",
+      "elect"
+    ]
+  },
+  "hue": {
+    "h": 6,
+    "s": 60,
+    "l": 42,
+    "name": "Red rock canyon",
+    "note": "Many desert rocks get their red colour from iron oxide, the same compound that gives rust its colour."
+  },
+  "tune": {
+    "id": "oh-susanna"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Car parts",
+        "words": [
+          "WHEEL",
+          "HORN",
+          "BUMPER",
+          "MIRROR"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Road sign words",
+        "words": [
+          "YIELD",
+          "STOP",
+          "MERGE",
+          "DETOUR"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Roadside stops",
+        "words": [
+          "MOTEL",
+          "DINER",
+          "CAMPSITE",
+          "GAS STATION"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "TRAFFIC ___",
+        "words": [
+          "LIGHT",
+          "JAM",
+          "CONE",
+          "CIRCLE"
+        ]
+      }
+    ]
+  }
+}

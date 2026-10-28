@@ -1,0 +1,18 @@
+{
+  "theme": "Travel by train",
+  "note": "A journey with nothing to do but look out of the window is rare and lovely. Try leaving your phone in your bag for one stretch of a trip and just watch.",
+  "word": { "answer": "steam", "fact": "Pure steam is invisible: the white clouds we call steam are tiny droplets of water forming as the vapour meets cooler air." },
+  "duet": { "answers": ["stamp", "quick"] },
+  "quad": { "answers": ["ready", "speed", "stand", "rapid"] },
+  "sums": { "equation": "6*9+8=62" },
+  "ladder": { "start": "line", "target": "rail" },
+  "swap": { "words": ["staff", "opera", "erase", "score", "arena", "frame"] },
+  "hue": { "h": 245, "s": 42, "l": 28, "name": "Night sleeper", "note": "Navy blue takes its name from the dark blue uniforms adopted by Britain's Royal Navy in 1748." },
+  "tune": { "id": "william-tell" },
+  "groups": { "groups": [
+    { "level": 0, "name": "Parts of a train", "words": ["ENGINE", "CARRIAGE", "CABOOSE", "BUFFER"] },
+    { "level": 1, "name": "Kinds of train", "words": ["FREIGHT", "BULLET", "SLEEPER", "MONORAIL"] },
+    { "level": 2, "name": "Railway jobs", "words": ["CONDUCTOR", "DRIVER", "PORTER", "GUARD"] },
+    { "level": 3, "name": "Hidden vehicles", "words": ["CABBAGE", "VANILLA", "SCARF", "TRAMPOLINE"] }
+  ] }
+}

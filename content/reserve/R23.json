@@ -1,0 +1,93 @@
+{
+  "theme": "Ancient wonders",
+  "note": "The ancient wonders took generations to build. Progress made a little at a time still adds up, so be patient with your own slow projects.",
+  "word": {
+    "answer": "tower",
+    "fact": "“Tower” comes from the Latin “turris”. The Lighthouse of Alexandria, one of the Seven Wonders, was among the tallest structures of the ancient world."
+  },
+  "duet": {
+    "answers": [
+      "trade",
+      "truth"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "tribe",
+      "vault",
+      "trace",
+      "worth"
+    ]
+  },
+  "sums": {
+    "equation": "45+38=83"
+  },
+  "ladder": {
+    "start": "sand",
+    "target": "wall"
+  },
+  "swap": {
+    "words": [
+      "champ",
+      "drone",
+      "ridge",
+      "cider",
+      "avoid",
+      "piece"
+    ]
+  },
+  "hue": {
+    "h": 315,
+    "s": 60,
+    "l": 32,
+    "name": "Tyrian purple",
+    "note": "Tyrian purple was made from sea snails and was so costly in the ancient world that it became a colour of royalty."
+  },
+  "tune": {
+    "id": "greensleeves"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Seven Wonders",
+        "words": [
+          "PYRAMID",
+          "COLOSSUS",
+          "LIGHTHOUSE",
+          "MAUSOLEUM"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Ancient cities",
+        "words": [
+          "ROME",
+          "ATHENS",
+          "BABYLON",
+          "TROY"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Ancient writing surfaces",
+        "words": [
+          "SCROLL",
+          "TABLET",
+          "PAPYRUS",
+          "PARCHMENT"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "___ HORSE",
+        "words": [
+          "TROJAN",
+          "ROCKING",
+          "DARK",
+          "SEA"
+        ]
+      }
+    ]
+  }
+}

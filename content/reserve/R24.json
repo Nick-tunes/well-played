@@ -1,0 +1,93 @@
+{
+  "theme": "Robots",
+  "note": "Robots are great at repeating tasks; people are great at noticing. Pause for a minute and name three things you can see, three you can hear and one you can feel.",
+  "word": {
+    "answer": "thumb",
+    "fact": "“Thimble” comes from the Old English “þȳmel”, a thumb-cover, which was formed from “þūma”, the Old English word for thumb."
+  },
+  "duet": {
+    "answers": [
+      "video",
+      "voice"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "think",
+      "total",
+      "valve",
+      "wheel"
+    ]
+  },
+  "sums": {
+    "equation": "380/4=95"
+  },
+  "ladder": {
+    "start": "gear",
+    "target": "bolt"
+  },
+  "swap": {
+    "words": [
+      "clown",
+      "inner",
+      "forge",
+      "cliff",
+      "owner",
+      "nurse"
+    ]
+  },
+  "hue": {
+    "h": 272,
+    "s": 65,
+    "l": 55,
+    "name": "Circuit violet",
+    "note": "Violet has the shortest wavelengths of any colour in the rainbow that human eyes can see."
+  },
+  "tune": {
+    "id": "turkish-march"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Robot parts",
+        "words": [
+          "SENSOR",
+          "MOTOR",
+          "BATTERY",
+          "CIRCUIT"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Famous robots",
+        "words": [
+          "WALL-E",
+          "R2-D2",
+          "C-3PO",
+          "BAYMAX"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Have arms",
+        "words": [
+          "CHAIR",
+          "SOFA",
+          "OCTOPUS",
+          "CRANE"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "Start with BOT",
+        "words": [
+          "BOTTLE",
+          "BOTTOM",
+          "BOTANY",
+          "BOTHER"
+        ]
+      }
+    ]
+  }
+}

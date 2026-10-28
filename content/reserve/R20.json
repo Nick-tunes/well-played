@@ -1,0 +1,18 @@
+{
+  "theme": "Dinosaurs",
+  "note": "Dinosaurs make everyone feel like a curious kid again. Let yourself wonder about something today just for fun; curiosity is a lovely way to lift the mood.",
+  "word": { "answer": "spike", "fact": "The spikes on a Stegosaurus tail are nicknamed a “thagomizer”, a word that began as a joke in a Far Side cartoon by Gary Larson." },
+  "duet": { "answers": ["stomp", "swamp"] },
+  "quad": { "answers": ["plate", "shake", "sharp", "rough"] },
+  "sums": { "equation": "120/2=60" },
+  "ladder": { "start": "rock", "target": "bone" },
+  "swap": { "words": ["swarm", "alter", "earth", "stake", "after", "marsh"] },
+  "hue": { "h": 194, "s": 55, "l": 40, "name": "Inland sea", "note": "For much of the age of dinosaurs, sea levels were far higher than today and shallow seas covered large parts of the continents." },
+  "tune": { "id": "beethoven-5" },
+  "groups": { "groups": [
+    { "level": 0, "name": "Dinosaurs", "words": ["STEGOSAURUS", "TRICERATOPS", "DIPLODOCUS", "IGUANODON"] },
+    { "level": 1, "name": "Fossil-digging tools", "words": ["BRUSH", "TROWEL", "PICKAXE", "SIEVE"] },
+    { "level": 2, "name": "Prehistoric, but not dinosaurs", "words": ["MAMMOTH", "PTERANODON", "PLESIOSAUR", "DIMETRODON"] },
+    { "level": 3, "name": "___ AGE", "words": ["STONE", "BRONZE", "IRON", "GOLDEN"] }
+  ] }
+}

@@ -1,0 +1,93 @@
+{
+  "theme": "Puppies & kittens",
+  "note": "Time with animals is linked with feeling calmer. No pet? Watching birds from a window or saying hello to a neighbour's dog counts too.",
+  "word": {
+    "answer": "chase",
+    "fact": "“Chase” and “catch” both come from the same Latin root, “captare”, meaning to try to seize."
+  },
+  "duet": {
+    "answers": [
+      "buddy",
+      "bliss"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "cheek",
+      "bound",
+      "dozen",
+      "awake"
+    ]
+  },
+  "sums": {
+    "equation": "71-49=22"
+  },
+  "ladder": {
+    "start": "bone",
+    "target": "ball"
+  },
+  "swap": {
+    "words": [
+      "shake",
+      "among",
+      "ledge",
+      "shawl",
+      "avoid",
+      "eagle"
+    ]
+  },
+  "hue": {
+    "h": 34,
+    "s": 75,
+    "l": 58,
+    "name": "Ginger kitten",
+    "note": "About four in five ginger cats are male, because the main gene for orange fur sits on the X chromosome."
+  },
+  "tune": {
+    "id": "entertainer"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Dog breeds",
+        "words": [
+          "BEAGLE",
+          "POODLE",
+          "CORGI",
+          "DALMATIAN"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Cat breeds",
+        "words": [
+          "SIAMESE",
+          "PERSIAN",
+          "SPHYNX",
+          "BENGAL"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Young animals",
+        "words": [
+          "FOAL",
+          "CALF",
+          "KID",
+          "JOEY"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "___ SHORTS",
+        "words": [
+          "BOXER",
+          "CARGO",
+          "BIKE",
+          "BOARD"
+        ]
+      }
+    ]
+  }
+}

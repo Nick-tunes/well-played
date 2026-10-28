@@ -1,0 +1,93 @@
+{
+  "theme": "Mountains",
+  "note": "You do not need a summit to enjoy a climb. A hilly walk or a few flights of stairs can lift your energy and give your mind a change of scene.",
+  "word": {
+    "answer": "mount",
+    "fact": "As a noun meaning a mountain, “mount” comes via Old English “munt” from the Latin “mons”, the same root behind “mountain”."
+  },
+  "duet": {
+    "answers": [
+      "ledge",
+      "giant"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "lodge",
+      "guide",
+      "moose",
+      "lofty"
+    ]
+  },
+  "sums": {
+    "equation": "28+19=47"
+  },
+  "ladder": {
+    "start": "hike",
+    "target": "camp"
+  },
+  "swap": {
+    "words": [
+      "straw",
+      "arise",
+      "final",
+      "staff",
+      "reign",
+      "wheel"
+    ]
+  },
+  "hue": {
+    "h": 120,
+    "s": 35,
+    "l": 32,
+    "name": "Alpine pine",
+    "note": "Conifers such as pine, spruce and fir often form the highest forests on a mountain, as their needle leaves cope well with cold and wind."
+  },
+  "tune": {
+    "id": "mountain-king"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Mountain ranges",
+        "words": [
+          "ALPS",
+          "ANDES",
+          "ROCKIES",
+          "HIMALAYAS"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Climbing gear",
+        "words": [
+          "ROPE",
+          "HARNESS",
+          "CARABINER",
+          "HELMET"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Have scales",
+        "words": [
+          "FISH",
+          "SNAKE",
+          "DRAGON",
+          "MAP"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "MOUNTAIN ___",
+        "words": [
+          "BIKE",
+          "LION",
+          "GOAT",
+          "DEW"
+        ]
+      }
+    ]
+  }
+}

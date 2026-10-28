@@ -1,0 +1,93 @@
+{
+  "theme": "Picnic",
+  "note": "Eating outdoors, even a sandwich on a bench, is a lovely way to get fresh air and a change of scene in the middle of the day.",
+  "word": {
+    "answer": "berry",
+    "fact": "Botanically, bananas and tomatoes count as berries, while strawberries and raspberries do not."
+  },
+  "duet": {
+    "answers": [
+      "cloth",
+      "ample"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "chair",
+      "bunch",
+      "drink",
+      "clear"
+    ]
+  },
+  "sums": {
+    "equation": "6*6-9=27"
+  },
+  "ladder": {
+    "start": "food",
+    "target": "park"
+  },
+  "swap": {
+    "words": [
+      "sleep",
+      "extra",
+      "tango",
+      "spent",
+      "eaten",
+      "piano"
+    ]
+  },
+  "hue": {
+    "h": 0,
+    "s": 72,
+    "l": 50,
+    "name": "Gingham red",
+    "note": "Gingham is woven from dyed yarns, so its checks show equally on both sides of the fabric."
+  },
+  "tune": {
+    "id": "morning-mood"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Picnic gear",
+        "words": [
+          "BLANKET",
+          "BASKET",
+          "FLASK",
+          "NAPKIN"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Sandwich fillings",
+        "words": [
+          "HAM",
+          "CHEESE",
+          "CUCUMBER",
+          "TUNA"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Insects",
+        "words": [
+          "ANT",
+          "WASP",
+          "BEE",
+          "BEETLE"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "BUTTER___",
+        "words": [
+          "FLY",
+          "CUP",
+          "MILK",
+          "SCOTCH"
+        ]
+      }
+    ]
+  }
+}

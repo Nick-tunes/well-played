@@ -1,0 +1,93 @@
+{
+  "theme": "Tea time",
+  "note": "Making a cup of tea can be a tiny ritual: wait for the kettle, watch the colour change, hold the warm mug. Small pauses like this are a lovely way to reset.",
+  "word": {
+    "answer": "scone",
+    "fact": "Devon and Cornwall famously disagree about scones: Devon puts the clotted cream on first, Cornwall puts the jam on first."
+  },
+  "duet": {
+    "answers": [
+      "sugar",
+      "spoon"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "steep",
+      "pinch",
+      "slice",
+      "sweet"
+    ]
+  },
+  "sums": {
+    "equation": "232/4=58"
+  },
+  "ladder": {
+    "start": "milk",
+    "target": "mint"
+  },
+  "swap": {
+    "words": [
+      "sight",
+      "alone",
+      "elect",
+      "slate",
+      "glove",
+      "treat"
+    ]
+  },
+  "hue": {
+    "h": 222,
+    "s": 55,
+    "l": 45,
+    "name": "Willow pattern",
+    "note": "The blue-and-white Willow pattern was developed in England in the late 1700s, inspired by Chinese export porcelain."
+  },
+  "tune": {
+    "id": "canon-in-d"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Teas",
+        "words": [
+          "EARL GREY",
+          "DARJEELING",
+          "ASSAM",
+          "OOLONG"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Tea set pieces",
+        "words": [
+          "TEAPOT",
+          "SAUCER",
+          "MILK JUG",
+          "SUGAR BOWL"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Tea-time treats",
+        "words": [
+          "ECLAIR",
+          "CRUMPET",
+          "SHORTBREAD",
+          "MACARON"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "CUP___",
+        "words": [
+          "CAKE",
+          "BOARD",
+          "ID",
+          "HOLDER"
+        ]
+      }
+    ]
+  }
+}

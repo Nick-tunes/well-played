@@ -1,0 +1,93 @@
+{
+  "theme": "Art studio",
+  "note": "You don't need to be good at art to enjoy it. Ten minutes of doodling, with no goal at all, is a relaxing way to let your mind wander.",
+  "word": {
+    "answer": "brush",
+    "fact": "Fine watercolour brushes are traditionally made from kolinsky sable hair, prized for holding plenty of paint and a sharp point."
+  },
+  "duet": {
+    "answers": [
+      "color",
+      "craft"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "carve",
+      "blend",
+      "decor",
+      "black"
+    ]
+  },
+  "sums": {
+    "equation": "112/7=16"
+  },
+  "ladder": {
+    "start": "bold",
+    "target": "line"
+  },
+  "swap": {
+    "words": [
+      "flora",
+      "opera",
+      "rinse",
+      "floor",
+      "ocean",
+      "aware"
+    ]
+  },
+  "hue": {
+    "h": 14,
+    "s": 60,
+    "l": 40,
+    "name": "Burnt sienna",
+    "note": "Sienna pigment is named after the Italian city of Siena, and heating the raw earth turns it into the warmer burnt sienna."
+  },
+  "tune": {
+    "id": "blue-danube"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Art supplies",
+        "words": [
+          "EASEL",
+          "CANVAS",
+          "PALETTE",
+          "CHARCOAL"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Painters",
+        "words": [
+          "MONET",
+          "DALI",
+          "VERMEER",
+          "KAHLO"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Paint finishes",
+        "words": [
+          "MATTE",
+          "GLOSS",
+          "SATIN",
+          "EGGSHELL"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "Hidden ART",
+        "words": [
+          "HEARTY",
+          "STARTLE",
+          "PARTNER",
+          "QUARTET"
+        ]
+      }
+    ]
+  }
+}

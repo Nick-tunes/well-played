@@ -118,3 +118,14 @@ week, classical themes later) and Groups herring density.
 - Add 5–10 new categories to `js/data/groups.js` (the generator fallback pool) and a few fresh words to
   `scripts/lists/answers5.txt` / `common4.txt`; re-run `node scripts/build-words.mjs`.
 - Skim `content/editor-log.md` for the last week: vary themes, colours and Sums shapes.
+
+## Reserve days
+
+`content/reserve/R01.json … R28.json` are complete, **evergreen** days (no dates, holidays or seasons)
+that the app plays in rotation on any date that has no `content/days` file, so a missed run never
+falls back to random puzzles. They use the same format, minus the `date` field.
+
+- The validator checks reserve days first: their Word/Duet/Quad answers, equations and groups count as
+  used, so a new daily that reuses one is flagged. Pick a different word rather than editing the reserve.
+- `--build` also writes `js/data/reserve.js`.
+- Don't edit reserve days during a normal daily run. If you ever add more, keep them evergreen.

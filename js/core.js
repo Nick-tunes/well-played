@@ -54,8 +54,12 @@ window.WH = (function () {
   };
 
   // Curated daily content (written by the daily content task), keyed by YYYY-MM-DD.
+  // Dates without curated content play a reserve day (rotating), so a missed curation run
+  // still gives everyone the same hand-made puzzles.
   WH.daily = (day, gameId) => {
-    const entry = (window.WH_DAILY || {})[WH.dateKey(WH.dateFromDay(day))];
+    const reserve = window.WH_RESERVE || [];
+    const entry = (window.WH_DAILY || {})[WH.dateKey(WH.dateFromDay(day))]
+      || (reserve.length ? reserve[((day % reserve.length) + reserve.length) % reserve.length] : null);
     return entry ? (gameId ? entry[gameId] : entry) : null;
   };
 

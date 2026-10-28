@@ -1,0 +1,93 @@
+{
+  "theme": "Garden party",
+  "note": "Stepping outside to look closely at one flower or leaf for a minute is a lovely way to slow down and notice.",
+  "word": {
+    "answer": "daisy",
+    "fact": "“Daisy” comes from the Old English “dæges ēage”, meaning “day's eye”, because the flower opens at dawn and closes in the evening."
+  },
+  "duet": {
+    "answers": [
+      "bench",
+      "chirp"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "aroma",
+      "dance",
+      "cheer",
+      "alive"
+    ]
+  },
+  "sums": {
+    "equation": "7*3+5=26"
+  },
+  "ladder": {
+    "start": "bird",
+    "target": "song"
+  },
+  "swap": {
+    "words": [
+      "maple",
+      "sweet",
+      "clear",
+      "music",
+      "piece",
+      "enter"
+    ]
+  },
+  "hue": {
+    "h": 52,
+    "s": 90,
+    "l": 55,
+    "name": "Daisy heart",
+    "note": "A daisy's yellow centre is made of many tiny disc florets, each one a complete little flower."
+  },
+  "tune": {
+    "id": "spring"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Garden flowers",
+        "words": [
+          "TULIP",
+          "PEONY",
+          "DAHLIA",
+          "POPPY"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Garden tools",
+        "words": [
+          "TROWEL",
+          "RAKE",
+          "HOE",
+          "SHEARS"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Lawn games",
+        "words": [
+          "CROQUET",
+          "BOWLS",
+          "QUOITS",
+          "CORNHOLE"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "___WOOD",
+        "words": [
+          "ROSE",
+          "DRIFT",
+          "HOLLY",
+          "SANDAL"
+        ]
+      }
+    ]
+  }
+}

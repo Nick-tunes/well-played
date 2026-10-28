@@ -38,7 +38,9 @@ Then open http://localhost:5173. On a phone, use "Add to Home Screen" to install
   into `js/data/daily.js`, which the app loads.
 - A scheduled daily run keeps at least 7 days curated ahead, following `CONTENT_GUIDE.md`, and logs what
   it did in `content/editor-log.md`.
-- Any day without curated content falls back to seeded generators, so the app never runs dry.
+- Any date without curated content plays a **reserve day** from `content/reserve/R01–R28.json`: fully
+  hand-made, evergreen days (no dates or holidays) used in rotation, bundled into `js/data/reserve.js`.
+  Only if the reserve is empty do the games fall back to seeded generators.
 
 ## Project layout
 

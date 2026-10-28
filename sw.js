@@ -9,7 +9,7 @@ const ASSETS = [
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/maskable-192.png', 'icons/maskable-512.png', 'icons/apple-touch-icon.png', 'icons/favicon-32.png',
   'css/styles.css', 'css/checkin.css',
   'js/core.js', 'js/data/cosmetics.js', 'js/avatars.js', 'js/progress.js', 'js/net.js', 'js/install.js',
-  'js/data/words.js', 'js/data/groups.js', 'js/data/tunes.js', 'js/data/daily.js',
+  'js/data/words.js', 'js/data/groups.js', 'js/data/tunes.js', 'js/data/daily.js', 'js/data/reserve.js',
   'js/games/wordle.js', 'js/games/sums.js', 'js/games/ladder.js', 'js/games/hue.js', 'js/games/echo.js',
   'js/games/groups.js', 'js/games/swap.js', 'js/games/code.js', 'js/games/tune.js',
   'js/profile.js', 'js/checkin.js', 'js/app.js',

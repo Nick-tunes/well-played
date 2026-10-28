@@ -1,0 +1,93 @@
+{
+  "theme": "Sports day",
+  "note": "Moving just for fun, with no score to keep, can be a lovely mood boost. A quick game of catch or a race to the corner counts.",
+  "word": {
+    "answer": "medal",
+    "fact": "“Medal” comes from the French “médaille”, and ultimately from the Latin “metallum”, metal."
+  },
+  "duet": {
+    "answers": [
+      "event",
+      "final"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "first",
+      "glove",
+      "juice",
+      "happy"
+    ]
+  },
+  "sums": {
+    "equation": "83-49=34"
+  },
+  "ladder": {
+    "start": "team",
+    "target": "goal"
+  },
+  "swap": {
+    "words": [
+      "skate",
+      "about",
+      "eager",
+      "shape",
+      "among",
+      "enter"
+    ]
+  },
+  "hue": {
+    "h": 115,
+    "s": 50,
+    "l": 42,
+    "name": "Playing field",
+    "note": "Grass looks green because its chlorophyll absorbs mostly red and blue light and reflects more of the green."
+  },
+  "tune": {
+    "id": "ball-game"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Athletics events",
+        "words": [
+          "SPRINT",
+          "RELAY",
+          "HURDLES",
+          "JAVELIN"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Golf words",
+        "words": [
+          "FORE",
+          "TEE",
+          "PAR",
+          "BIRDIE"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "___ CUP",
+        "words": [
+          "TEA",
+          "EGG",
+          "WORLD",
+          "BUTTER"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "Sound like numbers",
+        "words": [
+          "WON",
+          "TOO",
+          "FOR",
+          "ATE"
+        ]
+      }
+    ]
+  }
+}

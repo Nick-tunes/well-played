@@ -1,0 +1,93 @@
+{
+  "theme": "Islands",
+  "note": "Even on a busy day you can make a small island of calm: five slow breaths, shoulders down, eyes resting on something far away.",
+  "word": {
+    "answer": "yacht",
+    "fact": "“Yacht” comes from the Dutch “jacht”, short for “jachtschip”, literally a “hunting ship” built for speed."
+  },
+  "duet": {
+    "answers": [
+      "water",
+      "world"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "tiger",
+      "truly",
+      "woven",
+      "vapor"
+    ]
+  },
+  "sums": {
+    "equation": "99-28=71"
+  },
+  "ladder": {
+    "start": "wave",
+    "target": "sand"
+  },
+  "swap": {
+    "words": [
+      "email",
+      "ocean",
+      "yearn",
+      "ebony",
+      "arena",
+      "linen"
+    ]
+  },
+  "hue": {
+    "h": 340,
+    "s": 70,
+    "l": 50,
+    "name": "Hibiscus",
+    "note": "Hibiscus is the state flower of Hawaii, where the official species is the native yellow hibiscus."
+  },
+  "tune": {
+    "id": "blue-danube"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Tropical fruits",
+        "words": [
+          "MANGO",
+          "PAPAYA",
+          "COCONUT",
+          "PINEAPPLE"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Island nations",
+        "words": [
+          "ICELAND",
+          "JAMAICA",
+          "MADAGASCAR",
+          "FIJI"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Treasure ___",
+        "words": [
+          "CHEST",
+          "MAP",
+          "HUNT",
+          "ISLAND"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "Hidden islands",
+        "words": [
+          "CONCRETE",
+          "CAPRICORN",
+          "SCUBA",
+          "MULLET"
+        ]
+      }
+    ]
+  }
+}

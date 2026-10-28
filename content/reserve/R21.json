@@ -1,0 +1,18 @@
+{
+  "theme": "Movie night",
+  "note": "Sharing a film with someone, then chatting about your favourite scene, is a simple way to feel connected. Even a quick message about it counts.",
+  "word": { "answer": "scene", "fact": "“Scene” comes from the Greek “skēnē”, the tent or hut at the back of an ancient Greek stage where actors changed costumes." },
+  "duet": { "answers": ["story", "snack"] },
+  "quad": { "answers": ["stage", "sound", "prize", "smile"] },
+  "sums": { "equation": "7+8*7=63" },
+  "ladder": { "start": "film", "target": "hero" },
+  "swap": { "words": ["dance", "scent", "ocean", "disco", "niece", "eaten"] },
+  "hue": { "h": 264, "s": 45, "l": 30, "name": "Lights down", "note": "Indigo was named as one of the seven rainbow colours by Isaac Newton, who chose seven partly to echo the notes of a musical scale." },
+  "tune": { "id": "entertainer" },
+  "groups": { "groups": [
+    { "level": 0, "name": "Cinema snacks", "words": ["POPCORN", "NACHOS", "PRETZEL", "SLUSHIE"] },
+    { "level": 1, "name": "Film genres", "words": ["COMEDY", "WESTERN", "MUSICAL", "THRILLER"] },
+    { "level": 2, "name": "Film crew", "words": ["DIRECTOR", "EDITOR", "GAFFER", "GRIP"] },
+    { "level": 3, "name": "___ STAR", "words": ["SHOOTING", "NORTH", "SEA", "ROCK"] }
+  ] }
+}

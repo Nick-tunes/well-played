@@ -1,0 +1,93 @@
+{
+  "theme": "Under the sea",
+  "note": "Watching water, whether waves, a fish tank or rain on a window, is linked with feeling calmer. Give yourself a few slow breaths and let your eyes drift.",
+  "word": {
+    "answer": "shark",
+    "fact": "Sharks have no bones at all: their skeletons are made of cartilage, the same flexible material as your ears and nose."
+  },
+  "duet": {
+    "answers": [
+      "scale",
+      "spout"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "shiny",
+      "stern",
+      "reach",
+      "swift"
+    ]
+  },
+  "sums": {
+    "equation": "48+19=67"
+  },
+  "ladder": {
+    "start": "wave",
+    "target": "tide"
+  },
+  "swap": {
+    "words": [
+      "trout",
+      "range",
+      "horse",
+      "torch",
+      "owner",
+      "there"
+    ]
+  },
+  "hue": {
+    "h": 182,
+    "s": 60,
+    "l": 45,
+    "name": "Lagoon",
+    "note": "Turquoise is named after the French for “Turkish”, because the gemstone first reached Europe through Turkey."
+  },
+  "tune": {
+    "id": "row-boat"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Sea mammals",
+        "words": [
+          "DOLPHIN",
+          "WHALE",
+          "SEAL",
+          "MANATEE"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Parts of a fish",
+        "words": [
+          "FIN",
+          "GILL",
+          "SCALE",
+          "TAIL"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Have tentacles",
+        "words": [
+          "OCTOPUS",
+          "SQUID",
+          "ANEMONE",
+          "CUTTLEFISH"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "SEA___",
+        "words": [
+          "LION",
+          "HORSE",
+          "SHELL",
+          "WEED"
+        ]
+      }
+    ]
+  }
+}

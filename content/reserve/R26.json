@@ -1,0 +1,93 @@
+{
+  "theme": "Camping",
+  "note": "Time outdoors, even a short walk under open sky, is linked with feeling calmer. A few minutes of fresh air is a lovely way to reset.",
+  "word": {
+    "answer": "trout",
+    "fact": "Trout belong to the salmon family, and the rainbow trout is the same species as the sea-going steelhead."
+  },
+  "duet": {
+    "answers": [
+      "towel",
+      "woken"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "track",
+      "windy",
+      "wedge",
+      "thick"
+    ]
+  },
+  "sums": {
+    "equation": "4+9*9=85"
+  },
+  "ladder": {
+    "start": "fire",
+    "target": "wood"
+  },
+  "swap": {
+    "words": [
+      "spoon",
+      "enter",
+      "perch",
+      "sweep",
+      "outer",
+      "north"
+    ]
+  },
+  "hue": {
+    "h": 305,
+    "s": 35,
+    "l": 55,
+    "name": "Heather",
+    "note": "Heather is a low evergreen shrub whose small purple flowers can tint whole hillsides of moorland."
+  },
+  "tune": {
+    "id": "row-boat"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Camping gear",
+        "words": [
+          "LANTERN",
+          "COMPASS",
+          "HAMMOCK",
+          "KETTLE"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Knots",
+        "words": [
+          "BOWLINE",
+          "REEF",
+          "GRANNY",
+          "SHEEPSHANK"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Things you pitch",
+        "words": [
+          "TENT",
+          "IDEA",
+          "BALL",
+          "STORY"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "___FIRE",
+        "words": [
+          "CAMP",
+          "BON",
+          "BACK",
+          "SURE"
+        ]
+      }
+    ]
+  }
+}

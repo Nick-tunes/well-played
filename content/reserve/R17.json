@@ -1,0 +1,18 @@
+{
+  "theme": "Weather watch",
+  "note": "Whatever the sky is doing, stepping outside for five minutes to feel the air on your face can reset a stuck afternoon.",
+  "word": { "answer": "radar", "fact": "“Radar” began as an acronym for “radio detection and ranging”, coined by the US Navy in 1940. It reads the same backwards, too." },
+  "duet": { "answers": ["polar", "south"] },
+  "quad": { "answers": ["spray", "shift", "range", "surge"] },
+  "sums": { "equation": "72-19=53" },
+  "ladder": { "start": "wind", "target": "rain" },
+  "swap": { "words": ["clean", "anger", "porch", "clasp", "eager", "north"] },
+  "hue": { "h": 215, "s": 22, "l": 42, "name": "Storm cloud", "note": "Storm clouds look dark because they are so tall and full of droplets that little sunlight makes it through to their base." },
+  "tune": { "id": "blue-danube" },
+  "groups": { "groups": [
+    { "level": 0, "name": "Falling from the sky", "words": ["SNOW", "SLEET", "HAIL", "DRIZZLE"] },
+    { "level": 1, "name": "Cloud types", "words": ["CIRRUS", "CUMULUS", "STRATUS", "NIMBUS"] },
+    { "level": 2, "name": "Weather instruments", "words": ["BAROMETER", "THERMOMETER", "ANEMOMETER", "WEATHERVANE"] },
+    { "level": 3, "name": "___COAT", "words": ["RAIN", "OVER", "TURN", "WAIST"] }
+  ] }
+}

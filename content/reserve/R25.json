@@ -1,0 +1,93 @@
+{
+  "theme": "Fruit bowl",
+  "note": "Try eating one piece of fruit slowly, noticing its smell, texture and sweetness. It's a simple, pleasant way to practise mindful eating.",
+  "word": {
+    "answer": "zesty",
+    "fact": "“Zest” originally meant the outer peel of citrus fruit, from the French “zeste”; only later did it come to mean energy and enthusiasm."
+  },
+  "duet": {
+    "answers": [
+      "taste",
+      "table"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "tight",
+      "upper",
+      "whisk",
+      "vivid"
+    ]
+  },
+  "sums": {
+    "equation": "96-18=78"
+  },
+  "ladder": {
+    "start": "sour",
+    "target": "pear"
+  },
+  "swap": {
+    "words": [
+      "broad",
+      "angel",
+      "honey",
+      "beach",
+      "organ",
+      "delay"
+    ]
+  },
+  "hue": {
+    "h": 345,
+    "s": 70,
+    "l": 45,
+    "name": "Raspberry",
+    "note": "Raspberries belong to the rose family, along with apples, pears and strawberries."
+  },
+  "tune": {
+    "id": "frere-jacques"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Citrus fruits",
+        "words": [
+          "LEMON",
+          "LIME",
+          "ORANGE",
+          "GRAPEFRUIT"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Stone fruits",
+        "words": [
+          "PEACH",
+          "CHERRY",
+          "APRICOT",
+          "NECTARINE"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Banana ___",
+        "words": [
+          "SPLIT",
+          "BREAD",
+          "BOAT",
+          "SKIN"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "Fruit homophones",
+        "words": [
+          "PEAR",
+          "PLUM",
+          "CURRANT",
+          "BERRY"
+        ]
+      }
+    ]
+  }
+}

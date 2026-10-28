@@ -1,0 +1,93 @@
+{
+  "theme": "Music festival",
+  "note": "Singing or humming along to a favourite song is a lovely way to lift your mood, and singing with others is linked with feeling more connected.",
+  "word": {
+    "answer": "vinyl",
+    "fact": "Vinyl long-playing records usually spin at 33⅓ revolutions per minute, while smaller singles typically spin at 45."
+  },
+  "duet": {
+    "answers": [
+      "vocal",
+      "tuner"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "waltz",
+      "unite",
+      "young",
+      "whirl"
+    ]
+  },
+  "sums": {
+    "equation": "264/3=88"
+  },
+  "ladder": {
+    "start": "band",
+    "target": "song"
+  },
+  "swap": {
+    "words": [
+      "snail",
+      "opera",
+      "train",
+      "spout",
+      "arena",
+      "learn"
+    ]
+  },
+  "hue": {
+    "h": 280,
+    "s": 80,
+    "l": 50,
+    "name": "Black-light violet",
+    "note": "Ultraviolet “black lights” make many white fabrics glow because of optical brighteners in laundry detergent."
+  },
+  "tune": {
+    "id": "saints"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Music genres",
+        "words": [
+          "JAZZ",
+          "FOLK",
+          "SWING",
+          "BLUES"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Tempo markings",
+        "words": [
+          "ALLEGRO",
+          "ADAGIO",
+          "PRESTO",
+          "LARGO"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Things that rock",
+        "words": [
+          "CRADLE",
+          "BOAT",
+          "CHAIR",
+          "HORSE"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "___STAGE",
+        "words": [
+          "BACK",
+          "UP",
+          "DOWN",
+          "ON"
+        ]
+      }
+    ]
+  }
+}

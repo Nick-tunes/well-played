@@ -1,0 +1,93 @@
+{
+  "theme": "Rivers & lakes",
+  "note": "Time near water, even a pond or a fountain, is linked with feeling calmer. Find a spot to sit and watch it move for a few unhurried minutes.",
+  "word": {
+    "answer": "kayak",
+    "fact": "“Kayak” comes from the Inuit word “qajaq”, and the word reads the same forwards and backwards."
+  },
+  "duet": {
+    "answers": [
+      "ferry",
+      "float"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "lotus",
+      "level",
+      "glide",
+      "mouth"
+    ]
+  },
+  "sums": {
+    "equation": "144/3=48"
+  },
+  "ladder": {
+    "start": "lake",
+    "target": "pond"
+  },
+  "swap": {
+    "words": [
+      "cloud",
+      "begin",
+      "enter",
+      "cable",
+      "ought",
+      "diner"
+    ]
+  },
+  "hue": {
+    "h": 165,
+    "s": 55,
+    "l": 45,
+    "name": "Glacier lake",
+    "note": "Many glacial lakes look milky turquoise because fine “rock flour” ground by the ice hangs in the water and scatters sunlight."
+  },
+  "tune": {
+    "id": "blue-danube"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Rivers",
+        "words": [
+          "NILE",
+          "AMAZON",
+          "DANUBE",
+          "THAMES"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Small boats",
+        "words": [
+          "CANOE",
+          "PUNT",
+          "DINGHY",
+          "RAFT"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Have mouths",
+        "words": [
+          "JAR",
+          "CAVE",
+          "BOTTLE",
+          "HARBOR"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "___BOAT",
+        "words": [
+          "GRAVY",
+          "BANANA",
+          "DREAM",
+          "LIFE"
+        ]
+      }
+    ]
+  }
+}

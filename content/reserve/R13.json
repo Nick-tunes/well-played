@@ -1,0 +1,93 @@
+{
+  "theme": "Board game café",
+  "note": "Games mix laughter, focus and a little friendly rivalry. Inviting someone for a round of anything is a simple way to stay connected.",
+  "word": {
+    "answer": "hobby",
+    "fact": "A “hobby” was originally a small horse; the toy hobby-horse later gave us the idea of a favourite pastime you like to “ride”."
+  },
+  "duet": {
+    "answers": [
+      "guess",
+      "lucky"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "laugh",
+      "group",
+      "money",
+      "house"
+    ]
+  },
+  "sums": {
+    "equation": "3*3*4=36"
+  },
+  "ladder": {
+    "start": "dice",
+    "target": "game"
+  },
+  "swap": {
+    "words": [
+      "smart",
+      "again",
+      "elder",
+      "stale",
+      "award",
+      "tuner"
+    ]
+  },
+  "hue": {
+    "h": 92,
+    "s": 45,
+    "l": 50,
+    "name": "Matcha latte",
+    "note": "Matcha is made by grinding shade-grown green tea leaves into a fine powder that is whisked into water or milk."
+  },
+  "tune": {
+    "id": "nachtmusik"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "In the game box",
+        "words": [
+          "COUNTER",
+          "SPINNER",
+          "TIMER",
+          "BOARD"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Classic Monopoly tokens",
+        "words": [
+          "THIMBLE",
+          "BOOT",
+          "IRON",
+          "WHEELBARROW"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Things you roll",
+        "words": [
+          "DICE",
+          "DOUGH",
+          "EYES",
+          "SLEEVES"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "___PIECE",
+        "words": [
+          "MASTER",
+          "MOUTH",
+          "TIME",
+          "CENTER"
+        ]
+      }
+    ]
+  }
+}

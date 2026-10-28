@@ -1,0 +1,93 @@
+{
+  "theme": "City lights",
+  "note": "Next time you are out after dark, count the lit windows you pass. Noticing small details around you is a lovely way to feel present.",
+  "word": {
+    "answer": "mural",
+    "fact": "“Mural” comes from the Latin “murus”, meaning wall, so a mural is quite literally wall art."
+  },
+  "duet": {
+    "answers": [
+      "hotel",
+      "glass"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "flash",
+      "movie",
+      "local",
+      "metal"
+    ]
+  },
+  "sums": {
+    "equation": "7*6-5=37"
+  },
+  "ladder": {
+    "start": "dark",
+    "target": "lamp"
+  },
+  "swap": {
+    "words": [
+      "shore",
+      "elect",
+      "money",
+      "steam",
+      "ocean",
+      "entry"
+    ]
+  },
+  "hue": {
+    "h": 175,
+    "s": 60,
+    "l": 42,
+    "name": "Night-sign teal",
+    "note": "Pure neon glows reddish-orange, so most other colours in “neon” signs come from gases like argon and mercury vapour, often with coloured glass or coatings."
+  },
+  "tune": {
+    "id": "entertainer"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Getting around town",
+        "words": [
+          "TAXI",
+          "TRAM",
+          "SUBWAY",
+          "SCOOTER"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "At the theatre",
+        "words": [
+          "STAGE",
+          "USHER",
+          "ENCORE",
+          "MATINEE"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Things that flash",
+        "words": [
+          "CAMERA",
+          "LIGHTNING",
+          "STROBE",
+          "BEACON"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "___HOUSE",
+        "words": [
+          "OPERA",
+          "LIGHT",
+          "PLAY",
+          "COFFEE"
+        ]
+      }
+    ]
+  }
+}

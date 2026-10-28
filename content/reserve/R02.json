@@ -1,0 +1,93 @@
+{
+  "theme": "Bookworms",
+  "note": "Reading a few pages of something you enjoy can be a gentle way to unwind. A short chapter before bed counts.",
+  "word": {
+    "answer": "atlas",
+    "fact": "Using “atlas” for a book of maps was popularised by Gerardus Mercator, whose map collection titled Atlas was published in 1595."
+  },
+  "duet": {
+    "answers": [
+      "comic",
+      "attic"
+    ]
+  },
+  "quad": {
+    "answers": [
+      "cover",
+      "brain",
+      "daily",
+      "aside"
+    ]
+  },
+  "sums": {
+    "equation": "56-38=18"
+  },
+  "ladder": {
+    "start": "page",
+    "target": "word"
+  },
+  "swap": {
+    "words": [
+      "album",
+      "trait",
+      "radar",
+      "after",
+      "board",
+      "motor"
+    ]
+  },
+  "hue": {
+    "h": 30,
+    "s": 50,
+    "l": 72,
+    "name": "Aged paper",
+    "note": "Old paper yellows largely because lignin in wood-pulp paper breaks down when exposed to light and air."
+  },
+  "tune": {
+    "id": "nachtmusik"
+  },
+  "groups": {
+    "groups": [
+      {
+        "level": 0,
+        "name": "Parts of a book",
+        "words": [
+          "SPINE",
+          "INDEX",
+          "PREFACE",
+          "CHAPTER"
+        ]
+      },
+      {
+        "level": 1,
+        "name": "Little Women sisters",
+        "words": [
+          "MEG",
+          "JO",
+          "BETH",
+          "AMY"
+        ]
+      },
+      {
+        "level": 2,
+        "name": "Book genres",
+        "words": [
+          "MYSTERY",
+          "ROMANCE",
+          "FANTASY",
+          "WESTERN"
+        ]
+      },
+      {
+        "level": 3,
+        "name": "BOOK___",
+        "words": [
+          "MARK",
+          "WORM",
+          "END",
+          "CASE"
+        ]
+      }
+    ]
+  }
+}

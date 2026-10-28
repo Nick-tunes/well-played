@@ -1,0 +1,18 @@
+{
+  "theme": "Desert",
+  "note": "Deserts look empty at first, then reveal tiny details: tracks, flowers, shifting light. Pausing to notice small things around you is a lovely way to slow a busy mind.",
+  "word": { "answer": "oasis", "fact": "An oasis forms where underground water reaches the surface, letting palms and crops grow in the middle of a desert." },
+  "duet": { "answers": ["sandy", "plain"] },
+  "quad": { "answers": ["rocky", "route", "sight", "stark"] },
+  "sums": { "equation": "7*9-8=55" },
+  "ladder": { "start": "camp", "target": "dune" },
+  "swap": { "words": ["basil", "avoid", "there", "boast", "slope", "ledge"] },
+  "hue": { "h": 205, "s": 70, "l": 58, "name": "Desert sky", "note": "The sky looks blue because air molecules scatter short blue wavelengths of sunlight far more than longer red ones." },
+  "tune": { "id": "turkish-march" },
+  "groups": { "groups": [
+    { "level": 0, "name": "Desert animals", "words": ["CAMEL", "COYOTE", "SCORPION", "ROADRUNNER"] },
+    { "level": 1, "name": "Famous deserts", "words": ["SAHARA", "GOBI", "MOJAVE", "ATACAMA"] },
+    { "level": 2, "name": "Have spines", "words": ["CACTUS", "HEDGEHOG", "BOOK", "PORCUPINE"] },
+    { "level": 3, "name": "___ ISLAND", "words": ["TREASURE", "KITCHEN", "TRAFFIC", "RHODE"] }
+  ] }
+}
