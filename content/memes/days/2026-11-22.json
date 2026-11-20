@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-22",
+  "deep": [
+    {
+      "where": {
+        "platform": "Tumblr"
+      }
+    },
+    {
+      "where": {
+        "yearFrom": 2019,
+        "yearTo": 2021
+      }
+    },
+    {
+      "where": {
+        "tag": "anime"
+      }
+    },
+    {
+      "where": {
+        "source": "Video game"
+      }
+    },
+    {
+      "where": {
+        "tag": "food",
+        "yearFrom": 2016
+      }
+    }
+  ],
+  "timeline": {
+    "memes": [
+      "the-cake-is-a-lie",
+      "condescending-wonka",
+      "wanna-sprite-cranberry",
+      "change-my-mind",
+      "jet2-holiday"
+    ]
+  }
+}

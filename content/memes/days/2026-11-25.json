@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-25",
+  "deep": [
+    {
+      "where": {
+        "platform": "Facebook"
+      }
+    },
+    {
+      "where": {
+        "year": 2011
+      }
+    },
+    {
+      "where": {
+        "tag": "ai"
+      }
+    },
+    {
+      "where": {
+        "type": "Reaction image"
+      }
+    },
+    {
+      "where": {
+        "tag": "animal",
+        "yearFrom": 2020
+      }
+    }
+  ],
+  "timeline": {
+    "memes": [
+      "lonelygirl15",
+      "insanity-wolf",
+      "dancing-hot-dog",
+      "the-backrooms",
+      "wednesday-dance"
+    ]
+  }
+}

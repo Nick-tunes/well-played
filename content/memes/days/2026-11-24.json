@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-24",
+  "deep": [
+    {
+      "where": {
+        "platform": "Forums"
+      }
+    },
+    {
+      "where": {
+        "yearFrom": 2013,
+        "yearTo": 2015
+      }
+    },
+    {
+      "where": {
+        "tag": "dance"
+      }
+    },
+    {
+      "where": {
+        "source": "Photo"
+      }
+    },
+    {
+      "where": {
+        "platform": "TikTok",
+        "tag": "music"
+      }
+    }
+  ],
+  "timeline": {
+    "memes": [
+      "napoleon-dynamite",
+      "im-on-a-boat",
+      "ice-bucket-challenge",
+      "dalgona-coffee",
+      "asgore-running-over-dess"
+    ]
+  }
+}

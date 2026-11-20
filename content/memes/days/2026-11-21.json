@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-21",
+  "deep": [
+    {
+      "where": {
+        "platform": "Twitter"
+      }
+    },
+    {
+      "where": {
+        "yearFrom": 2000,
+        "yearTo": 2006
+      }
+    },
+    {
+      "where": {
+        "tag": "dog"
+      }
+    },
+    {
+      "where": {
+        "type": "Dance"
+      }
+    },
+    {
+      "where": {
+        "source": "TV",
+        "yearFrom": 2016
+      }
+    }
+  ],
+  "timeline": {
+    "memes": [
+      "sneezing-panda",
+      "grumpy-cat",
+      "adele-dazeem",
+      "cybertruck-unbreakable-glass",
+      "brat-summer"
+    ]
+  }
+}

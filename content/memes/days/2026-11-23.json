@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-23",
+  "deep": [
+    {
+      "where": {
+        "platform": "4chan"
+      }
+    },
+    {
+      "where": {
+        "yearFrom": 2023,
+        "yearTo": 2025
+      }
+    },
+    {
+      "where": {
+        "tag": "sound"
+      }
+    },
+    {
+      "where": {
+        "source": "Film"
+      }
+    },
+    {
+      "where": {
+        "tag": "cartoon",
+        "yearTo": 2012
+      }
+    }
+  ],
+  "timeline": {
+    "memes": [
+      "hare-hare-yukai",
+      "trololo",
+      "unflattering-beyonce",
+      "world-record-egg",
+      "six-seven"
+    ]
+  }
+}

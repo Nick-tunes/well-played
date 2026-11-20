@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-27",
+  "deep": [
+    { "where": { "platform": "Twitter", "yearFrom": 2020 } },
+    { "where": { "yearFrom": 2007, "yearTo": 2009 } },
+    { "where": { "tag": "celebrity" } },
+    { "where": { "source": "Home video" } },
+    { "where": { "type": "Template" } }
+  ],
+  "timeline": { "memes": ["badger-badger-badger", "dramatic-chipmunk", "ikea-monkey", "blinking-white-guy", "moo-deng"] }
+}

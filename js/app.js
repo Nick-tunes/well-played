@@ -6,10 +6,13 @@
   const data = () => store.data;
   const AREAS = {
     Language: 'language', Focus: 'focus', Logic: 'logic', Spatial: 'spatial',
-    Perception: 'perception', Listening: 'listening', Memory: 'memory', Association: 'association',
+    Perception: 'perception', Listening: 'listening', Memory: 'memory', Association: 'association', Culture: 'culture',
   };
-  const ORDER = ['word', 'duet', 'quad', 'sums', 'code', 'ladder', 'swap', 'hue', 'tune', 'echo', 'groups'];
+  const ORDER = ['word', 'duet', 'quad', 'sums', 'code', 'ladder', 'swap', 'hue', 'tune', 'echo', 'groups', 'deep', 'timeline'];
   const games = () => ORDER.map((id) => WH.gameMap[id]).filter(Boolean);
+  // Deep Cuts and Timeline aren't timed races, and the API doesn't accept them as ranked games.
+  const NOT_RANKED = new Set(['deep', 'timeline']);
+  const rankedGames = () => games().filter((g) => !NOT_RANKED.has(g.id));
   const TIPS = [
     'Variety matters. Try a game from an area you haven’t touched this week.',
     'A short daily habit beats an occasional marathon. Little and often.',
@@ -104,7 +107,7 @@
     const parts = location.hash.replace(/^#\/?/, '').split('/');
     teardown();
     if (parts[0] === 'play' && WH.gameMap[parts[1]]) {
-      const mode = parts[2] === 'practice' ? 'practice' : parts[2] === 'ranked' ? 'ranked' : 'daily';
+      const mode = parts[2] === 'practice' ? 'practice' : parts[2] === 'ranked' && !NOT_RANKED.has(parts[1]) ? 'ranked' : 'daily';
       return renderGame(WH.gameMap[parts[1]], mode);
     }
     if (parts[0] === 'stats') return renderStats();
@@ -146,7 +149,7 @@
     const here = location.hash || '#/';
     const list = games();
     const done = list.filter((g) => resultFor(day, g.id)).length;
-    const raced = list.filter((g) => P.rankedFor(day, g.id)).length;
+    const raced = rankedGames().filter((g) => P.rankedFor(day, g.id)).length;
     const ck = WH.checkin ? WH.checkin.summary() : null;
     const ckBadge = !ck ? '' : ck.sessions === 0 ? 'New' : ck.nextDue != null && ck.nextDue <= day ? 'Due' : '';
     const isActive = (href) => (href === '#/' ? here === '#/' || here === '' || here === '#' : here.startsWith(href));
@@ -188,7 +191,7 @@
       h('div', { class: 'nav-items' },
         item('#/', icons.home, 'Home'),
         gamesBtn, sub,
-        item('#/ranked', icons.trophy, 'Ranked', raced ? `${raced}/${list.length}` : ''),
+        item('#/ranked', icons.trophy, 'Ranked', raced ? `${raced}/${rankedGames().length}` : ''),
         item('#/friends', icons.users, 'Friends'),
         item('#/checkin', icons.heart, 'Mind Check-in', ckBadge, true),
         item('#/stats', icons.chart, 'Stats'),
@@ -307,7 +310,7 @@
       h('div', { class: 'today-head' },
         h('b', null, done === list.length ? 'Workout complete!' : 'Today’s workout'),
         h('span', null, h('b', null, done), ` of ${list.length} · `, h('button', { class: 'link-btn xp-link', type: 'button', onclick: openSettings, title: 'Change daily goal' }, `${goal.earned}/${goal.target} XP`))),
-      h('div', { class: 'segments', 'aria-hidden': 'true' }, list.map((g) => h('i', { class: statusOf(g).seg }))),
+      h('div', { class: 'segments', 'aria-hidden': 'true', style: { '--n': list.length } }, list.map((g) => h('i', { class: statusOf(g).seg }))),
       h('button', { class: 'week-btn', type: 'button', onclick: showStreakSheet, 'aria-label': `${streak} day streak, see details` }, weekStripEl()));
 
     const upNext = next
@@ -618,7 +621,7 @@
   // ---------- Ranked page ----------
   function renderRanked() {
     const day = WH.today();
-    const rows = games().map((g) => {
+    const rows = rankedGames().map((g) => {
       const rec = P.rankedFor(day, g.id);
       const best = data().bests[g.id];
       const status = !rec ? h('a', { class: 'status', href: `#/play/${g.id}/ranked` }, 'Race')
@@ -637,7 +640,7 @@
         h('p', null, 'Pick a username to see where your times rank in the world, and to add friends.'),
         h('button', { class: 'btn primary', type: 'button', onclick: () => signUp(() => route()) }, 'Play online')));
     } else {
-      let pick = (games().find((g) => P.rankedFor(day, g.id)) || games()[0]).id;
+      let pick = (rankedGames().find((g) => P.rankedFor(day, g.id)) || rankedGames()[0]).id;
       const tabs = h('div', { class: 'lb-tabs' });
       const table = h('div', { class: 'lboard' });
       const load = () => {
@@ -650,7 +653,7 @@
           table.replaceChildren(h('p', { class: 'muted small' }, `${b.total} finisher${b.total === 1 ? '' : 's'} today`), ...rows);
         }).catch((e) => table.replaceChildren(h('p', { class: 'muted' }, `Couldn’t load the leaderboard (${e.message}).`)));
       };
-      games().forEach((g) => tabs.append(h('button', { type: 'button', 'data-g': g.id, onclick: () => { pick = g.id; load(); } }, g.name)));
+      rankedGames().forEach((g) => tabs.append(h('button', { type: 'button', 'data-g': g.id, onclick: () => { pick = g.id; load(); } }, g.name)));
       world.append(tabs, table);
       load();
     }

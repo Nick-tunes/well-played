@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-26",
+  "deep": [
+    {
+      "where": {
+        "platform": "Instagram"
+      }
+    },
+    {
+      "where": {
+        "year": 2022
+      }
+    },
+    {
+      "where": {
+        "tag": "creepy"
+      }
+    },
+    {
+      "where": {
+        "source": "Comic"
+      }
+    },
+    {
+      "where": {
+        "star": "Object",
+        "yearFrom": 2015
+      }
+    }
+  ],
+  "timeline": {
+    "memes": [
+      "numa-numa",
+      "keyboard-cat",
+      "screaming-goat",
+      "mannequin-challenge",
+      "girl-dinner"
+    ]
+  }
+}

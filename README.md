@@ -1,7 +1,7 @@
 # Well Played
 
-Daily word and puzzle games for a healthy mind. Eleven short games, each exercising a different mind
-area, with fresh hand-curated puzzles every day.
+Daily word, puzzle and meme games for a healthy mind. Thirteen short games, each exercising a different mind
+area, with fresh hand-curated puzzles every day. The look is an 8-bit arcade theme (`css/arcade.css`).
 
 | Game | Area | In one line |
 |------|------|-------------|
@@ -16,6 +16,8 @@ area, with fresh hand-curated puzzles every day.
 | Tune | Listening | Name the melody from a few notes |
 | Echo | Memory | Repeat the growing light sequence |
 | Groups | Association | Sort 16 words into 4 hidden groups |
+| Deep Cuts | Culture | Name a meme that fits each of 5 prompts; the more niche, the more it scores |
+| Timeline | Culture | Put 5 memes in the order they went viral |
 
 ## Run it
 
@@ -42,14 +44,27 @@ Then open http://localhost:5173. On a phone, use "Add to Home Screen" to install
   hand-made, evergreen days (no dates or holidays) used in rotation, bundled into `js/data/reserve.js`.
   Only if the reserve is empty do the games fall back to seeded generators.
 
+## Meme games (Deep Cuts, Timeline)
+
+Ported from the standalone Memeory project (`~/Documents/REA/memeory`) on 2026-11-20.
+
+- `content/memes/memes.json` is the meme database (769 memes, 2000 to 2026, each with a niche score 1-5).
+- `content/memes/days/YYYY-MM-DD.json` holds curated meme days: 5 Deep Cuts prompts (`where` filters) and 5 Timeline memes.
+- `content/memes/prompts.json` is the pool used for dates without a curated meme day, and for practice.
+- `node scripts/build-memes.mjs` checks all of it and writes `js/data/memes.js`. Run it after any change.
+- Scoring is by each meme's curated niche score (10/30/60/85/100). Player-rarity scoring from Memeory is not
+  ported yet, because it needs a new API endpoint. They are left out of Ranked (they aren't timed races, and
+  the API only accepts the original 11 games).
+
 ## Project layout
 
 ```
 index.html            app shell
 css/styles.css        design system + all game styles
+css/arcade.css        8-bit arcade theme layered on top (fonts, colours, borders, shadows)
 js/core.js            shared helpers (RNG, storage, keyboard, board, modal, sound, confetti)
 js/app.js             router, hub, results, stats, settings
-js/games/*.js         one file per game
+js/games/*.js         one file per game (memes.js holds both Deep Cuts and Timeline)
 js/data/words.js      generated word lists (scripts/build-words.mjs)
 js/data/groups.js     fallback Groups category pool
 js/data/daily.js      generated curated window (scripts/validate-daily.mjs --build)

@@ -1,0 +1,33 @@
+{
+  "_about": "Fallback Deep Cuts prompts, used on dates with no file in content/memes/days/ and in practice. Each needs 18+ memes that fit, including 4+ niche ones. The build checks this.",
+  "platform": [
+    { "platform": "Reddit" }, { "platform": "4chan" }, { "platform": "Tumblr" }, { "platform": "Twitter" },
+    { "platform": "YouTube" }, { "platform": "TikTok" }, { "platform": "Facebook" }, { "platform": "Forums" }
+  ],
+  "era": [
+    { "yearFrom": 2000, "yearTo": 2006 }, { "yearFrom": 2005, "yearTo": 2009 }, { "yearFrom": 2010, "yearTo": 2012 },
+    { "yearFrom": 2013, "yearTo": 2015 }, { "yearFrom": 2016, "yearTo": 2018 }, { "yearFrom": 2019, "yearTo": 2021 },
+    { "yearFrom": 2022, "yearTo": 2023 }, { "yearFrom": 2023, "yearTo": 2025 }, { "year": 2011 }, { "year": 2012 },
+    { "year": 2016 }, { "year": 2017 }, { "year": 2019 }, { "year": 2022 }, { "year": 2024 }
+  ],
+  "tag": [
+    { "tag": "cat" }, { "tag": "dog" }, { "tag": "animal" }, { "tag": "food" }, { "tag": "dance" }, { "tag": "music" },
+    { "tag": "sports" }, { "tag": "gaming" }, { "tag": "tv-film" }, { "tag": "cartoon" }, { "tag": "anime" },
+    { "tag": "sound" }, { "tag": "challenge" }, { "tag": "creepy" }, { "tag": "ai" }, { "tag": "fashion" }
+  ],
+  "kind": [
+    { "source": "Photo" }, { "source": "TV" }, { "source": "Film" }, { "source": "Music" }, { "source": "News" },
+    { "source": "Video game" }, { "source": "Home video" }, { "source": "Social post" }, { "source": "Comic" },
+    { "star": "Animal" }, { "star": "Group" }, { "star": "Object" }, { "star": "Text" },
+    { "type": "Image macro" }, { "type": "Reaction image" }, { "type": "Template" }, { "type": "Song" }, { "type": "Dance" }
+  ],
+  "combo": [
+    { "tag": "cat", "yearTo": 2012 }, { "tag": "animal", "yearTo": 2012 }, { "tag": "animal", "yearFrom": 2016 },
+    { "tag": "gaming", "yearTo": 2012 }, { "tag": "gaming", "yearFrom": 2016 }, { "tag": "music", "yearTo": 2012 },
+    { "tag": "music", "yearFrom": 2016 }, { "star": "Animal", "yearTo": 2012 }, { "star": "Animal", "yearFrom": 2013, "yearTo": 2019 },
+    { "tag": "food", "yearFrom": 2016 }, { "tag": "dance", "yearFrom": 2016 }, { "type": "Song", "yearFrom": 2016 },
+    { "tag": "cartoon", "yearTo": 2012 }, { "tag": "cartoon", "yearFrom": 2016 }, { "source": "TV", "yearFrom": 2016 },
+    { "type": "Template", "yearFrom": 2020 }, { "platform": "TikTok", "tag": "music" }, { "platform": "Twitter", "star": "Character" },
+    { "platform": "YouTube", "tag": "gaming" }, { "platform": "Reddit", "star": "Character" }
+  ]
+}

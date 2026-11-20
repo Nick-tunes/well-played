@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-20",
+  "deep": [
+    {
+      "where": {
+        "platform": "Reddit"
+      }
+    },
+    {
+      "where": {
+        "yearFrom": 2016,
+        "yearTo": 2018
+      }
+    },
+    {
+      "where": {
+        "tag": "cartoon"
+      }
+    },
+    {
+      "where": {
+        "source": "Music"
+      }
+    },
+    {
+      "where": {
+        "star": "Animal",
+        "yearFrom": 2013,
+        "yearTo": 2019
+      }
+    }
+  ],
+  "timeline": {
+    "memes": [
+      "chocolate-rain",
+      "old-spice-guy",
+      "pokemon-go",
+      "trade-offer",
+      "barbenheimer"
+    ]
+  }
+}
